@@ -1,0 +1,29 @@
+footer {
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.social-icons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: #0d6efd;
+  transform: translateY(-3px);
+}
+
+footer a:hover {
+  color: white !important;
+  text-decoration: underline !important;
+}
+
+h6 {
+  color: #0d6efd;
+  letter-spacing: 1px;
+}

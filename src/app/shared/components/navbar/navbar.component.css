@@ -1,0 +1,9 @@
+a:hover{
+    color: rgb(10, 10, 10);
+    background-color: rgb(230, 230, 230);
+}
+
+.active{
+    color: rgb(10, 10, 10)!important;
+    background-color: rgb(230, 230, 230);
+}
