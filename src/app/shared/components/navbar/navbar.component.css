@@ -1,9 +1,12 @@
+a {
+  transition: all 0.3s ease;
+}
 a:hover{
-    color: rgb(10, 10, 10);
-    background-color: rgb(230, 230, 230);
+    color: rgba(255, 255, 255, 0.711);
+    transform: scale(1.1);
 }
 
 .active{
-    color: rgb(10, 10, 10)!important;
-    background-color: rgb(230, 230, 230);
+    color: white;
 }
+

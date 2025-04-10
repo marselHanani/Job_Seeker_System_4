@@ -1,0 +1,13 @@
+.bg-img{
+  margin:0;
+  padding:0;
+  background-image: url("/images/bgImage.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: calc(100vh - 4rem);
+}
+.w-30{
+  width: 30%;
+}
+

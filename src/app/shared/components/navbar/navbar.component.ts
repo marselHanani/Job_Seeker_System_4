@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  activeItem: string = 'home'; // Default active item is home
-
   navItems = [
     { id: 'home', label: 'Home' },
     { id: 'findJob', label: 'Find Job' },
@@ -18,8 +17,4 @@ export class NavbarComponent {
     { id: 'jobAlerts', label: 'Job Alerts' },
     { id: 'customerSupports', label: 'Customer Supports' }
   ];
-
-  setActive(item: string) {
-    this.activeItem = item;
-  }
 }

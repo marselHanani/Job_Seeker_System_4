@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary position-fixed w-100 top-0">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark position-fixed w-100 top-0">
   <div class="container">
     <h3 class="navbar-brand" href="#"><i class="fa-solid fa-briefcase"></i> PALJob</h3>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -8,25 +8,28 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item" *ngFor="let item of navItems">
-          <a class="nav-link" [ngClass]="activeItem === item.id ? 'active' : ''" (click)="setActive(item.id)" href="#">{{item.label}}</a>
+          <a class="nav-link" routerLink="{{item.id}}" routerLinkActive="active">{{item.label}}</a>
         </li>
       </ul>
-      <div class="d-flex align-items-center">
-        <a href="tel:+17758427844" class="text-white me-3">
-          <i class="fa-solid fa-phone-volume text-white"></i>  +972568478648
-        </a>
-        <div class="dropdown">
-          <button class="btn btn-outline-light dropdown-toggle" type="button" id="languageDropdown"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-            English
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="login" routerLinkActive="active">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="register" routerLinkActive="active">Register</a>
+        </li>
+        <li class="nav-item dropdown ms-2">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#">English</a></li>
-            <li><a class="dropdown-item" href="#">Spanish</a></li>
-            <li><a class="dropdown-item" href="#">French</a></li>
+            <li><a class="dropdown-item" href="#">Arabic</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
           </ul>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
