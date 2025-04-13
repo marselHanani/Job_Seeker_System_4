@@ -1,7 +1,9 @@
+<button class="menu-toggle" (click)="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+</button>
+
 <div class="sidebar">
-    <div class="logo">
-      
-    </div>
+    <div class="logo"></div>
     <ul class="sidebar-menu">
         <li><a href="#" class="active"><i class="fas fa-th-large"></i> dashboard</a></li>
         <li><a href="#"><i class="fas fa-tasks"></i> Task</a></li>
@@ -18,104 +20,97 @@
     </ul>
 </div>
 
-<!-- Your existing dashboard content here -->
 <div class="dashboard-container">
-  <!-- Statistics Cards -->
-  <div class="stats-cards">
-    <div class="stat-card pink">
-      <i class="fas fa-users"></i>
-      <div class="stat-info">
-        <h2>1259</h2>
-        <p>Total Employees</p>
-      </div>
+    <div class="stats-cards">
+        <div class="stat-card pink">
+            <i class="fas fa-users"></i>
+            <div class="stat-info">
+                <h2>1259</h2>
+                <p>Total Employees</p>
+            </div>
+        </div>
+        <div class="stat-card orange">
+            <i class="fas fa-briefcase"></i>
+            <div class="stat-info">
+                <h2>23</h2>
+                <p>Job Openings</p>
+            </div>
+        </div>
+        <div class="stat-card green">
+            <i class="fas fa-user-plus"></i>
+            <div class="stat-info">
+                <h2>123</h2>
+                <p>New Applicants</p>
+            </div>
+        </div>
+        <div class="stat-card blue">
+            <div class="event-info">
+                <h3>Upcoming Company Event</h3>
+                <p>Watch online</p>
+            </div>
+        </div>
     </div>
-    <div class="stat-card orange">
-      <i class="fas fa-briefcase"></i>
-      <div class="stat-info">
-        <h2>23</h2>
-        <p>Job Openings</p>
-      </div>
-    </div>
-    <div class="stat-card green">
-      <i class="fas fa-user-plus"></i>
-      <div class="stat-info">
-        <h2>123</h2>
-        <p>New Applicants</p>
-      </div>
-    </div>
-    <div class="stat-card blue">
-      <div class="event-info">
-        <h3>Upcoming Company Event</h3>
-        <p>Watch online</p>
-      </div>
-    </div>
-  </div>
 
-  <!-- Graph Section -->
-  <div class="graph-section">
-    <div class="visitor-stats">
-      <h3>Visitor Statistics</h3>
-      <div class="graph-container">
-        <!-- You'll need to add a chart library like Chart.js or ngx-charts -->
-        <canvas #visitorChart></canvas>
-      </div>
+    <div class="graph-section">
+        <div class="visitor-stats">
+            <h3>Visitor Statistics</h3>
+            <div class="graph-container">
+                <canvas #visitorChart></canvas>
+            </div>
+        </div>
+        
+        <div class="tasks-section">
+            <div class="section-header">
+                <h3>Tasks</h3>
+                <div class="dropdown">
+                    <button>This month <i class="fas fa-chevron-down"></i></button>
+                </div>
+            </div>
+            <div class="progress-circle">
+                <div class="circle">60%</div>
+            </div>
+            <div class="task-legend">
+                <div class="legend-item">
+                    <span class="dot active"></span>
+                    <span>Active</span>
+                </div>
+                <div class="legend-item">
+                    <span class="dot completed"></span>
+                    <span>Completed</span>
+                </div>
+                <div class="legend-item">
+                    <span class="dot killed"></span>
+                    <span>Killed</span>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <!-- Tasks Section -->
-    <div class="tasks-section">
-      <div class="section-header">
-        <h3>Tasks</h3>
-        <div class="dropdown">
-          <button>This month <i class="fas fa-chevron-down"></i></button>
-        </div>
-      </div>
-      <div class="progress-circle">
-        <!-- You can use a circular progress component here -->
-        <div class="circle">60%</div>
-      </div>
-      <div class="task-legend">
-        <div class="legend-item">
-          <span class="dot active"></span>
-          <span>Active</span>
-        </div>
-        <div class="legend-item">
-          <span class="dot completed"></span>
-          <span>Completed</span>
-        </div>
-        <div class="legend-item">
-          <span class="dot killed"></span>
-          <span>Killed</span>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Meeting Section -->
-  <div class="meeting-section">
-    <div class="meeting-card">
-      <div class="meeting-header">
-        <h3>Invite to office meet-up</h3>
-        <span class="call-text">Call</span>
-      </div>
-      <div class="meeting-date">
-        <span class="date-label">Due date:</span>
-        <span class="date">December 23, 2018</span>
-      </div>
-      <div class="meeting-footer">
-        <div class="user-avatar">
-          <img src="https://ui-avatars.com/api/?name=user-name" alt="user-name">
-          <span class="username">user-name</span>
+    <div class="meeting-section">
+        <div class="meeting-card">
+            <div class="meeting-header">
+                <h3>Invite to office meet-up</h3>
+                <span class="call-text">Call</span>
+            </div>
+            <div class="meeting-date">
+                <span class="date-label">Due date:</span>
+                <span class="date">December 23, 2018</span>
+            </div>
+            <div class="meeting-footer">
+                <div class="user-avatar">
+                    <img src="https://ui-avatars.com/api/?name=user-name" alt="user-name">
+                    <span class="username">user-name</span>
+                </div>
+                <div class="meeting-actions">
+                    <div class="status-dots">
+                        <span class="status-dot yellow"></span>
+                        <span class="status-dot green"></span>
+                    </div>
+                    <button class="btn-edit"><i class="fas fa-pencil-alt"></i></button>
+                    <button class="btn-more"><i class="fas fa-ellipsis-v"></i></button>
+                    <span class="status-badge">Ended</span>
+                </div>
+            </div>
         </div>
-        <div class="meeting-actions">
-          <div class="status-dots">
-            <span class="status-dot yellow"></span>
-            <span class="status-dot green"></span>
-          </div>
-          <button class="btn-edit"><i class="fas fa-pencil-alt"></i></button>
-          <button class="btn-more"><i class="fas fa-ellipsis-v"></i></button>
-          <span class="status-badge">Ended</span>
-        </div>
-      </div>
     </div>
-  </div>
 </div>
