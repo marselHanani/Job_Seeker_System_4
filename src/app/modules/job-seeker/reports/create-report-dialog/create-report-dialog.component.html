@@ -1,0 +1,30 @@
+<h2 mat-dialog-title>Create New Report</h2>
+<mat-dialog-content>
+  <form #reportForm="ngForm">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Report Title</mat-label>
+      <input matInput [(ngModel)]="report.title" name="title" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Report Type</mat-label>
+      <mat-select [(ngModel)]="report.type" name="type" required>
+        <mat-option value="Monthly">Monthly</mat-option>
+        <mat-option value="Quarterly">Quarterly</mat-option>
+        <mat-option value="Annual">Annual</mat-option>
+        <mat-option value="Custom">Custom</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput [(ngModel)]="report.description" name="description" rows="3"></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button class="cancel-btn" (click)="onCancel()">Cancel</button>
+  <button mat-raised-button class="create-btn" color="primary" (click)="onSubmit()" [disabled]="!reportForm.form.valid">
+    Create Report
+  </button>
+</mat-dialog-actions>

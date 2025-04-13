@@ -16,5 +16,10 @@ export const routes: Routes = [
       import('./modules/job-seeker/dashboard/dashboard.component').then(m => m.DashboardComponent),
     title: 'Dashboard'
   },
+  {path: 'reports',
+    loadComponent: () =>
+      import('./modules/job-seeker/reports/reports.component').then(m => m.ReportsComponent),
+    title: 'Reports'
+  },
   {path:'**', redirectTo:'notfound', pathMatch:'full'}
 ];
