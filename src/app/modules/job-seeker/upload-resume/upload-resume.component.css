@@ -1,0 +1,13 @@
+.upload-area {
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  border: 2px dashed #007bff; /* Dashed border */
+  padding: 40px; /* Increased padding for better spacing */
+}
+
+
+
+.progress {
+  height: 20px;
+}
