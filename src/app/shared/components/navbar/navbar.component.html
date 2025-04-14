@@ -1,31 +1,47 @@
+<!-- Main Navigation Bar - Fixed position at top -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark position-fixed w-100 top-0 z-1">
   <div class="container">
+    <!-- Brand Logo and Name -->
     <h3 class="navbar-brand" href="#"><i class="fa-solid fa-briefcase"></i> PALJob</h3>
+
+    <!-- Mobile Toggle Button -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
+    <!-- Collapsible Navigation Content -->
     <div class="collapse navbar-collapse" id="navbarNav">
+      <!-- Left Side Navigation Items -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Dynamic Navigation Items -->
         <li class="nav-item" *ngFor="let item of navItems">
           <a class="nav-link" routerLink="{{item.id}}" routerLinkActive="active">{{item.label}}</a>
         </li>
       </ul>
+
+      <!-- Right Side Navigation Items -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Authentication Links -->
         <li class="nav-item">
           <a class="nav-link" routerLink="login" routerLinkActive="active">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="register" routerLinkActive="active">Register</a>
         </li>
+
+        <!-- Language and User Settings Dropdown -->
         <li class="nav-item dropdown ms-2">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-
           </a>
+          <!-- Dropdown Menu -->
           <ul class="dropdown-menu dropdown-menu-end">
+            <!-- Language Options -->
             <li><a class="dropdown-item" href="#">English</a></li>
             <li><a class="dropdown-item" href="#">Arabic</a></li>
+            <!-- Divider -->
             <li><hr class="dropdown-divider"></li>
+            <!-- User Actions -->
             <li><a class="dropdown-item" href="#">Logout</a></li>
           </ul>
         </li>

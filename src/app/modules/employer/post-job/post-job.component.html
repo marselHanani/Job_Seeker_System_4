@@ -1,0 +1,246 @@
+<!-- Main Container with Top Margin -->
+<div class="container mt-4">
+  <!-- Page Header -->
+  <h2 class="mb-4">
+    <i class="fa-solid fa-briefcase me-2" aria-hidden="true"></i>
+    <span>Post a Job</span>
+  </h2>
+
+  <!-- Job Posting Form with Reactive Form Binding -->
+  <form [formGroup]="postJobForm" (ngSubmit)="onSubmit()">
+    <!-- Basic Job Information Section -->
+    <!-- Job Title Field with Validation -->
+    <div class="mb-3">
+      <label for="jobTitle" class="form-label">
+        <i class="fa-solid fa-tag me-2" aria-hidden="true"></i>
+        <span>Job Title</span>
+      </label>
+      <input type="text" class="form-control" id="jobTitle" formControlName="jobTitle" placeholder="Add job title, role, vacancies etc">
+      <!-- Job Title Validation Error Message -->
+      <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('jobTitle')?.errors?.['required'] && postJobForm.get('jobTitle')?.touched">
+        <span>Job title is required</span>
+      </div>
+    </div>
+
+    <!-- Job Tags Field -->
+    <div class="mb-3">
+      <label for="tags" class="form-label">
+        <i class="fa-solid fa-tags me-2" aria-hidden="true"></i>
+        <span>Tags</span>
+      </label>
+      <input type="text" class="form-control" id="tags" formControlName="tags" placeholder="Job keyword, tags etc">
+    </div>
+
+    <!-- Job Role Selection with Dynamic Options -->
+    <div class="mb-3">
+      <label for="jobRole" class="form-label">
+        <i class="fa-solid fa-user-tie me-2" aria-hidden="true"></i>
+        <span>Job Role</span>
+      </label>
+      <select class="form-select" id="jobRole" formControlName="jobRole">
+        <option value="">Select...</option>
+        <option *ngFor="let role of jobRoles" [value]="role">{{role}}</option>
+      </select>
+      <!-- Job Role Validation Error Message -->
+      <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('jobRole')?.errors?.['required'] && postJobForm.get('jobRole')?.touched">
+        <span>Job role is required</span>
+      </div>
+    </div>
+
+    <!-- Salary Information Section -->
+    <div class="mb-3">
+      <label class="form-label">
+        <i class="fa-solid fa-money-bill-wave me-2" aria-hidden="true"></i>
+        <span>Salary</span>
+      </label>
+      <div class="row">
+        <!-- Minimum Salary Input -->
+        <div class="col-md-4 mb-2">
+          <input type="number" class="form-control" formControlName="minSalary" placeholder="Minimum salary...">
+          <!-- Minimum Salary Validation Messages -->
+          <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('minSalary')?.errors && postJobForm.get('minSalary')?.touched">
+            <span *ngIf="postJobForm.get('minSalary')?.errors?.['required']">Minimum salary is required</span>
+            <span *ngIf="postJobForm.get('minSalary')?.errors?.['min']">Salary cannot be negative</span>
+          </div>
+        </div>
+        <!-- Maximum Salary Input -->
+        <div class="col-md-4 mb-2">
+          <input type="number" class="form-control" formControlName="maxSalary" placeholder="Maximum salary...">
+          <!-- Maximum Salary Validation Messages -->
+          <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('maxSalary')?.errors && postJobForm.get('maxSalary')?.touched">
+            <span *ngIf="postJobForm.get('maxSalary')?.errors?.['required']">Maximum salary is required</span>
+            <span *ngIf="postJobForm.get('maxSalary')?.errors?.['min']">Salary cannot be negative</span>
+          </div>
+        </div>
+        <!-- Salary Type Selection -->
+        <div class="col-md-4 mb-2">
+          <select class="form-select" formControlName="salaryType">
+            <option value="">Select...</option>
+            <option *ngFor="let type of salaryTypes" [value]="type">{{type}}</option>
+          </select>
+          <!-- Salary Type Validation Message -->
+          <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('salaryType')?.errors?.['required'] && postJobForm.get('salaryType')?.touched">
+            <span>Salary type is required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced Job Information Section -->
+    <div class="mb-3">
+      <label class="form-label">
+        <i class="fa-solid fa-info-circle me-2" aria-hidden="true"></i>
+        <span>Advance Information</span>
+      </label>
+      <div class="row">
+        <!-- Education Level Selection -->
+        <div class="col-md-4 mb-2">
+          <select class="form-select" formControlName="education">
+            <option value=""><i class="fa-solid fa-graduation-cap"></i>Education...</option>
+            <option *ngFor="let level of educationLevels" [value]="level">{{level}}</option>
+          </select>
+          <!-- Education Validation Message -->
+          <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('education')?.errors?.['required'] && postJobForm.get('education')?.touched">
+            <span>Education level is required</span>
+          </div>
+        </div>
+        <!-- Experience Level Selection -->
+        <div class="col-md-4 mb-2">
+          <select class="form-select" formControlName="experience">
+            <option value=""><i class="fa-solid fa-business-time"></i>Experience...</option>
+            <option *ngFor="let exp of experienceLevels" [value]="exp">{{exp}}</option>
+          </select>
+          <!-- Experience Validation Message -->
+          <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('experience')?.errors?.['required'] && postJobForm.get('experience')?.touched">
+            <span>Experience level is required</span>
+          </div>
+        </div>
+        <!-- Job Type Selection -->
+        <div class="col-md-4 mb-2">
+          <select class="form-select" formControlName="jobType">
+            <option value=""><i class="fa-solid fa-briefcase"></i>Job Type...</option>
+            <option *ngFor="let type of jobTypes" [value]="type">{{type}}</option>
+          </select>
+          <!-- Job Type Validation Message -->
+          <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('jobType')?.errors?.['required'] && postJobForm.get('jobType')?.touched">
+            <span>Job type is required</span>
+          </div>
+        </div>
+        <!-- Number of Vacancies Selection -->
+        <div class="col-md-4 mb-2">
+          <select class="form-select" formControlName="vacancies">
+            <option value=""><i class="fa-solid fa-users"></i>Vacancies...</option>
+            <option *ngFor="let count of vacanciesOptions" [value]="count">{{count}}</option>
+          </select>
+          <!-- Vacancies Validation Message -->
+          <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('vacancies')?.errors?.['required'] && postJobForm.get('vacancies')?.touched">
+            <span>Number of vacancies is required</span>
+          </div>
+        </div>
+        <!-- Job Expiration Date Input -->
+        <div class="col-md-4 mb-2">
+          <input type="date" class="form-control" formControlName="expirationDate" placeholder="<i class='fa-solid fa-calendar'></i>DD/MM/YYYY">
+          <!-- Expiration Date Validation Message -->
+          <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('expirationDate')?.errors?.['required'] && postJobForm.get('expirationDate')?.touched">
+            <span>Expiration date is required</span>
+          </div>
+        </div>
+        <!-- Job Level Selection -->
+        <div class="col-md-4 mb-2">
+          <select class="form-select" formControlName="jobLevel">
+            <option value=""><i class="fa-solid fa-layer-group"></i>Job Level...</option>
+            <option *ngFor="let level of jobLevels" [value]="level">{{level}}</option>
+          </select>
+          <!-- Job Level Validation Message -->
+          <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('jobLevel')?.errors?.['required'] && postJobForm.get('jobLevel')?.touched">
+            <span>Job level is required</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Job Details Section -->
+    <!-- Job Description Textarea -->
+    <div class="mb-3">
+      <label for="description" class="form-label">
+        <i class="fa-solid fa-align-left me-2" aria-hidden="true"></i>
+        <span>Description</span>
+      </label>
+      <textarea class="form-control" id="description" rows="4" formControlName="description" placeholder="Add your job description..."></textarea>
+      <!-- Description Validation Message -->
+      <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('description')?.errors?.['required'] && postJobForm.get('description')?.touched">
+        <span>Job description is required</span>
+      </div>
+    </div>
+    <!-- Job Responsibilities Textarea -->
+    <div class="mb-3">
+      <label for="responsibilities" class="form-label">
+        <i class="fa-solid fa-list-check me-2" aria-hidden="true"></i>
+        <span>Responsibilities</span>
+      </label>
+      <textarea class="form-control" id="responsibilities" rows="4" formControlName="responsibilities" placeholder="Add your job responsibilities..."></textarea>
+      <!-- Responsibilities Validation Message -->
+      <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('responsibilities')?.errors?.['required'] && postJobForm.get('responsibilities')?.touched">
+        <span>Job responsibilities are required</span>
+      </div>
+    </div>
+
+    <!-- Form Submit Button - Disabled when form is invalid -->
+    <!-- Update option elements -->
+    <option value="">
+      <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+      <span>Education...</span>
+    </option>
+
+    <option value="">
+      <i class="fa-solid fa-business-time" aria-hidden="true"></i>
+      <span>Experience...</span>
+    </option>
+
+    <option value="">
+      <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
+      <span>Job Type...</span>
+    </option>
+
+    <option value="">
+      <i class="fa-solid fa-users" aria-hidden="true"></i>
+      <span>Vacancies...</span>
+    </option>
+
+    <option value="">
+      <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
+      <span>Job Level...</span>
+    </option>
+
+    <!-- Description and Responsibilities sections -->
+    <div class="mb-3">
+      <label for="description" class="form-label">
+        <i class="fa-solid fa-align-left me-2" aria-hidden="true"></i>
+        <span>Description</span>
+      </label>
+      <textarea class="form-control" id="description" rows="4" formControlName="description" placeholder="Add your job description..."></textarea>
+      <!-- Description Validation Message -->
+      <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('description')?.errors?.['required'] && postJobForm.get('description')?.touched">
+        <span>Job description is required</span>
+      </div>
+    </div>
+    <!-- Job Responsibilities Textarea -->
+    <div class="mb-3">
+      <label for="responsibilities" class="form-label">
+        <i class="fa-solid fa-list-check me-2" aria-hidden="true"></i>
+        <span>Responsibilities</span>
+      </label>
+      <textarea class="form-control" id="responsibilities" rows="4" formControlName="responsibilities" placeholder="Add your job responsibilities..."></textarea>
+      <!-- Responsibilities Validation Message -->
+      <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('responsibilities')?.errors?.['required'] && postJobForm.get('responsibilities')?.touched">
+        <span>Job responsibilities are required</span>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary" [disabled]="postJobForm.invalid">
+      <span>Post Job</span>
+      <i class="fa-solid fa-paper-plane ms-2" aria-hidden="true"></i>
+    </button>
+  </form>
+</div>

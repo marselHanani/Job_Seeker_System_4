@@ -1,20 +1,31 @@
+<!-- Main Container for 404 Page -->
 <div class="not-found-container">
+  <!-- Centered Content Container with Padding -->
   <div class="container text-center py-5">
+    <!-- Responsive Row with Center Alignment -->
     <div class="row justify-content-center">
+      <!-- Column with Medium Breakpoint -->
       <div class="col-md-8">
+        <!-- Error Content Wrapper -->
         <div class="error-content">
+          <!-- Error Status Code -->
           <h1 class="error-title">404</h1>
+          <!-- Error Message Header -->
           <h2 class="mb-4">Oops! Page Not Found</h2>
+          <!-- Error Description -->
           <p class="error-description mb-4">
             The page you are looking for might have been removed, had its name changed,
             or is temporarily unavailable.
           </p>
+          <!-- Action Buttons Container -->
           <div class="error-actions">
+            <!-- Home Navigation Button -->
             <a routerLink="/" class="btn btn-primary btn-lg me-3">
               <i class="fa-solid fa-house me-2"></i>Go Home
             </a>
-            <a routerLink="/contact" class="btn btn-outline-primary btn-lg">
-              <i class="fa-solid fa-envelope me-2"></i>Contact Support
+            <!-- Support Contact Button -->
+            <a routerLink="/contact" class="btn btn-outline-primary btn-lg mt-media">
+              <i class="fa-solid fa-envelope me-2 "></i>Contact Support
             </a>
           </div>
         </div>

@@ -7,8 +7,8 @@
   width: 100%;
   height: calc(100vh - 4rem);
 }
-.w-30{
-  width: 30%;
+.w-40{
+  width: 40%;
 }
 .w-40{
   width: 40%;
@@ -16,6 +16,23 @@
 .top-13{
   top: 13%;
 }
+.top-5{
+  top:5%;
+}
 .left-10{
   left: 10%;
 }
+.fs-7{
+  font-size: 14px;
+}
+
+@media (min-width: 364px) and (max-width: 644px) {
+.w-80{
+  width: 80% !important;
+}
+}
+@media (max-width: 987px) {
+  .w-80{
+    width: 80% !important;
+  }
+  }

@@ -45,3 +45,9 @@
     margin-right: 0;
   }
 }
+
+@media (min-width: 769px) and (max-width: 992px)  {
+ .mt-media{
+  margin-top: 10px;
+ }
+}
