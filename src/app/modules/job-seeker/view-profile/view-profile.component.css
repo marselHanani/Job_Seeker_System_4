@@ -1,0 +1,13 @@
+.container {
+  max-width: 900px;
+}
+
+h2, h5 {
+  font-weight: bold;
+}
+
+.badge {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 1rem;
+}
