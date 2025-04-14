@@ -1,0 +1,13 @@
+/* Simple spacing and visual tweaks */
+h2 {
+  font-weight: bold;
+}
+
+h5 {
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+.form-label {
+  font-weight: 500;
+}
