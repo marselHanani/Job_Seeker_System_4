@@ -1,8 +1,8 @@
 <!-- Main Container with Background Image -->
-<div class="bg-img pb-5">
+<div class="bg-img">
   <!-- Registration Form with Reactive Form Binding -->
   <form [formGroup]="RegisterForm" (ngSubmit)="printData(RegisterForm)" class="m-auto w-40 pt-5 w-80">
-    <!-- Header Section with Account Type Selection -->
+    <!-- Form Header -->
     <div class="d-flex justify-content-between">
       <h3 class="text-dark mb-4">Create Account.</h3>
       <!-- User Type Dropdown (Currently Disabled) -->
@@ -16,7 +16,7 @@
     </div>
 
     <!-- Login Link -->
-    <a href="login" class="nav-link text-white mt-3">Already have account?</a>
+    <a href="login" class="nav-link text-primary">Already have account?</a>
 
     <!-- Username Input Field -->
     <div class="pt-3">
@@ -75,37 +75,23 @@
     <p class="m-auto text-center mb-2 mt-3">or</p>
 
     <!-- Social Registration Options -->
-    <div class="d-flex justify-content-between">
-      <!-- Google Sign-up Integration -->
-      <div class="w-50">
-        <!-- Google Sign-up Configuration -->
-        <div id="g_id_onload"
-          data-client_id="1041401952762-nesjnl04bfl9g28gf8aclj3impjhsvno.apps.googleusercontent.com"
-          data-context="signup"
-          data-ux_mode="popup"
-          data-callback="handleGoogleSignUp"
-          data-auto_prompt="false">
-        </div>
-        <!-- Google Sign-up Button Customization -->
-        <div class="g_id_signin"
-          data-type="standard"
-          data-shape="rectangular"
-          data-theme="outline"
-          data-text="signup_with"
-          data-size="large"
-          data-logo_alignment="left">
-        </div>
-      </div>
+    <div class="d-flex justify-content-between gap-2 mt-3">
+      <!-- Google Sign-up Button -->
+      <button class="filter-btn w-50 d-flex align-items-center justify-content-center">
+        <i class="fab fa-google me-2"></i>
+        <span>Google</span>
+      </button>
 
       <!-- Facebook Registration Button -->
-      <button type="button" class="btn btn-dark ms-2 w-50 text-nowrap overflow-hidden text-truncate" (click)="registerWithFacebook(RegisterForm)">
-        <i class="fab fa-facebook me-2"></i> Register with Facebook
+      <button class="filter-btn w-50 d-flex align-items-center justify-content-center" (click)="registerWithFacebook(RegisterForm)">
+        <i class="fab fa-facebook-f me-2"></i>
+        <span>Facebook</span>
       </button>
     </div>
 
     <!-- Submit Button -->
-    <div class="pt-2 mb-5">
-      <button type="submit" class="btn btn-dark form-control p-2 mt-3" [disabled]="RegisterForm.invalid">
+    <div class="pt-2">
+      <button [disabled]="RegisterForm.invalid" type="submit" class="login-btn form-control p-2 mt-3">
        Create Account <i class="fa-solid fa-arrow-right"></i>
       </button>
     </div>

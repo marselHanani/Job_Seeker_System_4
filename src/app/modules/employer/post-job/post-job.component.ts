@@ -11,7 +11,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 export class PostJobComponent {
   postJobForm: FormGroup;
 
-  // Add these properties
+ 
   jobRoles: string[] = ['Software Developer', 'Web Designer', 'Project Manager', 'Data Analyst', 'UI/UX Designer', 'DevOps Engineer', 'Product Manager'];
 
   salaryTypes: string[] = ['Per Hour', 'Per Day', 'Per Week', 'Per Month', 'Per Year'];

@@ -201,8 +201,8 @@
   height: 150px;
   border-radius: 50%;
   background: conic-gradient(
-      #4caf50 60%, 
-      #ff9800 60% 80%, 
+      #4caf50 60%,
+      #ff9800 60% 80%,
       #ff4d4d 80%
   );
   display: flex;
@@ -428,4 +428,27 @@
   .stat-card .stat-info h2 {
       font-size: 20px;
   }
+}
+
+.user-type-switcher {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.user-type-switcher .btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: none;
+  background: #f5f5f5;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+.user-type-switcher .btn-primary {
+  background: linear-gradient(135deg, #4a90e2 0%, #ff9a9e 100%);
+  color: white;
 }

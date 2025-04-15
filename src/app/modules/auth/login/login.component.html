@@ -8,7 +8,7 @@
     </div>
 
     <!-- Registration Link -->
-    <a href="register" class="nav-link text-white">Don't have account?</a>
+    <a href="register" class="nav-link text-primary">Don't have account?</a>
 
     <!-- Username Input Field -->
     <div class="pt-3">
@@ -46,37 +46,23 @@
     <p class="m-auto text-center mb-2 mt-3">or</p>
 
     <!-- Social Login Buttons Container -->
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between gap-2 mt-3">
       <!-- Google Sign-in Button -->
-      <div class="w-50">
-        <!-- Google Sign-in Configuration -->
-        <div id="g_id_onload"
-           data-client_id="1041401952762-nesjnl04bfl9g28gf8aclj3impjhsvno.apps.googleusercontent.com"
-           data-context="signin"
-           data-callback="handleGoogleSignIn"
-           data-ux_mode="popup"
-           data-auto_prompt="false">
-        </div>
-        <!-- Google Sign-in Button Customization -->
-        <div class="g_id_signin"
-           data-type="standard"
-           data-shape="rectangular"
-           data-theme="outline"
-           data-text="signin_with"
-           data-size="large"
-           data-logo_alignment="left">
-        </div>
-      </div>
+      <button class="filter-btn w-50 d-flex align-items-center justify-content-center">
+        <i class="fab fa-google me-2"></i>
+        <span>Google</span>
+      </button>
 
       <!-- Facebook Login Button -->
-      <button class="btn btn-dark ms-2 w-50 text-nowrap overflow-hidden text-truncate" (click)="loginWithFacebook()">
-        <i class="fab fa-facebook"></i> Sign in with Facebook
+      <button class="filter-btn w-50 d-flex align-items-center justify-content-center" (click)="loginWithFacebook()">
+        <i class="fab fa-facebook-f me-2"></i>
+        <span>Facebook</span>
       </button>
     </div>
 
     <!-- Submit Button -->
     <div class="pt-2">
-      <button [disabled]="LoginForm.invalid" type="submit" class="btn btn-dark form-control p-2 mt-3">
+      <button [disabled]="LoginForm.invalid" type="submit" class="login-btn form-control p-2 mt-3">
        Login at Account <i class="fa-solid fa-arrow-right"></i>
       </button>
     </div>

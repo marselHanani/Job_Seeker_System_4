@@ -1,10 +1,17 @@
 <!-- Main Container with Top Margin -->
 <div class="container mt-4">
-  <!-- Page Header -->
-  <h2 class="mb-4">
-    <i class="fa-solid fa-briefcase me-2" aria-hidden="true"></i>
-    <span>Post a Job</span>
-  </h2>
+  <!-- Header Section with Back Button -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <!-- Page Header -->
+    <h2>
+      <i class="fa-solid fa-briefcase me-2" aria-hidden="true"></i>
+      <span>Post a Job</span>
+    </h2>
+    <!-- Back Button -->
+    <button routerLink="/dashboard" class="btn btn-outline-primary">
+      <a href="dashboard" class="nav-link"><i class="fa-solid fa-arrow-left me-2"></i> Back to Dashboard</a>
+    </button>
+  </div>
 
   <!-- Job Posting Form with Reactive Form Binding -->
   <form [formGroup]="postJobForm" (ngSubmit)="onSubmit()">
@@ -185,60 +192,8 @@
       </div>
     </div>
 
-    <!-- Form Submit Button - Disabled when form is invalid -->
-    <!-- Update option elements -->
-    <option value="">
-      <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
-      <span>Education...</span>
-    </option>
-
-    <option value="">
-      <i class="fa-solid fa-business-time" aria-hidden="true"></i>
-      <span>Experience...</span>
-    </option>
-
-    <option value="">
-      <i class="fa-solid fa-briefcase" aria-hidden="true"></i>
-      <span>Job Type...</span>
-    </option>
-
-    <option value="">
-      <i class="fa-solid fa-users" aria-hidden="true"></i>
-      <span>Vacancies...</span>
-    </option>
-
-    <option value="">
-      <i class="fa-solid fa-layer-group" aria-hidden="true"></i>
-      <span>Job Level...</span>
-    </option>
-
-    <!-- Description and Responsibilities sections -->
-    <div class="mb-3">
-      <label for="description" class="form-label">
-        <i class="fa-solid fa-align-left me-2" aria-hidden="true"></i>
-        <span>Description</span>
-      </label>
-      <textarea class="form-control" id="description" rows="4" formControlName="description" placeholder="Add your job description..."></textarea>
-      <!-- Description Validation Message -->
-      <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('description')?.errors?.['required'] && postJobForm.get('description')?.touched">
-        <span>Job description is required</span>
-      </div>
-    </div>
-    <!-- Job Responsibilities Textarea -->
-    <div class="mb-3">
-      <label for="responsibilities" class="form-label">
-        <i class="fa-solid fa-list-check me-2" aria-hidden="true"></i>
-        <span>Responsibilities</span>
-      </label>
-      <textarea class="form-control" id="responsibilities" rows="4" formControlName="responsibilities" placeholder="Add your job responsibilities..."></textarea>
-      <!-- Responsibilities Validation Message -->
-      <div class="alert alert-danger mt-2" *ngIf="postJobForm.get('responsibilities')?.errors?.['required'] && postJobForm.get('responsibilities')?.touched">
-        <span>Job responsibilities are required</span>
-      </div>
-    </div>
-
     <!-- Submit button -->
-    <button type="submit" class="btn btn-primary" [disabled]="postJobForm.invalid">
+    <button type="submit" class="btn mb-3 btn-primary" [disabled]="postJobForm.invalid">
       <span>Post Job</span>
       <i class="fa-solid fa-paper-plane ms-2" aria-hidden="true"></i>
     </button>
