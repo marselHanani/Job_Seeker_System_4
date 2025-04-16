@@ -1,6 +1,11 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './modules/public/home/home.component';
 import { RegisterComponent } from './modules/auth/register/register.component';
+
+import { jobSearchPageComponent } from './job-search-page/job-search-page.component';
+import { JobDetailComponent } from './job-search-page/job-detail/job-detail.component';
+import { MyApplicationsComponent } from './my-applications/my-applications.component';
+
 import { LoginComponent } from './modules/auth/login/login.component';
 import { NotfoundComponent } from './shared/components/notfound/notfound.component';
 
@@ -27,5 +32,8 @@ export const routes: Routes = [
   {path: 'dashboard/reports',component:ReportsComponent, title:'Reports'},
   {path:'edit-profile',component:EditProfileComponent, title:'Edit Profile'},
   {path:'dashboard/view-profile',component: ViewProfileComponent, title:'View Profile'},
+  { path: 'jobs', component: jobSearchPageComponent },
+  { path: 'jobs/:id', component: JobDetailComponent },
+  {path: 'applications', component: MyApplicationsComponent},
   {path:'**', redirectTo:'notfound', pathMatch:'full'}
 ];
