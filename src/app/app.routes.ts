@@ -17,7 +17,8 @@ import { DashboardComponent } from './shared/components/dashboard/dashboard.comp
 import { ReportsComponent } from './modules/job-seeker/reports/reports.component';
 import { EditProfileComponent } from './modules/job-seeker/edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './modules/job-seeker/view-profile/view-profile.component';
-
+import { NotificationsComponent } from './notifications/notifications.component';
+import { UploadResumeComponent } from './modules/job-seeker/upload-resume/upload-resume.component';
 
 export const routes: Routes = [
   {path: 'home', component:HomeComponent, title:'Home'},
@@ -35,5 +36,9 @@ export const routes: Routes = [
   { path: 'jobs', component: jobSearchPageComponent },
   { path: 'jobs/:id', component: JobDetailComponent },
   {path: 'applications', component: MyApplicationsComponent},
-  {path:'**', redirectTo:'notfound', pathMatch:'full'}
+  {path:'**', redirectTo:'notfound', pathMatch:'full'},
+  {path:'notifications',component:NotificationsComponent, title:'notifications'},
+  {path:'upload-Resume',component:UploadResumeComponent, title:'Upload-Resume'},
+  {path:'view-profile',component:ViewProfileComponent, title:'view-profile'},
+
 ];
