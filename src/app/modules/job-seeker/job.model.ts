@@ -10,7 +10,8 @@ export interface Job {
     postedDate: Date;
     deadline: Date;
     category?: string;
-    companyLogo?: string;
+    companyLogo?: ImageData;
+    saved?: boolean;
 }
 
 export interface JobApplication {
