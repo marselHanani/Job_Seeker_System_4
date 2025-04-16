@@ -9,11 +9,9 @@ import { NotificationsComponent } from './notifications/notifications.component'
 
 @Component({
   selector: 'app-root',
-<<<<<<< HEAD
+
   imports: [RouterOutlet, NavbarComponent, FooterComponent,EditProfileComponent,UploadResumeComponent,ViewProfileComponent,NotificationsComponent],
-=======
-  imports: [RouterOutlet, NavbarComponent, FooterComponent,EditProfileComponent,UploadResumeComponent,ViewProfileComponent, NotificationsComponent],
->>>>>>> bd51f577e4aa852bf27039bbab4c9d1a685a8e16
+
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

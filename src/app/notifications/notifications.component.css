@@ -1,11 +1,11 @@
-<<<<<<< HEAD
+
 .card {
   cursor: pointer;
 }
 
 .card:hover {
   background-color: #f8f9fa;
-=======
+}
 svg.bi-trash3 {
   cursor: pointer;
 
@@ -24,5 +24,4 @@ svg.bi-trash3:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   background-color: #f8f9fa;
   transform: translateY(-2px);
->>>>>>> bd51f577e4aa852bf27039bbab4c9d1a685a8e16
 }
