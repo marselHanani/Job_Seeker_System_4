@@ -1,9 +1,9 @@
 .not-found-container {
-  min-height: 80vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #e6eeff 0%, #ffe6ea 100%);
 }
 
 .error-content {
@@ -16,9 +16,11 @@
 .error-title {
   font-size: 8rem;
   font-weight: 700;
-  color: #0d6efd;
+  background: linear-gradient(135deg, #4a90e2 0%, #ff9a9e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 1rem;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .error-description {
@@ -28,6 +30,35 @@
 
 .error-actions {
   margin-top: 2rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4a90e2 0%, #ff9a9e 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-outline-primary {
+  background: linear-gradient(135deg, #d1e6ff 0%, #ffd6d9 100%);
+  border: none;
+  color: #333;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(135deg, #c2ddff 0%, #ffc2c7 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 @media (max-width: 768px) {
@@ -44,4 +75,10 @@
   .error-actions .btn:last-child {
     margin-right: 0;
   }
+}
+
+@media (min-width: 769px) and (max-width: 992px)  {
+ .mt-media{
+  margin-top: 10px;
+ }
 }

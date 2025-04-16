@@ -1,13 +1,81 @@
+
 .bg-img{
-  margin:0;
-  padding:0;
-  background-image: url("/images/bgImage.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #e6eeff 0%, #ffe6ea 100%);
   width: 100%;
   height: calc(100vh - 4rem);
-}
-.w-30{
-  width: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+.login-btn {
+  background: linear-gradient(135deg, #4a90e2 0%, #ff9a9e 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.login-btn:disabled {
+  background: #e0e0e0;
+  transform: none;
+  box-shadow: none;
+}
+
+.filter-btn {
+  background: linear-gradient(135deg, #d1e6ff 0%, #ffd6d9 100%);
+  border: none;
+  color: #333;
+  border-radius: 20px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-btn:hover {
+  background: linear-gradient(135deg, #c2ddff 0%, #ffc2c7 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #3a80d2 0%, #ff8a8e 100%);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.w-40{
+  width: 40%;
+}
+.top-13{
+  top: 13%;
+}
+.top-5{
+  top:5%;
+}
+.left-10{
+  left: 10%;
+}
+.fs-7{
+  font-size: 14px;
+}
+
+@media (min-width: 364px) and (max-width: 644px) {
+.w-80{
+  width: 80% !important;
+}
+}
+@media (max-width: 987px) {
+  .w-80{
+    width: 80% !important;
+  }
+}

@@ -27,3 +27,14 @@ h6 {
   color: #0d6efd;
   letter-spacing: 1px;
 }
+
+@media (max-width:768px) {
+ .text-media{
+  text-align: center;
+ }
+}
+@media (min-width:769px) {
+  .m-media{
+    margin: 5px;
+   }
+ }

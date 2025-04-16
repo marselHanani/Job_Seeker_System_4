@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+<<<<<<< HEAD
+=======
+
+>>>>>>> bd51f577e4aa852bf27039bbab4c9d1a685a8e16
 
 @Component({
   selector: 'app-notifications',
@@ -21,30 +25,59 @@ export class NotificationsComponent {
     {
       title: "New job alert for 'Software Engineer' roles",
       date: "Jul 25",
+<<<<<<< HEAD
       type: "all"
+=======
+      type: "all",
+      image: '/images/woman.jpg'
+>>>>>>> bd51f577e4aa852bf27039bbab4c9d1a685a8e16
     },
     {
       title: "You were mentioned by @john",
       date: "Jul 24",
+<<<<<<< HEAD
       type: "mention"
+=======
+      type: "mention",
+  image: '/images/woman.jpg'
+>>>>>>> bd51f577e4aa852bf27039bbab4c9d1a685a8e16
     },
     {
       title: "New follower: Sarah",
       date: "Jul 23",
+<<<<<<< HEAD
       type: "follow"
+=======
+      type: "follow",
+        image: '/images/woman.jpg'
+>>>>>>> bd51f577e4aa852bf27039bbab4c9d1a685a8e16
     },
     {
       title: "Reminder: Interview with InnoSolutions scheduled",
       date: "Jul 22",
+<<<<<<< HEAD
       type: "all"
+=======
+      type: "all",
+      image: '/images/woman.jpg'
+>>>>>>> bd51f577e4aa852bf27039bbab4c9d1a685a8e16
     },
     {
       title: "Another mention from @maria",
       date: "Jul 21",
+<<<<<<< HEAD
       type: "mention"
     }
   ];
 
+=======
+      type: "mention",
+       image: '/images/woman.jpg'
+    }
+  ];
+
+
+>>>>>>> bd51f577e4aa852bf27039bbab4c9d1a685a8e16
   selectTab(index: number): void {
     this.selectedTab = index;
   }
@@ -56,4 +89,11 @@ export class NotificationsComponent {
     }
     return this.notifications.filter(n => n.type === selectedKey);
   }
+<<<<<<< HEAD
+=======
+
+  deleteNotification(notificationToDelete: any): void {
+    this.notifications = this.notifications.filter(notification => notification !== notificationToDelete);
+  }
+>>>>>>> bd51f577e4aa852bf27039bbab4c9d1a685a8e16
 }

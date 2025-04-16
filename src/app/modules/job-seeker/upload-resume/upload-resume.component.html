@@ -1,39 +1,41 @@
-<div class="container mt-5">
-  <h2 class="text-center">Upload Your Resume</h2>
-  <p class="text-center">
-    To complete your application, please upload your resume. Supported formats: PDF, DOC, DOCX. Maximum file size: 5MB.
-  </p>
+<div class="container min-vh-100 d-flex justify-content-center align-items-center">
+  <div class="w-100" style="max-width: 55rem;">
+    <h2 class="text-center">Upload Your Resume</h2>
+    <p class="text-center">
+      To complete your application, please upload your resume. Supported formats: PDF, DOC, DOCX. Maximum file size: 5MB.
+    </p>
 
-  <div class="upload-area border border-primary p-5 text-center">
-    <input
-      type="file"
-      class="form-control-file d-none"
-      id="fileUpload"
-      (change)="onFileSelected($event)"
-      accept=".pdf,.doc,.docx"
-    />
-    <button class="btn btn-primary mt-3" (click)="browseFile()">Browse File</button>
+    <div class="upload-area border border-primary p-5 text-center">
+      <input
+        type="file"
+        class="form-control-file d-none"
+        id="fileUpload"
+        (change)="onFileSelected($event)"
+        accept=".pdf,.doc,.docx"
+      />
+      <button class="btn btn-primary mt-3" (click)="browseFile()">Browse File</button>
 
-    <div *ngIf="selectedFileName" class="mt-3">
-      <span class="badge bg-info text-dark">{{ selectedFileName }}</span>
+      <div *ngIf="selectedFileName" class="mt-3">
+        <span class="badge bg-info text-dark">{{ selectedFileName }}</span>
+      </div>
     </div>
-  </div>
 
-  <div class="progress mt-4">
-    <div
-      class="progress-bar"
-      role="progressbar"
-      [style.width.%]="uploadProgress"
-      [attr.aria-valuenow]="uploadProgress"
-      aria-valuemin="0"
-      aria-valuemax="100"
-    >
-      {{ uploadProgress }}% Complete
+    <div class="progress mt-4">
+      <div
+        class="progress-bar"
+        role="progressbar"
+        [style.width.%]="uploadProgress"
+        [attr.aria-valuenow]="uploadProgress"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        {{ uploadProgress }}% Complete
+      </div>
     </div>
-  </div>
 
-  <p class="text-center mt-2">Upload Progress: <span id="uploadProgress">{{ uploadProgress }}%</span></p>
-  <p class="text-center">
-    <a href="#">By submitting your resume, you agree to our terms and conditions.</a>
-  </p>
+    <p class="text-center mt-2">Upload Progress: <span id="uploadProgress">{{ uploadProgress }}%</span></p>
+    <p class="text-center">
+      <a href="#">By submitting your resume, you agree to our terms and conditions.</a>
+    </p>
+  </div>
 </div>

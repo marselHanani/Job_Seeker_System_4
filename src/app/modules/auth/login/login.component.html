@@ -1,46 +1,70 @@
+<!-- Main Container with Background Image -->
 <div class="bg-img">
-
-  <form action="" class="m-auto w-30 pt-5">
+  <!-- Login Form with Reactive Form Binding -->
+  <form [formGroup]="LoginForm" (ngSubmit)="printData(LoginForm)" class="m-auto w-40 pt-5 w-80">
+    <!-- Form Header -->
     <div class="d-flex justify-content-between">
       <h3 class="text-dark mb-4">Sign In.</h3>
-
     </div>
-    <a href="register" class="nav-link text-white">Don't have account?</a>
-  <div class="pt-3">
-    <input type="text" class="form-control p-2" placeholder="username">
-  </div>
 
-  <div class="pt-4">
-    <input type="password" class="form-control p-2" placeholder="password">
-  </div>
-  <div class="pt-3 d-flex justify-content-between">
-    <div>
-      <input type="checkbox" name="" id="" value=""> Remember me
+    <!-- Registration Link -->
+    <a href="register" class="nav-link text-primary">Don't have account?</a>
+
+    <!-- Username Input Field -->
+    <div class="pt-3">
+      <input formControlName="username" type="text" class="form-control p-2" placeholder="username">
     </div>
-    <a class="nav-link text-warning">Forget password</a>
-  </div>
-  <p class="m-auto text-center mb-2 mt-3">or</p>
+    <!-- Username Validation Messages -->
+    <div class="alert alert-danger" *ngIf="LoginForm.get('username')?.errors && LoginForm.get('username')?.touched">
+      <span *ngIf="LoginForm.get('username')?.hasError('required')">User name is required</span>
+      <span *ngIf="LoginForm.get('username')?.hasError('minlength')"> the minimum length is 3</span>
+      <span *ngIf="LoginForm.get('username')?.hasError('maxlength')"> the maximum length is 20</span>
+    </div>
 
-  <div id="g_id_onload" class="w-30"
-       data-client_id="1041401952762-nesjnl04bfl9g28gf8aclj3impjhsvno.apps.googleusercontent.com"
-       data-context="signin"
-       data-ux_mode="popup"
-       data-auto_prompt="false">
-  </div>
+    <!-- Password Input Field -->
+    <div class="pt-4">
+      <input formControlName="password" type="password" class="form-control p-2" placeholder="password">
+    </div>
+    <!-- Password Validation Messages -->
+    <div class="alert alert-danger" *ngIf="LoginForm.get('password')?.errors && LoginForm.get('password')?.touched">
+      <span *ngIf="LoginForm.get('password')?.hasError('required')">Password is required</span>
+      <span *ngIf="LoginForm.get('password')?.hasError('pattern')">
+        Password must be at least 8 characters long and include at least one lowercase letter,
+        one uppercase letter, one number, and one special character
+      </span>
+    </div>
 
-  <div class="g_id_signin"
-       data-type="standard"
-       data-shape="rectangular"
-       data-theme="outline"
-       data-text="signin_with"
-       data-size="large"
-       data-logo_alignment="left">
-  </div>
+    <!-- Remember Me and Forget Password Section -->
+    <div class="pt-3 d-flex justify-content-between text-wrap">
+      <div>
+        <input type="checkbox" name="" id="" value=""> Remember me
+      </div>
+      <a class="nav-link text-warning" href="forget-password">Forget password</a>
+    </div>
 
-  <div class="pt-2">
-    <button type="submit" class="btn btn-dark form-control p-2 mt-3">
-     Create Account <i class="fa-solid fa-arrow-right"></i>
-    </button>
-  </div>
+    <!-- Social Login Separator -->
+    <p class="m-auto text-center mb-2 mt-3">or</p>
+
+    <!-- Social Login Buttons Container -->
+    <div class="d-flex justify-content-between gap-2 mt-3">
+      <!-- Google Sign-in Button -->
+      <button class="filter-btn w-50 d-flex align-items-center justify-content-center">
+        <i class="fab fa-google me-2"></i>
+        <span>Google</span>
+      </button>
+
+      <!-- Facebook Login Button -->
+      <button class="filter-btn w-50 d-flex align-items-center justify-content-center" (click)="loginWithFacebook()">
+        <i class="fab fa-facebook-f me-2"></i>
+        <span>Facebook</span>
+      </button>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-2">
+      <button [disabled]="LoginForm.invalid" type="submit" class="login-btn form-control p-2 mt-3">
+       Login at Account <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
   </form>
-  </div>
+</div>

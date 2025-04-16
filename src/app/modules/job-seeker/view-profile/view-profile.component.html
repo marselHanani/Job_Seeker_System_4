@@ -1,6 +1,13 @@
 <div class="container my-4">
-  <h2 class="mb-4">My Profile</h2>
+  <!-- Header with Edit Button -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>My Profile</h2>
+    <button class="btn-gradient" routerLink="/dashboard/edit-profile">
+      <a href="edit-profile" class="nav-link"><i class="fas fa-edit me-2"></i>Edit Profile</a>
+    </button>
+  </div>
 
+  <!-- Rest of the profile content remains the same -->
   <div class="d-flex flex-column flex-md-row align-items-start mb-4">
     <img src="https://cdn.usegalileo.ai/sdxl10/fb503a98-e470-434d-be1b-b5ad9703a166.png" alt="Profile Photo" class="rounded-circle me-md-4 mb-3 mb-md-0" style="width: 120px; height: 120px; object-fit: cover;" />
 
