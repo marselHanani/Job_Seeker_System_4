@@ -1,0 +1,55 @@
+
+h2 {
+  font-weight: bold;
+}
+
+h5 {
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.btn-gradient {
+  background: linear-gradient(135deg, #4a90e2 0%, #ff9a9e 100%);
+  color: white;
+  border: none;
+  padding: 12px 35px;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-gradient:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-gradient i {
+  transition: transform 0.3s ease;
+}
+
+.btn-gradient:hover i {
+  transform: rotate(15deg);
+}
+
+.btn-gradient.btn-secondary {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+}
+
+.btn-gradient.btn-secondary:hover {
+  background: linear-gradient(135deg, #5a6268 0%, #3d4246 100%);
+}
+
+.gap-3 {
+  gap: 1rem;
+}

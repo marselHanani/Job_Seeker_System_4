@@ -1,0 +1,55 @@
+<!-- Remove the toggle button -->
+<!-- <button class="menu-toggle" (click)="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+</button> -->
+<div class="reports-container">
+    <div class="reports-header">
+        <h1>Reports</h1>
+        <div class="header-actions">
+            <div class="search-bar">
+                <input type="text" [(ngModel)]="searchText" (keyup)="searchReports()" placeholder="Search reports...">
+                <button (click)="searchReports()"><i class="fas fa-search"></i></button>
+            </div>
+            <button class="create-report-btn" (click)="createNewReport()">
+                <i class="fas fa-plus"></i> Create New Report
+            </button>
+        </div>
+    </div>
+
+    <div class="reports-filters">
+        <button
+            *ngFor="let type of ['All Reports', 'Monthly', 'Quarterly', 'Annual', 'Custom']"
+            class="filter-btn"
+            [class.active]="selectedFilter === type"
+            (click)="filterReports(type)">
+            {{type}}
+        </button>
+    </div>
+
+    <div class="reports-grid">
+        <div class="report-card" *ngFor="let report of filteredReports">
+            <div class="report-icon">
+                <i class="fas {{report.icon}}"></i>
+            </div>
+            <div class="report-details">
+                <h3>{{report.title}}</h3>
+                <p class="report-description">{{report.description}}</p>
+                <p class="report-date">Last updated: {{report.lastUpdated}}</p>
+            </div>
+            <div class="report-actions">
+                <button class="action-btn" (click)="downloadReport(report.id)" title="Download">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button class="action-btn" (click)="shareReport(report.id)" title="Share">
+                    <i class="fas fa-share"></i>
+                </button>
+                <button class="action-btn" (click)="deleteReport(report.id)" title="Delete">
+                    <i class="fas fa-trash-alt"></i> <!-- Ensure this button is present -->
+                </button>
+                <button class="action-btn" title="More options">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

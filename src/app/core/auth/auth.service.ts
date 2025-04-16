@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class AuthService {
-
-  constructor() { }
+  getUserType(): 'job-seeker' | 'employer' | 'admin' {
+    return localStorage.getItem('userType') as 'job-seeker' | 'employer' | 'admin';
+  }
 }

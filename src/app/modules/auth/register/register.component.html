@@ -1,1 +1,99 @@
-<p>register works!</p>
+<!-- Main Container with Background Image -->
+<div class="bg-img">
+  <!-- Registration Form with Reactive Form Binding -->
+  <form [formGroup]="RegisterForm" (ngSubmit)="printData(RegisterForm)" class="m-auto w-40 pt-5 w-80">
+    <!-- Form Header -->
+    <div class="d-flex justify-content-between">
+      <h3 class="text-dark mb-4">Create Account.</h3>
+      <!-- User Type Dropdown (Currently Disabled) -->
+      <div class="mt-2">
+        <select name="job seeker" disabled class="rounded p-2">
+          <option value="job seeker">Job Seeker</option>
+          <option value="employer">Employer</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Login Link -->
+    <a href="login" class="nav-link text-primary">Already have account?</a>
+
+    <!-- Username Input Field -->
+    <div class="pt-3">
+      <input formControlName="username" type="text" class="form-control p-2" placeholder="username">
+    </div>
+    <!-- Username Validation Messages -->
+    <div class="alert alert-danger" *ngIf="RegisterForm.get('username')?.errors && RegisterForm.get('username')?.touched">
+      <span *ngIf="RegisterForm.get('username')?.hasError('required')">User name is required</span>
+      <span *ngIf="RegisterForm.get('username')?.hasError('minlength')">Username must be at least 3 characters</span>
+      <span *ngIf="RegisterForm.get('username')?.hasError('maxlength')">Username cannot exceed 15 characters</span>
+    </div>
+
+    <!-- Email Input Field -->
+    <div class="pt-4">
+      <input formControlName="email" type="email" class="form-control p-2" placeholder="email">
+    </div>
+    <!-- Email Validation Messages -->
+    <div class="alert alert-danger" *ngIf="RegisterForm.get('email')?.errors && RegisterForm.get('email')?.touched">
+      <span *ngIf="RegisterForm.get('email')?.hasError('required')">Email is required</span>
+      <span *ngIf="RegisterForm.get('email')?.hasError('email')">Please enter a valid email address</span>
+    </div>
+
+    <!-- Password Input Field -->
+    <div class="pt-4">
+      <input formControlName="password" type="password" class="form-control p-2" placeholder="password">
+    </div>
+    <!-- Password Validation Messages -->
+    <div class="alert alert-danger" *ngIf="RegisterForm.get('password')?.errors && RegisterForm.get('password')?.touched">
+      <span *ngIf="RegisterForm.get('password')?.hasError('required')">Password is required</span>
+      <span *ngIf="RegisterForm.get('password')?.hasError('pattern')">
+        Password must be at least 8 characters and include uppercase, lowercase, number and special character
+      </span>
+    </div>
+
+    <!-- Confirm Password Input Field -->
+    <div class="pt-4">
+      <input formControlName="confirmPassword" type="password" class="form-control p-2" placeholder="confirm password">
+    </div>
+    <!-- Confirm Password Validation Messages -->
+    <div class="alert alert-danger" *ngIf="(RegisterForm.get('confirmPassword')?.errors && RegisterForm.get('confirmPassword')?.touched)">
+      <span *ngIf="RegisterForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</span>
+      <span *ngIf="RegisterForm.errors?.['passwordMismatch']">Passwords do not match</span>
+    </div>
+
+    <!-- Terms of Service Agreement -->
+    <div class="pt-3">
+      <input formControlName="rules" type="checkbox" name="" id="" value="">
+      I've read and agree with your <span class="text-warning">Terms of Services</span>
+    </div>
+    <!-- Terms Agreement Validation Message -->
+    <div class="alert alert-danger" *ngIf="RegisterForm.get('rules')?.errors && RegisterForm.get('rules')?.touched">
+      <span *ngIf="RegisterForm.get('rules')?.hasError('required')">You must accept the Terms of Service</span>
+    </div>
+
+    <!-- Social Login Separator -->
+    <p class="m-auto text-center mb-2 mt-3">or</p>
+
+    <!-- Social Registration Options -->
+    <div class="d-flex justify-content-between gap-2 mt-3">
+      <!-- Google Sign-up Button -->
+      <button class="filter-btn w-50 d-flex align-items-center justify-content-center">
+        <i class="fab fa-google me-2"></i>
+        <span>Google</span>
+      </button>
+
+      <!-- Facebook Registration Button -->
+      <button class="filter-btn w-50 d-flex align-items-center justify-content-center" (click)="registerWithFacebook(RegisterForm)">
+        <i class="fab fa-facebook-f me-2"></i>
+        <span>Facebook</span>
+      </button>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-2">
+      <button [disabled]="RegisterForm.invalid" type="submit" class="login-btn form-control p-2 mt-3">
+       Create Account <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </form>
+</div>

@@ -17,4 +17,6 @@ export class NavbarComponent {
     { id: 'jobAlerts', label: 'Job Alerts' },
     { id: 'customerSupports', label: 'Customer Supports' }
   ];
+
 }
+
