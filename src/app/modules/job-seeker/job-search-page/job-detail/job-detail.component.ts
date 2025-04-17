@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { JobService } from '../../modules/job-seeker/job.service';
-import { Job } from '../../modules/job-seeker/job.model'
+import { JobService } from '../../job.service';
+import { Job } from '../../job.model'
 
 @Component({
   selector: 'app-job-detail',

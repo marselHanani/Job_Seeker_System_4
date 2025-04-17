@@ -64,22 +64,30 @@
                 <h5 class="card-title mb-0">{{ job.title }}</h5>
                 <h6 class="text-muted">{{ job.company }}</h6>
               </div>
-
               <div class="text-end">
-                
                 <div class="dropdown">
                   <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-ellipsis-v"></i>
                   </button>
-                  
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                       <button class="dropdown-item" (click)="toggleSave(job)">
-                        {{ job.saved ? '✔ Saved' : '💾 Save' }}
+                        <i class="fas fa-bookmark me-2"></i>
+                        {{ job.saved ? 'Saved' : 'Save' }}
                       </button>
                     </li>
-                    <li><a class="dropdown-item" href="#">🚩 Report</a></li>
-                    <li><a class="dropdown-item" href="#">🔗 Share</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="fas fa-flag me-2"></i>
+                        Report
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="fas fa-share-alt me-2"></i>
+                        Share
+                      </a>
+                    </li>
                   </ul>
                 </div>
                 <span class="badge bg-primary mb-1">{{ job.type }}</span>
@@ -99,7 +107,9 @@
           <div class="card-footer bg-transparent border-top-0">
             <div class="d-flex justify-content-between align-items-center">
               <small class="text-muted">Posted: {{ job.postedDate | date }}</small>
-              <a [routerLink]="['/jobs', job.id]" class="btn btn-outline-primary">View Details</a>
+              <a [routerLink]="['/jobs', job.id]" class="animated-gradient-button">
+                <i class="fas fa-arrow-right me-1"></i> View Details
+              </a>
             </div>
           </div>
         </div>
