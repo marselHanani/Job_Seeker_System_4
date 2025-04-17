@@ -7,6 +7,7 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class AuthService {
   private readonly TOKEN_KEY = 'userToken';
+  private readonly USER_TYPE_KEY = 'userType'; // Add this line
   public tokenSubject: BehaviorSubject<string | null>;
 
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {
@@ -39,10 +40,23 @@ export class AuthService {
   }
 
   getUserType(): 'job-seeker' | 'employer' | 'admin' {
-    if(this.token === 'admin') {
-      return 'admin';
-    }else
-    return 'job-seeker'
+    if (isPlatformBrowser(this.platformId)) {
+      const userType = localStorage.getItem(this.USER_TYPE_KEY);
+      if (userType === 'admin' || userType === 'employer' || userType === 'job-seeker') {
+        return userType;
+      }
+    }
+    return 'job-seeker'; // Default type
+  }
+
+  setUserType(type: 'job-seeker' | 'employer' | 'admin') {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.USER_TYPE_KEY, type);
+    }
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.token;
   }
 
   private getStorageItem(key: string): string | null {

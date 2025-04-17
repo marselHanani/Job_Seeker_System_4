@@ -60,6 +60,17 @@ export class LoginComponent {
 
   printData(formGroup: FormGroup) {
     if (isPlatformBrowser(this.platformId)) {
+      // Check for admin first
+      if (
+        formGroup.value.username === this.adminInfo.username &&
+        formGroup.value.password === this.adminInfo.password
+      ) {
+        this.auth.token = JSON.stringify(this.adminInfo);
+        localStorage.setItem('userType', 'admin');
+        this._Router.navigateByUrl('/dashboard');
+        return;
+      }
+
       const userDataStr = localStorage.getItem(formGroup.value.username + 'Info');
       if (userDataStr) {
         const userData = JSON.parse(userDataStr);
@@ -68,8 +79,19 @@ export class LoginComponent {
           userData.password === formGroup.value.password
         ) {
           this.auth.token = userDataStr;
+
+          // Fix user type checking
+          const username = userData.username.toLowerCase();
+          if (username === 'admin') {
+            localStorage.setItem('userType', 'admin');
+          } else if (username === 'employer') {
+            localStorage.setItem('userType', 'employer');
+          } else {
+            localStorage.setItem('userType', 'job-seeker');
+          }
+
           localStorage.setItem('currentUserImage', userData.image || '');
-          this._Router.navigate(['/dashboard']);
+          this._Router.navigateByUrl('/dashboard');
         } else {
           alert('Invalid username or password');
         }
