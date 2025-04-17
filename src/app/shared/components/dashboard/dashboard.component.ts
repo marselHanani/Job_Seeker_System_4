@@ -47,12 +47,11 @@ export class DashboardComponent implements AfterViewInit {
     const commonItems = [
       { link: '/dashboard', icon: 'fa-th-large', text: 'Dashboard', active: true },
       { link: '/dashboard/messages', icon: 'fa-envelope', text: 'Messages' },
-      { link: '/dashboard/calendar', icon: 'fa-calendar', text: 'Calendar' },
     ];
 
     // Job Seeker Items
     const jobSeekerItems = [
-      { link: '/dashboard/my-applications', icon: 'fa-briefcase', text: 'My Applications' },
+      { link: '/applications', icon: 'fa-briefcase', text: 'My Applications' },
       { link: '/dashboard/saved-jobs', icon: 'fa-bookmark', text: 'Saved Jobs' },
       { link: '/dashboard/view-profile', icon: 'fa-user', text: 'My Profile' },
     ];
@@ -68,7 +67,6 @@ export class DashboardComponent implements AfterViewInit {
     const adminItems = [
       { link: '/dashboard/manage-users', icon: 'fa-users-cog', text: 'Manage Users' },
       { link: '/dashboard/reports', icon: 'fa-chart-bar', text: 'Reports' },
-      { link: '/dashboard/settings', icon: 'fa-cog', text: 'Settings' },
     ];
 
     switch (this.userType) {

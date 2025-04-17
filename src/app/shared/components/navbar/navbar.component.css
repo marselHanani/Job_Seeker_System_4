@@ -9,5 +9,7 @@ a:hover{
 .active{
     color: white;
 }
-
+.bg-d{
+  background-color: rgb(35 52 78);
+}
 

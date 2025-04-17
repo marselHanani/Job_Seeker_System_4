@@ -1,6 +1,9 @@
 import { Component, NgZone, PLATFORM_ID, Inject } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { Route, Router } from '@angular/router';
+import { routes } from '../../../app.routes';
+import { AuthService } from '../../../core/auth/auth.service';
 
 declare const FB: any;
 
@@ -14,7 +17,9 @@ declare const FB: any;
 export class RegisterComponent {
   constructor(
     private ngZone: NgZone,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private _Router: Router,
+    private auth: AuthService
   ) {
     if (isPlatformBrowser(this.platformId)) {
       (window as any)['handleGoogleSignUp'] = (response: any) => {
@@ -42,8 +47,14 @@ export class RegisterComponent {
       rules: new FormControl(false, Validators.requiredTrue)
     },{validators: this.passwordMatchValidator});
 
-    printData(formGroup:FormGroup){
-      console.log(formGroup.value);
+    SaveData(formGroup:FormGroup){
+      // Save user data in localStorage with username as key
+      const userData = JSON.stringify(formGroup.value);
+      localStorage.setItem(formGroup.value.username + 'Info', userData);
+      // Optionally, you can store the last registered username for easier login
+      localStorage.setItem('lastRegisteredUser', formGroup.value.username);
+      formGroup.reset();
+      this._Router.navigate(['/login']);
     }
 
 

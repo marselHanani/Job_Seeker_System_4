@@ -1,6 +1,8 @@
 import { Component, Inject, NgZone, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../core/auth/auth.service';
 
 declare const FB: any;
 
@@ -14,7 +16,9 @@ declare const FB: any;
 export class LoginComponent {
   constructor(
     private ngZone: NgZone,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private _Router: Router,
+    private auth: AuthService
   ) {
     if (isPlatformBrowser(this.platformId)) {
       (window as any)['handleGoogleSignIn'] = (response: any) => {
@@ -48,9 +52,31 @@ export class LoginComponent {
     username : new FormControl(null,[Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     password: new FormControl(null,[Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$#%^&+=!])(?=\\S+$).{8,}$'),Validators.required])
   })
+  adminInfo = {
+    username: "marsel",
+    email : "marsel@gmail.com",
+    password:"Marsel@123"
+  }
 
-  printData(formGroup:FormGroup){
-    console.log(formGroup.value);
+  printData(formGroup: FormGroup) {
+    if (isPlatformBrowser(this.platformId)) {
+      const userDataStr = localStorage.getItem(formGroup.value.username + 'Info');
+      if (userDataStr) {
+        const userData = JSON.parse(userDataStr);
+        if (
+          userData.username === formGroup.value.username &&
+          userData.password === formGroup.value.password
+        ) {
+          this.auth.token = userDataStr;
+          localStorage.setItem('currentUserImage', userData.image || '');
+          this._Router.navigate(['/dashboard']);
+        } else {
+          alert('Invalid username or password');
+        }
+      } else {
+        alert('User not found');
+      }
+    }
   }
   loginWithFacebook() {
     FB.login((response: any) => {
@@ -61,4 +87,6 @@ export class LoginComponent {
       }
     });
   }
+
+
 }
