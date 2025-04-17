@@ -10,7 +10,6 @@ import { Job, JobApplication } from '../job-seeker/job.model';
 
 
 export class JobService {
-  // Add at the top of JobService
 private applications: JobApplication[] = [
   {
     id: '1',
@@ -41,7 +40,6 @@ private applications: JobApplication[] = [
   }
 ];
 
-// Add this method to JobService
 getApplicationsByUser(userId: string): Observable<JobApplication[]> {
   const userApps = this.applications.filter(app => app.userId === userId);
   return of(userApps);
@@ -230,21 +228,18 @@ private jobs: Job[] = [
   }
 ];
 
-
+// all of these would work when there is a real database./.\./.\.
   constructor(private http: HttpClient) { }
 
   getJobs(): Observable<Job[]> {
-    // In a real app, this would be an HTTP call
     return of(this.jobs);
   }
 
   getJobById(id: string): Observable<Job | undefined> {
-    // In a real app, this would be an HTTP call
     return of(this.jobs.find(job => job.id === id));
   }
 
   searchJobs(query: string): Observable<Job[]> {
-    // In a real app, this would be an HTTP call
     const lowercaseQuery = query.toLowerCase();
     const filteredJobs = this.jobs.filter(job => 
       job.title.toLowerCase().includes(lowercaseQuery) ||
@@ -256,7 +251,6 @@ private jobs: Job[] = [
   }
 
   addJob(job: Omit<Job, 'id'>): Observable<Job> {
-    // In a real app, this would be an HTTP call
     const newJob: Job = {
       ...job,
       id: (this.jobs.length + 1).toString()

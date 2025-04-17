@@ -21,9 +21,25 @@
   }
   
   .search-box .btn-primary {
-    border-radius: 8px;
+    display: inline-block;
+    width: 100%;
+    padding: 10px 15px;
+    color: #fff;
     background: linear-gradient(135deg, #4a90e2, #ff9a9e);
+    background-size: 200% 200%;
+    background-position: left;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
     border: none;
+    transition: background-position 0.5s ease, opacity 0.3s ease;
+  }
+  .search-box .btn-primary:hover {
+    background-position: right;
+    opacity: 0.95;
+    text-decoration: none;
   }
   
   .search-box .btn-primary i {
@@ -66,9 +82,9 @@
   .dropdown .btn-light {
     border: none;
     background: #f1f1f1;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    border-radius: 40%;
+    width: 24px;
+    height: 30px;
     padding: 0;
   }
   
@@ -97,5 +113,26 @@
       margin-bottom: 10px;
     }
   }
+  .animated-gradient-button {
+    display: inline-block;
+    width: 50%;
+    padding: 10px 15px;
+    color: #fff;
+    background: linear-gradient(135deg, #4a90e2, #ff9a9e);
+    background-size: 200% 200%;
+    background-position: left;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    transition: background-position 0.5s ease, opacity 0.3s ease;
+  }
   
+  .animated-gradient-button:hover {
+    background-position: right;
+    opacity: 0.95;
+    text-decoration: none;
+  }
 
