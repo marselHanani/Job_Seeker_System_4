@@ -52,7 +52,7 @@ export class DashboardComponent implements AfterViewInit {
 
     // Job Seeker Items
     const jobSeekerItems = [
-      { link: '/dashboard/my-applications', icon: 'fa-briefcase', text: 'My Applications' },
+      { link: '/applications', icon: 'fa-briefcase', text: 'My Applications' },
       { link: '/dashboard/saved-jobs', icon: 'fa-bookmark', text: 'Saved Jobs' },
       { link: '/dashboard/view-profile', icon: 'fa-user', text: 'My Profile' },
     ];
@@ -66,7 +66,7 @@ export class DashboardComponent implements AfterViewInit {
 
     // Admin Items
     const adminItems = [
-      { link: '/dashboard/manage-users', icon: 'fa-users-cog', text: 'Manage Users' },
+      { link: '/users', icon: 'fa-users-cog', text: 'Manage Users' },
       { link: '/dashboard/reports', icon: 'fa-chart-bar', text: 'Reports' },
       { link: '/dashboard/settings', icon: 'fa-cog', text: 'Settings' },
     ];
