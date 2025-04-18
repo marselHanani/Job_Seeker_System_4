@@ -57,7 +57,7 @@ export class DashboardComponent implements AfterViewInit {
       ...commonItems,  // Admin sees everything
       ...jobSeekerItems,
       ...employerItems,
-      { link: '/dashboard/manage-users', icon: 'fa-users-cog', text: 'Manage Users' },
+      { link: '/users', icon: 'fa-users-cog', text: 'Manage Users' },
       { link: '/dashboard/reports', icon: 'fa-chart-bar', text: 'Reports' },
       { link: '/dashboard/settings', icon: 'fa-cog', text: 'System Settings' },
     ];
