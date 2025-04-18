@@ -8,14 +8,28 @@
 
 .sidebar {
   width: 200px;
-  height: 100%;
-  background: white;
-  padding: 15px;
+  height: 100vh;
+  background: #ffffff;
+  padding: 20px 15px;
   margin-top: 64px;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 100;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d1d1d1 transparent;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: #d1d1d1;
+  border-radius: 10px;
 }
 
 .sidebar-menu {
@@ -25,32 +39,34 @@
 }
 
 .sidebar-menu li {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .sidebar-menu a {
   display: flex;
   align-items: center;
   padding: 12px 15px;
-  color: #666;
+  color: #444;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 10px;
   transition: all 0.3s ease;
-  margin: 4px 0;
   position: relative;
-  overflow: hidden;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .sidebar-menu a:hover {
-  background: #f8f9fa;
-  color: #2196f3;
-  transform: translateX(5px);
+  background: #f0f4f8;
+  color: #1976d2;
+  transform: translateX(6px);
+  box-shadow: inset 2px 0 0 #1976d2;
 }
 
 .sidebar-menu a.active {
   background: #e3f2fd;
-  color: #2196f3;
-  font-weight: 500;
+  color: #1976d2;
+  font-weight: 600;
+  box-shadow: inset 4px 0 0 #1976d2;
 }
 
 .sidebar-menu a.active::before {
@@ -60,7 +76,7 @@
   top: 0;
   height: 100%;
   width: 4px;
-  background: #2196f3;
+  background: #1976d2;
   border-radius: 0 2px 2px 0;
 }
 
@@ -70,6 +86,7 @@
   text-align: center;
   font-size: 18px;
   transition: transform 0.3s ease;
+  color: inherit;
 }
 
 .sidebar-menu a:hover i {

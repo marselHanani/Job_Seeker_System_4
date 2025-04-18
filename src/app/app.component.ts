@@ -9,7 +9,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, FooterComponent,EditProfileComponent,UploadResumeComponent,ViewProfileComponent, NotificationsComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent,EditProfileComponent,UploadResumeComponent,ViewProfileComponent,NotificationsComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
