@@ -13,16 +13,21 @@ import { DashboardComponent } from './shared/components/dashboard/dashboard.comp
 import { ReportsComponent } from './modules/job-seeker/reports/reports.component';
 import { EditProfileComponent } from './modules/job-seeker/edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './modules/job-seeker/view-profile/view-profile.component';
-import { NotificationsComponent } from './notifications/notifications.component';
+import { NotificationsComponent } from './shared/components/notifications/notifications.component';
 import { UploadResumeComponent } from './modules/job-seeker/upload-resume/upload-resume.component';
 import { UserListPageComponent } from './modules/admin/user-list-page/user-list-page.component';
 
 import { authGuard } from './core/auth/auth.guard';
+import { AboutComponent } from './modules/public/about/about.component';
+import { ContactComponent } from './modules/public/contact/contact.component';
+import { JobAlertsComponent } from './modules/job-seeker/job-alerts/job-alerts.component';
 
 
 export const routes: Routes = [
   {path: 'home', component:HomeComponent, title:'Home'},
   {path:'', redirectTo:'home', pathMatch:'full'},
+  {path:'about', component:AboutComponent, title:'About'},
+  {path:'contact', component:ContactComponent, title:'Contact'},
   {path:'register',component:RegisterComponent, title:'Register'},
   {path:'login',component:LoginComponent, title:'Login'},
   {path:'forget-password',component:ForgetPasswordComponent, title:'Forget Password'},
@@ -39,6 +44,8 @@ export const routes: Routes = [
   {path:'notifications',component:NotificationsComponent, title:'notifications'},
   {path:'upload-Resume',component:UploadResumeComponent, title:'Upload-Resume'},
   {path:'view-profile',component:ViewProfileComponent, title:'view-profile'},
+  {path:'job-alerts',component:JobAlertsComponent, title:'job-alert'},
   {path:'notfound', component:NotfoundComponent, title:'Not Found'},
-  {path:'**', redirectTo:'notfound', pathMatch:'full'}
+  {path:'**', redirectTo:'notfound', pathMatch:'full'},
+
 ];

@@ -8,7 +8,7 @@
 
 .sidebar {
   width: 200px;
-  height: 100vh;
+  height: calc(100vh - 64px);
   background: #ffffff;
   padding: 20px 15px;
   margin-top: 64px;
@@ -19,8 +19,23 @@
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
   overflow-y: auto;
+  overflow-x: hidden;
   scrollbar-width: thin;
   scrollbar-color: #d1d1d1 transparent;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.sidebar-menu a {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .sidebar::-webkit-scrollbar {

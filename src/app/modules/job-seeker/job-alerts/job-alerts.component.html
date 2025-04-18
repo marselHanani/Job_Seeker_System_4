@@ -1,0 +1,90 @@
+<div class="job-alerts-container">
+  <!-- Header Section -->
+  <div class="alerts-header">
+    <h2>Job Alerts</h2>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createAlertModal">
+      <i class="fas fa-plus"></i> Create Alert
+    </button>
+  </div>
+
+  <!-- Alerts List -->
+  <div class="alerts-list">
+    <div class="alert-card" *ngFor="let alert of alerts">
+      <div class="alert-info">
+        <h4>{{alert.title}}</h4>
+        <p class="location"><i class="fas fa-map-marker-alt"></i> {{alert.location}}</p>
+        <div class="keywords">
+          <span class="keyword-tag" *ngFor="let keyword of alert.keywords">{{keyword}}</span>
+        </div>
+      </div>
+      <div class="alert-actions">
+        <span class="frequency-badge">{{alert.frequency}}</span>
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" [checked]="alert.isActive"
+                 (change)="toggleAlert(alert.id)">
+        </div>
+        <button class="btn btn-danger btn-sm" (click)="deleteAlert(alert.id)">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Alert Modal -->
+  <div class="modal fade" id="createAlertModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create Job Alert</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form #alertForm="ngForm">
+            <div class="mb-3">
+              <label class="form-label">Job Title</label>
+              <input type="text"
+                     class="form-control"
+                     [(ngModel)]="newAlert.title"
+                     name="title"
+                     placeholder="e.g. Software Developer"
+                     required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Location</label>
+              <input type="text"
+                     class="form-control"
+                     [(ngModel)]="newAlert.location"
+                     name="location"
+                     placeholder="e.g. Nablus"
+                     required>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Keywords</label>
+              <input type="text"
+                     class="form-control"
+                     [(ngModel)]="newAlert.keywords"
+                     name="keywords"
+                     placeholder="e.g. Angular, React (comma separated)">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Alert Frequency</label>
+              <select class="form-select"
+                      [(ngModel)]="newAlert.frequency"
+                      name="frequency">
+                <option *ngFor="let freq of frequencies" [value]="freq">{{freq}}</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button"
+                  class="btn btn-primary"
+                  (click)="createAlert()"
+                  [disabled]="!alertForm.form.valid">Create Alert</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

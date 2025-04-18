@@ -18,8 +18,10 @@ export class NavbarComponent implements OnInit {
     { id: 'jobs', label: 'Find Job', authorized: true },
     { id: 'findEmployers', label: 'Find Employers', authorized: false },
     { id: 'dashboard', label: 'Dashboard', authorized: false },
-    { id: 'jobAlerts', label: 'Job Alerts', authorized: true },
-    { id: 'customerSupports', label: 'Customer Supports', authorized: true }
+    { id: 'job-alerts', label: 'Job Alerts', authorized: true },
+    { id: 'contact', label: 'Customer Supports', authorized: true },
+    { id: 'about', label: 'About Us', authorized: true },
+
   ];
 
   constructor(public auth: AuthService, private router: Router) {}
