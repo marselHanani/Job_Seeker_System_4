@@ -1,154 +1,126 @@
-.stats-card {
-    border-radius: 15px;
-    transition: 0.3s ease;
-    background: linear-gradient(145deg, #f4f4f4, #ffffff);
+h2 {
+  color: #333; 
+  font-size: 1.8rem;
+}
+
+.custom-bg-color {
+  background-color: #fff; 
+}
+
+.employer-card {
+  background-color: #fff; 
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.employer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  border-radius: 25px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0a74da; 
+  color: white;
+}
+
+.btn-outline-danger:hover {
+  background-color: #f44336; 
+  color: white;
+}
+
+.company-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+a {
+  color: #0a74da; 
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  border-radius: 25px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0a74da;
+  color: white;
+}
+
+.btn-outline-danger:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .employer-card {
+    margin-bottom: 20px;
   }
   
-  .stats-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  /* Adjust the card and buttons for smaller screens */
+  h2 {
+    font-size: 1.5rem;
   }
-  
-  .icon-box {
+
+  .employer-card {
+    padding: 15px;
+  }
+
+  button {
+    font-size: 0.85rem;
+  }
+
+  /* Adjust layout for smaller screens */
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .col-md-6 {
+    width: 100%;
+  }
+
+  .company-logo {
     width: 50px;
     height: 50px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
-  
-  .table thead {
-    background-color: #fcbf49;
-    color: #000;
-  }
-  
-  .table tbody tr {
-    transition: background 0.2s ease;
-  }
-  
-  .table tbody tr:hover {
-    background-color: #f1f1f1;
-  }
-  
-  button.btn-success {
-    background-color: #80ed99;
-    border: none;
-  }
-  
-  button.btn-danger {
-    background-color: #ff6b6b;
-    border: none;
-  }
-  
-  button.btn-success:hover {
-    background-color: #57cc99;
-  }
-  
-  button.btn-danger:hover {
-    background-color: #ff4d4d;
-  }
-  
-  .badge.bg-success {
-    background-color: #80ed99 !important;
-    color: #000 !important;
-  }
-  
-  .badge.bg-danger {
-    background-color: #ff6b6b !important;
-  }
-  
-  .badge.bg-warning {
-    background-color: #fcbf49 !important;
-    color: #000 !important;
-  }
-  
-  .status-badge i {
-    margin-right: 5px;
-  }
-  
-  table img {
-    object-fit: cover;
-  }
-  
-  .transition-row {
-    animation: fadeIn 0.4s ease;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.97);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
+}
 
-  .view-more-btn {
-    border-radius: 25px;
-    padding: 8px 25px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-  }
-  
-  .view-more-btn:hover {
-    background-color: #4361ee;
-    color: #fff;
-    border-color: #4361ee;
+@media (max-width: 480px) {
+  /* Mobile adjustments */
+  h2 {
+    font-size: 1.3rem;
   }
 
+  .company-logo {
+    width: 40px;
+    height: 40px;
+  }
 
-  @media (max-width: 768px) {
-    .stats-card {
-      margin-bottom: 1rem;
-    }
-  
-    .icon-box {
-      width: 40px;
-      height: 40px;
-    }
-  
-    .view-more-btn {
-      width: 100%;
-      font-size: 16px;
-    }
-  
-    td.d-flex.align-items-center {
-      flex-direction: row;
-      align-items: center;
-      gap: 10px;
-    }
-  
-    td img {
-      width: 35px;
-      height: 35px;
-    }
-  
-    table {
-      font-size: 14px;
-    }
+  .employer-card {
+    padding: 10px;
   }
-  
-  @media (max-width: 576px) {
-    h2 {
-      font-size: 22px;
-    }
-  
-    .card-body p,
-    .card-body h3 {
-      font-size: 14px;
-    }
-  
-    .icon-box i {
-      font-size: 18px;
-    }
-  
-    .view-more-btn {
-      font-size: 14px;
-      padding: 6px 20px;
-    }
+
+  button {
+    font-size: 0.8rem;
   }
-  
+}

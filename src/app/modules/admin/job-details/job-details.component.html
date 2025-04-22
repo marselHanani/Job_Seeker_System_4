@@ -1,66 +1,50 @@
-<div class="container mt-5">
-    <div class="row">
-      <div class="col-md-4 mb-4" *ngFor="let job of getDisplayedJobs()">
-        <div class="card shadow-sm rounded border-0 h-100">
-          <div class="card-body">
-            <span class="badge" [ngClass]="job.jobType === 'PART-TIME' ? 'bg-success' : 'bg-primary'">{{ job.jobType }}</span>
-            <p class="text-muted small mb-2">Salary: ${{ job.salaryMin }} - ${{ job.salaryMax }}</p>
-  
-            <div class="d-flex align-items-center mb-3">
-              <img [src]="job.companyLogo" alt="Company Logo" width="30" height="30" class="me-2" />
-              <div>
-                <p class="mb-0 fw-medium">{{ job.companyName }}</p>
-                <small class="text-muted">📍 {{ job.location }}</small>
-              </div>
-              <div class="ms-auto">
-                <i class="bi" [ngClass]="job.saved ? 'bi-bookmark-fill text-primary' : 'bi-bookmark'" (click)="saveJob(job)"></i>
-              </div>
-            </div>
-  
-            <p class="fw-semibold mb-1">Requirements:</p>
-            <ul class="ps-3 mb-3 small">
-              <li *ngFor="let requirement of job.requirements">{{ requirement }}</li>
-            </ul>
-  
-            <p class="fw-semibold mb-1">Skills:</p>
-            <p class="mb-3 small">{{ job.skills.join(', ') }}</p>
-  
-            <button class="btn btn-link text-decoration-none" (click)="toggleJobDetails(job)">
-              <strong>{{ job.showDetails ? 'Hide Details' : 'View Details' }}</strong>
-            </button>
-  
-            <div *ngIf="job.showDetails" class="mt-3">
-              <p><strong>Full Description:</strong> {{ job.fullDescription }}</p>
-              <p><strong>Posted On:</strong> {{ job.postedOn }}</p>
-              <p><strong>Application Deadline:</strong> {{ job.applicationDeadline }}</p>
-            </div>
-  
-            <div class="d-flex justify-content-end mt-3">
-              <button class="btn btn-primary btn-sm me-2" (click)="editJob(job)">Edit</button>
-              <button class="btn btn-danger btn-sm" (click)="deleteJob(job)">Delete</button>
-            </div>
+<div class="job-details-page">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h3>Job Details: {{ job.title }}</h3>
+      </div>
+      <div class="card-body">
+        <p class="job-details-header">Description:</p>
+        <p>{{ job.description }}</p>
+
+        <p class="job-details-header">Company:</p>
+        <p>{{ job.company }}</p>
+
+        <p class="job-details-header">Location:</p>
+        <p>{{ job.location }}</p>
+
+        <p class="job-details-header">Salary:</p>
+        <p>{{ job.salary }}</p>
+
+        <p class="job-details-header">Requirements:</p>
+        <ul>
+          <li *ngFor="let requirement of job.requirements">{{ requirement }}</li>
+        </ul>
+
+        <p class="job-details-header">Dates:</p>
+        <p>Posted on: {{ job.publishDate }}</p>
+        <p>Application Deadline: {{ job.deadline }}</p>
+
+        <div class="job-actions">
+         
+          <button class="btn-custom" (click)="editJob(job.id)">Edit</button>
+          <button class="btn-custom" (click)="deleteJob(job.id)">Delete</button>
+          <button class="btn-custom" (click)="toggleApplicants()">View Applicants</button>
+        </div>
+
+        <!-- Applicants List -->
+        <div *ngIf="showApplicants" class="applicants-list">
+          <h4>Applicants for {{ job.title }}</h4>
+          <div *ngFor="let applicant of job.applicants" class="applicant">
+            <p><strong>Name:</strong> {{ applicant.name }}</p>
+            <p><strong>Email:</strong> <a href="mailto:{{ applicant.email }}">{{ applicant.email }}</a></p>
+            <p><strong>Status:</strong> {{ applicant.status }}</p>
+            <p><strong>Resume:</strong> <a href="{{ applicant.resumeLink }}" target="_blank">View Resume</a></p>
+            <hr>
           </div>
         </div>
       </div>
     </div>
-  
-    <!-- Pagination -->
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        <li class="page-item" [class.disabled]="currentPage === 1">
-          <a class="page-link" (click)="changePage(currentPage - 1)" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item" [class.active]="currentPage === (i + 1)">
-          <a class="page-link" (click)="changePage(i + 1)" href="#">{{ i + 1 }}</a>
-        </li>
-        <li class="page-item" [class.disabled]="currentPage === totalPages">
-          <a class="page-link" (click)="changePage(currentPage + 1)" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
   </div>
-  
+</div>

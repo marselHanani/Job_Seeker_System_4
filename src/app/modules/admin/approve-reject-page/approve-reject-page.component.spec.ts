@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApproveRejectPageComponent } from './approve-reject-page.component';
+import { ApproveRejectEmployersComponent } from './approve-reject-page.component';
 
 describe('ApproveRejectPageComponent', () => {
-  let component: ApproveRejectPageComponent;
-  let fixture: ComponentFixture<ApproveRejectPageComponent>;
+  let component: ApproveRejectEmployersComponent;
+  let fixture: ComponentFixture<ApproveRejectEmployersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ApproveRejectPageComponent]
+      imports: [ApproveRejectEmployersComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ApproveRejectPageComponent);
+    fixture = TestBed.createComponent(ApproveRejectEmployersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

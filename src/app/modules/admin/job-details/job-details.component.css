@@ -1,130 +1,105 @@
-/* تأثير عند التمرير على الكارد */
-.card {
-    background-color: #ffffff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 10px;
-    overflow: hidden;
-}
 
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* تنسيق النماذج و التفاصيل */
-.job-details-modal {
-    background-color: #f7f7f7;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 20px;
-}
-
-/* تنسيق الأزرار */
-.btn-info {
-    background-color: #17a2b8;
-    border-color: #17a2b8;
+body {
+    background-color: #0a74da;
     color: white;
-}
-
-.btn-info:hover {
-    background-color: #138496;
-    border-color: #117a8b;
-}
-
-/* تنسيق عناصر التصفح (pagination) */
-.pagination .page-link {
-    color: #007bff;
-}
-
-.pagination .page-link:hover {
-    color: #0056b3;
-}
-
-.page-item.disabled .page-link {
-    color: #6c757d;
-}
-
-/* تحسين تصميم الأيقونات */
-.card .bi {
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-.card .bi:hover {
-    color: #007bff;
-}
-
-/* تحسين تناسق الألوان للأزرار المختلفة */
-.btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
-.btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
-
-.btn-danger:hover {
-    background-color: #c82333;
-    border-color: #c82333;
-}
-
-/* استايلات للمحتوى الكامل المتجاوب */
-@media (max-width: 1200px) {
-    .card {
-        margin-bottom: 15px;
-    }
-}
-
-@media (max-width: 992px) {
-    .col-md-4 {
-        flex: 0 0 48%;
-        max-width: 48%;
-    }
-}
-
-@media (max-width: 768px) {
-    .col-md-4 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
-
-    .pagination {
-        justify-content: center;
-    }
-}
-
-/* تعديل خاص لتحديد الألوان عند الحفظ */
-.saved-icon {
-    color: #007bff;
-}
-
-.saved-icon.saved {
-    color: #28a745;
-}
-
-/* تحسين عرض الجدول أو العناصر على الشاشات الصغيرة */
-@media (max-width: 576px) {
-    .card-body {
-        padding: 10px;
-    }
-
-    .pagination {
-        font-size: 0.8rem;
-    }
-
-    .card img {
-        width: 25px;
-        height: 25px;
-    }
-
-    .card .fw-medium {
-        font-size: 0.9rem;
-    }
+  }
+  
+  .job-details-page {
+    padding: 20px;
+    background-color: #f7f7f7; 
+    border-radius: 8px;
+  }
+  
+  .job-details-header {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    color: #2196f3; 
+  }
+  
+ 
+  .job-details-page .card {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .job-details-page .card-header h3 {
+    color: #0a74da; 
+  }
+  
+  .job-details-page .card-body {
+    padding: 20px;
+  }
+  
+  .job-actions button {
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #2196f3;
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .job-actions button:hover {
+    background-color: #1976d2;
+  }
+  
+ 
+  .applicants-list {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+  }
+  
+  .applicant {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .applicant a {
+    color: #2196f3;
+    text-decoration: none;
+  }
+  
+  .applicant a:hover {
+    text-decoration: underline;
+  }
+  
+ 
+  button {
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background-color: #2196f3;
+    border: none;
+    color: white;
+  }
+  
+  button:hover {
+    background-color: #1976d2; 
+  
+  .btn-outline-primary {
+    border-color: #2196f3;
+    color: #2196f3;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+ 
+  hr {
+    border: 1px solid #ddd;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
 }

@@ -1,79 +1,55 @@
-<div class="container py-4">
-    <div class="mb-4 text-center">
-      <h2 class="fw-bold fs-2">Manage Job Listings</h2>
-      <p class="text-muted">View, edit, or remove active job listings</p>
+<div class="container-fluid">
+  <div class="row mt-4">
+    <!-- Sidebar Filter -->
+    <div class="col-md-3">
+      <h5>Filters</h5>
+      <input type="number" [(ngModel)]="minSalary" class="form-control mb-2" placeholder="Min Salary">
+      <input type="number" [(ngModel)]="maxSalary" class="form-control mb-2" placeholder="Max Salary">
+      <select [(ngModel)]="selectedJobType" class="form-control mb-2">
+        <option value="All">All Job Types</option>
+        <option>Full-time</option>
+        <option>Part-time</option>
+        <option>Contract</option>
+      </select>
+      <select [(ngModel)]="selectedWorkMode" class="form-control mb-2">
+        <option value="All">All Work Modes</option>
+        <option>On-site</option>
+        <option>Remote</option>
+        <option>Hybrid</option>
+      </select>
+      <button class="btn btn-primary w-100" (click)="applyFilters()">Apply Filters</button>
+      <button class="btn btn-secondary w-100 mt-2" (click)="clearFilters()">Clear Filters</button>
     </div>
-  
-    <div class="row">
-      <!-- Filter Sidebar -->
-      <div class="col-lg-3 mb-4">
-        <div class="card p-3 shadow-sm filter-card">
-          <h6 class="mb-2">Salary Range</h6>
-          <div class="d-flex gap-2 mb-3">
-            <input type="number" class="form-control" placeholder="Min" />
-            <input type="number" class="form-control" placeholder="Max" />
-          </div>
-  
-          <h6 class="mb-2">Job Type</h6>
-          <div class="form-check" *ngFor="let type of jobTypes">
-            <input class="form-check-input" type="checkbox" [id]="type" />
-            <label class="form-check-label" [for]="type">{{ type }}</label>
-          </div>
-  
-          <h6 class="mt-3 mb-2">Work Mode</h6>
-          <div class="form-check" *ngFor="let mode of workModes">
-            <input class="form-check-input" type="checkbox" [id]="mode" />
-            <label class="form-check-label" [for]="mode">{{ mode }}</label>
-          </div>
-  
-          <h6 class="mt-3 mb-2">Job Functions</h6>
-          <div class="form-check" *ngFor="let func of jobFunctions">
-            <input class="form-check-input" type="checkbox" [id]="func" />
-            <label class="form-check-label" [for]="func">{{ func }}</label>
-          </div>
-  
-          <button class="btn btn-outline-secondary mt-3 w-100">Expand All</button>
-        </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <h2>Manage Job Listings</h2>
+      <div class="input-group mb-4">
+        <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Search by job title">
+        <button class="btn btn-outline-secondary" type="button">Search</button>
+        <button class="btn btn-success ms-2" (click)="addNewJob()">+ Add New Job</button>
       </div>
-  
-      <!-- Job Listings -->
-      <div class="col-lg-9">
-        <div class="row">
-          <div class="col-md-6 mb-4" *ngFor="let job of filteredJobs">
-            <div class="card h-100 shadow-sm position-relative job-card">
-              <button class="btn btn-outline-primary position-absolute top-0 end-0 m-2 btn-sm rounded-circle">
-                <i class="bi bi-bookmark"></i>
-              </button>
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <img [src]="job.companyLogo" alt="Company Logo" class="company-logo me-3" />
-                  <h5 class="fw-semibold">{{ job.title }}</h5>
-                </div>
-                <p class="text-muted mb-1">{{ job.type }} | {{ job.salary }} USD</p>
-                <p class="mb-1"><strong>{{ job.company }}</strong></p>
-                <p class="text-muted mb-2">{{ job.location }}</p>
-                <p class="mb-1">Posted on: {{ job.datePosted | date }}</p>
-  
-                <div class="d-flex justify-content-between mt-3">
-                  <button class="btn btn-outline-secondary btn-sm">View Details</button>
-                  <button class="btn btn-primary btn-sm">Edit</button>
-                </div>
-              </div>
+
+      <!-- Job Cards Grid -->
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col" *ngFor="let job of filteredJobs">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ job.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
+              <p class="mb-1"><strong>Type:</strong> {{ job.jobType }}</p>
+              <p class="mb-1"><strong>Work Mode:</strong> {{ job.workMode }}</p>
+              <p class="mb-1"><strong>Salary:</strong> ${{ job.salary }}</p>
+              <p class="card-text text-muted">{{ job.description }}</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+              <button class="btn btn-info btn-sm" (click)="viewDetails(job.id)">View</button>
+              <button class="btn btn-warning btn-sm" (click)="editJob(job.id)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteJob(job.id)">Delete</button>
             </div>
           </div>
         </div>
-  
-        <!-- Pagination -->
-        <nav class="d-flex justify-content-center mt-4">
-          <ul class="pagination pagination-rounded">
-            <li class="page-item disabled"><a class="page-link">Previous</a></li>
-            <li class="page-item active"><a class="page-link">1</a></li>
-            <li class="page-item"><a class="page-link">2</a></li>
-            <li class="page-item"><a class="page-link">3</a></li>
-            <li class="page-item"><a class="page-link">Next</a></li>
-          </ul>
-        </nav>
       </div>
     </div>
   </div>
-  
+</div>

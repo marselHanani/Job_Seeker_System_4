@@ -1,128 +1,168 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf, } from '@angular/common';
-
 
 @Component({
   selector: 'app-job-listings',
   templateUrl: './job-listing.component.html',
   styleUrls: ['./job-listing.component.css'],
   standalone: true,
-  imports: [CommonModule,FormsModule,NgFor,NgIf]
+  imports: [CommonModule, FormsModule]
 })
-export class JobListingComponent {
-  searchQuery = '';
-  selectedTypes: string[] = [];
-  selectedModes: string[] = [];
-  selectedFunctions: string[] = [];
+export class JobListingsComponent {
+  searchText: string = '';
+  
+  
   minSalary: number | null = null;
   maxSalary: number | null = null;
-  expandedCardIndex: number | null = null;
-
-  jobTypes = ['Full-time', 'Part-time', 'Internship', 'Contract'];
-  workModes = ['On-site', 'Remote', 'Hybrid'];
-  jobFunctions = ['Marketing', 'Engineering', 'Design', 'Sales', 'Customer Service'];
-
+  selectedJobType: string = 'All';
+  selectedWorkMode: string = 'All';
+  
   jobs = [
     {
-      title: 'UI/UX Designer',
-      type: 'Full-time',
-      salary: 3000,
-      company: 'TechCorp',
-      companyLogo: 'assets/techcorp-logo.png',
-      location: 'New York, USA',
-      datePosted: '2025-04-10',
+      id: 1,
+      title: 'Software Developer',
+      company: 'ABC Corp',
+      jobType: 'Full-time',
       workMode: 'On-site',
-      function: 'Design',
-      description: 'Design and improve user interfaces and experiences for our web platform.'
-    },
-    {
-      title: 'Backend Developer',
-      type: 'Part-time',
-      salary: 2000,
-      company: 'CodeBase',
-      companyLogo: 'assets/codebase-logo.png',
-      location: 'Remote',
-      datePosted: '2025-04-11',
-      workMode: 'Remote',
-      function: 'Engineering',
-      description: 'Maintain and develop server-side logic, database integration, and APIs.'
-    },
-    {
-      title: 'Full-stack Developer',
-      type: 'Full-time',
-      salary: 5000,
-      company: 'DevWorks',
-      companyLogo: 'assets/devworks-logo.png',
-      location: 'San Francisco, USA',
-      datePosted: '2025-04-12',
-      workMode: 'Hybrid',
-      function: 'Engineering',
-      description: 'Develop both client and server-side applications and ensure seamless integration.'
-    },
-    {
-      title: 'Marketing Specialist',
-      type: 'Part-time',
-      salary: 2500,
-      company: 'MarketPro',
-      companyLogo: 'assets/marketpro-logo.png',
-      location: 'London, UK',
-      datePosted: '2025-04-15',
-      workMode: 'On-site',
-      function: 'Marketing',
-      description: 'Plan and execute marketing campaigns to increase brand awareness.'
-    },
-    {
-      title: 'Data Scientist',
-      type: 'Full-time',
       salary: 6000,
-      company: 'DataMinds',
-      companyLogo: 'assets/dataminds-logo.png',
-      location: 'Toronto, Canada',
-      datePosted: '2025-04-14',
-      workMode: 'Remote',
-      function: 'Engineering',
-      description: 'Analyze and interpret complex data to help businesses make data-driven decisions.'
+      description: 'Developing software applications and tools.'
     },
     {
-      title: 'Sales Manager',
-      type: 'Full-time',
+      id: 2,
+      title: 'Marketing Specialist',
+      company: 'XYZ Ltd',
+      jobType: 'Part-time',
+      workMode: 'Remote',
       salary: 4000,
-      company: 'SalesForce',
-      companyLogo: 'assets/salesforce-logo.png',
-      location: 'Berlin, Germany',
-      datePosted: '2025-04-13',
+      description: 'Responsible for marketing strategies and campaigns.'
+    },
+    {
+      id: 3,
+      title: 'Data Analyst',
+      company: 'Data Insights',
+      jobType: 'Contract',
       workMode: 'Hybrid',
-      function: 'Sales',
-      description: 'Lead the sales team and implement strategies to drive business growth.'
+      salary: 5000,
+      description: 'Analyzing data and generating reports.'
+    },
+    {
+      id: 4,
+      title: 'UI/UX Designer',
+      company: 'Creative Studio',
+      jobType: 'Full-time',
+      workMode: 'Remote',
+      salary: 5500,
+      description: 'Design user interfaces and enhance user experience.'
+    },
+    {
+      id: 5,
+      title: 'Product Manager',
+      company: 'Tech Innovators',
+      jobType: 'Part-time',
+      workMode: 'On-site',
+      salary: 4500,
+      description: 'Manage product development and market strategies.'
+    },
+    {
+      id: 6,
+      title: 'Sales Executive',
+      company: 'Sales Group',
+      jobType: 'Full-time',
+      workMode: 'Hybrid',
+      salary: 4000,
+      description: 'Responsible for sales and client acquisition.'
+    },
+    {
+      id: 7,
+      title: 'Backend Developer',
+      company: 'Tech Solutions',
+      jobType: 'Contract',
+      workMode: 'Remote',
+      salary: 6000,
+      description: 'Develop and maintain backend systems and services.'
+    },
+    {
+      id: 8,
+      title: 'Marketing Manager',
+      company: 'Digital Ventures',
+      jobType: 'Full-time',
+      workMode: 'Hybrid',
+      salary: 7000,
+      description: 'Develop and execute marketing strategies for products.'
+    },
+    {
+      id: 9,
+      title: 'HR Specialist',
+      company: 'People First',
+      jobType: 'Full-time',
+      workMode: 'On-site',
+      salary: 4500,
+      description: 'Manage HR activities and employee relations.'
+    },
+    {
+      id: 10,
+      title: 'Project Manager',
+      company: 'Global Projects',
+      jobType: 'Part-time',
+      workMode: 'Hybrid',
+      salary: 4800,
+      description: 'Manage and oversee project timelines and execution.'
     }
   ];
-  
 
+ 
   get filteredJobs() {
     return this.jobs.filter(job => {
-      const matchesSearch = job.title.toLowerCase().includes(this.searchQuery.toLowerCase());
-      const matchesType = this.selectedTypes.length === 0 || this.selectedTypes.includes(job.type);
-      const matchesMode = this.selectedModes.length === 0 || this.selectedModes.includes(job.workMode);
-      const matchesFunction = this.selectedFunctions.length === 0 || this.selectedFunctions.includes(job.function);
-      const matchesSalary = (!this.minSalary || job.salary >= this.minSalary) &&
-                            (!this.maxSalary || job.salary <= this.maxSalary);
-
-      return matchesSearch && matchesType && matchesMode && matchesFunction && matchesSalary;
+      const matchesSalary = 
+        (this.minSalary === null || job.salary >= this.minSalary) && 
+        (this.maxSalary === null || job.salary <= this.maxSalary);
+        
+      const matchesJobType = 
+        this.selectedJobType === 'All' || job.jobType === this.selectedJobType;
+        
+      const matchesWorkMode = 
+        this.selectedWorkMode === 'All' || job.workMode === this.selectedWorkMode;
+        
+      const matchesSearchText = job.title.toLowerCase().includes(this.searchText.toLowerCase());
+      
+      return matchesSalary && matchesJobType && matchesWorkMode && matchesSearchText;
     });
   }
 
-  toggleSelection(list: string[], value: string) {
-    const index = list.indexOf(value);
-    if (index > -1) {
-      list.splice(index, 1);
-    } else {
-      list.push(value);
+  addNewJob() {
+    alert('Redirecting to add new job page...');
+  }
+
+  viewDetails(id: number) {
+    alert('Viewing details for job ID: ' + id);
+  }
+
+  editJob(id: number) {
+    alert('Redirecting to edit job ID: ' + id);
+  }
+
+  deleteJob(id: number) {
+    if (confirm('Are you sure you want to delete this job?')) {
+      this.jobs = this.jobs.filter(job => job.id !== id);
     }
   }
 
-  toggleExpand(index: number) {
-    this.expandedCardIndex = this.expandedCardIndex === index ? null : index;
+  
+  applyFilters() {
+    console.log('Filters applied:');
+    console.log('Min Salary:', this.minSalary);
+    console.log('Max Salary:', this.maxSalary);
+    console.log('Job Type:', this.selectedJobType);
+    console.log('Work Mode:', this.selectedWorkMode);
+  }
+
+  
+  clearFilters() {
+    this.minSalary = null;
+    this.maxSalary = null;
+    this.selectedJobType = 'All';
+    this.selectedWorkMode = 'All';
+    this.searchText = '';
   }
 }

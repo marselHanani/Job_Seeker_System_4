@@ -17,7 +17,7 @@ import { DashboardComponent } from './shared/components/dashboard/dashboard.comp
 import { ReportsComponent } from './modules/job-seeker/reports/reports.component';
 import { EditProfileComponent } from './modules/job-seeker/edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './modules/job-seeker/view-profile/view-profile.component';
-import { UserdetailsComponent } from './modules/job-seeker/user-details/user-details.component';
+import { UserDetailsComponent } from './modules/admin/user-details/user-details.component';
 
 
 export const routes: Routes = [
@@ -37,5 +37,5 @@ export const routes: Routes = [
   { path: 'jobs/:id', component: JobDetailComponent },
   {path: 'applications', component: MyApplicationsComponent},
   {path:'**', redirectTo:'notfound', pathMatch:'full'},
-  {path:'user-details',component:UserdetailsComponent}
+  
 ];
