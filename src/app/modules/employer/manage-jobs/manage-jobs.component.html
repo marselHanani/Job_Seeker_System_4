@@ -1,4 +1,3 @@
-html:
 <div class="container py-4">
   <div class="row mb-4">
     <div class="col-12">
@@ -75,13 +74,7 @@ html:
 
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <button class="dropdown-item" (click)="toggleUnSave(job)">
-                        🗑️ Unsave
-                      </button>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" [routerLink]="['/edit-job', job.id]">  ✏️ Edit</a>
-
+                      <a class="dropdown-item" [routerLink]="['./edit', job.id]">  ✏️ Edit</a>
                     </li>
                     <li>
                       <a class="dropdown-item" href="#">

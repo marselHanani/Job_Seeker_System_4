@@ -268,5 +268,9 @@ private jobs: Job[] = [
     return of(undefined);
   }
 
+  deleteJob(id: string) {
+    return this.http.delete(`api/jobs/${id}`);
+  }
+
 
 }
