@@ -1,0 +1,22 @@
+.animated-gradient-button {
+    display: inline-block;
+    width: 40%;
+    padding: 10px 15px;
+    color: #fff;
+    background: linear-gradient(135deg, #4a90e2, #ff9a9e);
+    background-size: 200% 200%;
+    background-position: left;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    transition: background-position 0.5s ease, opacity 0.3s ease;
+  }
+  
+  .animated-gradient-button:hover {
+    background-position: right;
+    opacity: 0.95;
+    text-decoration: none;
+  }

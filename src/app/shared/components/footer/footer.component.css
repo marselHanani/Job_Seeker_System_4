@@ -27,7 +27,9 @@ h6 {
   color: #0d6efd;
   letter-spacing: 1px;
 }
-
+.bg-d{
+  background-color: rgb(35 52 78);
+}
 @media (max-width:768px) {
  .text-media{
   text-align: center;

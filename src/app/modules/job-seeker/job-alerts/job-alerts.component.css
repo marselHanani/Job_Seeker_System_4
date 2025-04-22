@@ -1,0 +1,101 @@
+.job-alerts-container {
+  padding: 20px;
+  background: #f5f7fb;
+  min-height: 100vh;
+}
+
+.alerts-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.alert-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.alert-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.alert-info h4 {
+  margin: 0 0 10px;
+  color: #1976d2;
+}
+
+.location {
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.location i {
+  color: #1976d2;
+  margin-right: 5px;
+}
+
+.keywords {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.keyword-tag {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.alert-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.frequency-badge {
+  background: #1976d2;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.form-switch .form-check-input:checked {
+  background-color: #1976d2;
+  border-color: #1976d2;
+}
+
+.modal-content {
+  border-radius: 15px;
+}
+
+.modal-header {
+  background: #f5f7fb;
+  border-radius: 15px 15px 0 0;
+}
+
+@media (max-width: 768px) {
+  .alert-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .alert-actions {
+    margin-top: 15px;
+  }
+
+  .keywords {
+    justify-content: center;
+  }
+}

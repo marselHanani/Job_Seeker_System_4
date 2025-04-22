@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
-import { JobService } from '../modules/job-seeker/job.service';
-import { Job, JobApplication } from '../modules/job-seeker/job.model';
+import { RouterModule } from '@angular/router';
+import { JobService } from '../job.service';
+import { Job, JobApplication } from '../job.model';
 
 @Component({
   selector: 'app-my-applications',
   standalone: true,
-  imports: [CommonModule, NgFor, NgIf, DatePipe],
+  imports: [CommonModule, NgFor, NgIf, DatePipe, RouterModule],
   templateUrl: './my-applications.component.html',
   styleUrls: ['./my-applications.component.css']
 })
@@ -15,7 +16,7 @@ export class MyApplicationsComponent implements OnInit {
   jobs: Job[] = [];
   loading = true;
   error: string | null = null;
-  userId = 'u1'; // my test user 
+  userId = 'u1'; // your test user ID
 
   constructor(private jobService: JobService) {}
 

@@ -1,0 +1,199 @@
+/* Hero Section */
+.hero-section {
+  padding: 120px 0;
+  background: linear-gradient(135deg, #e3f2fd, #ffe6e6);
+  color: #333;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('/assets/images/pattern.png');
+  opacity: 0.1;
+}
+
+.hero-section h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+.search-box {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.search-box input {
+  height: 50px;
+  border-radius: 8px;
+  border: none;
+  padding: 0 20px;
+  font-size: 1.1rem;
+}
+
+.btn {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary, .btn-outline-primary {
+  border: none;
+  padding: 12px 30px;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2196f3, #ff9999);
+  color: white;
+}
+
+.btn-outline-primary {
+  background: transparent;
+  border: 2px solid #2196f3;
+  color: #2196f3;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1976d2, #ff8080);
+  color: white;
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(135deg, #2196f3, #ff9999);
+  color: white;
+  border-color: transparent;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(135deg, #2196f3, #ff9999);
+}
+
+/* Feature Cards Hover */
+.feature-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(33, 150, 243, 0.1);
+}
+
+.feature-card:hover i {
+  transform: scale(1.1);
+  color: #2196f3;
+}
+
+/* Category Cards Hover */
+.category-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(33, 150, 243, 0.1);
+}
+
+.category-card:hover i {
+  transform: scale(1.1);
+  color: #2196f3;
+}
+
+/* Buttons Hover */
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+}
+
+.btn-outline-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+}
+
+.feature-card i {
+  background: linear-gradient(135deg, #2196f3, #ff9999);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.category-card {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.4s ease;
+  border: 1px solid rgba(44,130,201,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.category-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(44,130,201,0.1);
+}
+
+.category-card i {
+  background: linear-gradient(135deg, #2196f3, #ff9999);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, #e3f2fd, #ffe6e6);
+  color: #333;
+}
+
+.cta-section::before {
+  opacity: 0.05;
+}
+
+.btn-outline-light {
+  border: 2px solid #2196f3;
+  color: #2196f3;
+}
+
+.btn-outline-light:hover {
+  background: linear-gradient(135deg, #2196f3, #ff9999);
+  color: white;
+}
+
+.hero-image {
+  max-width: 100%;
+  height: auto;
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

@@ -1,3 +1,10 @@
+<div class="d-flex justify-content-between align-items-center mb-3 py-2">
+  <h2 class="mb-0">Job Search</h2>
+  <button class="btn-gradient btn-secondary btn-sm" routerLink="/dashboard">
+    <i class="fas fa-arrow-left me-2"></i>Back
+  </button>
+</div>
+
 <div class="container py-4">
   <div class="row mb-4">
     <div class="col-12">
@@ -5,11 +12,11 @@
         <div class="card-body">
           <form (ngSubmit)="searchJobs()" class="row g-3 align-items-center">
             <div class="col-md-6">
-              <input 
-                type="text" 
-                class="form-control" 
-                placeholder="Search for jobs by title, company, or location" 
-                [(ngModel)]="searchQuery" 
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search for jobs by title, company, or location"
+                [(ngModel)]="searchQuery"
                 name="searchQuery"
               >
             </div>
@@ -64,22 +71,30 @@
                 <h5 class="card-title mb-0">{{ job.title }}</h5>
                 <h6 class="text-muted">{{ job.company }}</h6>
               </div>
-
               <div class="text-end">
-                
                 <div class="dropdown">
                   <button class="btn btn-sm btn-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fas fa-ellipsis-v"></i>
                   </button>
-                  
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                       <button class="dropdown-item" (click)="toggleSave(job)">
-                        {{ job.saved ? '✔ Saved' : '💾 Save' }}
+                        <i class="fas fa-bookmark me-2"></i>
+                        {{ job.saved ? 'Saved' : 'Save' }}
                       </button>
                     </li>
-                    <li><a class="dropdown-item" href="#">🚩 Report</a></li>
-                    <li><a class="dropdown-item" href="#">🔗 Share</a></li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="fas fa-flag me-2"></i>
+                        Report
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#">
+                        <i class="fas fa-share-alt me-2"></i>
+                        Share
+                      </a>
+                    </li>
                   </ul>
                 </div>
                 <span class="badge bg-primary mb-1">{{ job.type }}</span>
@@ -99,7 +114,9 @@
           <div class="card-footer bg-transparent border-top-0">
             <div class="d-flex justify-content-between align-items-center">
               <small class="text-muted">Posted: {{ job.postedDate | date }}</small>
-              <a [routerLink]="['/jobs', job.id]" class="btn btn-outline-primary">View Details</a>
+              <a [routerLink]="['/jobs', job.id]" class="animated-gradient-button">
+                <i class="fas fa-arrow-right me-1"></i> View Details
+              </a>
             </div>
           </div>
         </div>
