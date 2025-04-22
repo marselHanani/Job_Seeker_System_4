@@ -1,0 +1,129 @@
+/* job-details-page.component.css */
+
+/* Layout & Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Loading Spinner */
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  /* Alerts */
+  .alert {
+    border-radius: 10px;
+    font-size: 14px;
+  }
+  
+  /* Cards */
+  .card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* Titles & Text */
+  .card-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+  
+  .card-body h2,
+  .card-body h3 {
+    font-weight: 600;
+  }
+  
+  .text-muted {
+    font-size: 14px;
+  }
+  
+  /* Badge */
+  .badge.bg-primary {
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 20px;
+  }
+  
+  /* Icons */
+  .mb-2 i,
+  .mb-4 i {
+    color: #6c757d;
+  }
+  
+  /* Requirements List */
+  ul.list-unstyled li {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  ul.list-unstyled li i {
+    color: #28a745;
+  }
+  
+  /* Form Controls */
+  form .form-control {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  form .form-label {
+    font-weight: 500;
+    font-size: 14px;
+  }
+  
+  /* Gradient Animation Button (for submit + file label) */
+  .animated-gradient-button {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 15px;
+    color: #fff;
+    background: linear-gradient(135deg, #4a90e2, #ff9a9e);
+    background-size: 200% 200%;
+    background-position: left;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    border: none;
+    transition: background-position 0.5s ease, opacity 0.3s ease;
+  }
+  
+  .animated-gradient-button:hover {
+    background-position: right;
+    opacity: 0.95;
+  }
+  
+  /* Hidden File Input */
+  #resume {
+    display: none;
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .card-title {
+      font-size: 20px;
+    }
+  
+    .card-body h2 {
+      font-size: 16px;
+    }
+  
+    .form-control {
+      font-size: 13px;
+    }
+  }
+  

@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import Chart from 'chart.js/auto';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../../../core/auth/auth.service';  // Add this import
 
 @Component({
   selector: 'app-dashboard',
@@ -14,47 +15,25 @@ import { RouterModule } from '@angular/router';
 export class DashboardComponent implements AfterViewInit {
   @ViewChild('visitorChart') chartCanvas!: ElementRef<HTMLCanvasElement>;
 
-  userType: 'job-seeker' | 'employer' | 'admin' = 'job-seeker';
+  userType: 'job-seeker' | 'employer' | 'admin';
   menuItems: any[] = [];
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private authService: AuthService  // Add AuthService
   ) {
-    this.userType = this.getUserType();
+    this.userType = this.authService.getUserType();  // Use AuthService instead
     this.setMenuItems();
   }
 
-  private getUserType(): 'job-seeker' | 'employer' | 'admin' {
-    // For testing purposes, we'll use localStorage
-    const savedType = localStorage.getItem('userType');
-    if (!savedType) {
-      localStorage.setItem('userType', 'job-seeker');
-      return 'job-seeker';
-    }
-    return savedType as 'job-seeker' | 'employer' | 'admin';
-  }
-
-  // Add method to switch user type (for testing)
-  switchUserType(type: 'job-seeker' | 'employer' | 'admin') {
-    localStorage.setItem('userType', type);
-    this.userType = type;
-    this.setMenuItems();
-    window.location.reload(); // Refresh to see changes
-  }
+  // Remove getUserType method as we're using AuthService now
 
   private setMenuItems() {
     // Common Items
     const commonItems = [
       { link: '/dashboard', icon: 'fa-th-large', text: 'Dashboard', active: true },
       { link: '/dashboard/messages', icon: 'fa-envelope', text: 'Messages' },
-      { link: '/dashboard/calendar', icon: 'fa-calendar', text: 'Calendar' },
-    ];
-
-    // Job Seeker Items
-    const jobSeekerItems = [
-      { link: '/dashboard/my-applications', icon: 'fa-briefcase', text: 'My Applications' },
-      { link: '/dashboard/saved-jobs', icon: 'fa-bookmark', text: 'Saved Jobs' },
-      { link: '/dashboard/view-profile', icon: 'fa-user', text: 'My Profile' },
+      { link: '/notifications', icon: 'fa-bell', text: 'Notifications' },
     ];
 
     // Employer Items
@@ -64,22 +43,34 @@ export class DashboardComponent implements AfterViewInit {
       { link: '/dashboard/candidates', icon: 'fa-users', text: 'Candidates' },
     ];
 
-    // Admin Items
-    const adminItems = [
-      { link: '/dashboard/manage-users', icon: 'fa-users-cog', text: 'Manage Users' },
-      { link: '/dashboard/reports', icon: 'fa-chart-bar', text: 'Reports' },
-      { link: '/dashboard/settings', icon: 'fa-cog', text: 'Settings' },
+    // Job Seeker Items
+    const jobSeekerItems = [
+      { link: '/applications', icon: 'fa-briefcase', text: 'My Applications' },
+      { link: '/dashboard/saved-jobs', icon: 'fa-bookmark', text: 'Saved Jobs' },
+      { link: '/dashboard/view-profile', icon: 'fa-user', text: 'My Profile' },
+      { link: '/jobs', icon: 'fa-search', text: 'Search Jobs' },
     ];
 
+    // Admin Items
+    const adminItems = [
+      ...commonItems,
+      { link: '/dashboard/view-profile', icon: 'fa-user', text: 'My Profile' },
+      { link: '/jobs', icon: 'fa-search', text: 'Search Jobs' },
+      ...employerItems,
+      { link: '/users', icon: 'fa-users-cog', text: 'Manage Users' },
+      { link: '/dashboard/reports', icon: 'fa-chart-bar', text: 'Reports' },
+    ];
+
+    // Set menuItems based on user type
     switch (this.userType) {
-      case 'job-seeker':
-        this.menuItems = [...commonItems, ...jobSeekerItems];
+      case 'admin':
+        this.menuItems = adminItems;
         break;
       case 'employer':
         this.menuItems = [...commonItems, ...employerItems];
         break;
-      case 'admin':
-        this.menuItems = [...commonItems, ...adminItems];
+      default:
+        this.menuItems = [...commonItems, ...jobSeekerItems];
         break;
     }
   }

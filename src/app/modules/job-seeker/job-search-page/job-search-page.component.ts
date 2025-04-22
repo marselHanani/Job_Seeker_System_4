@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf, DatePipe, SlicePipe } from '@angular/common';
-import { JobService } from '../modules/job-seeker/job.service';
-import { Job } from '../modules/job-seeker/job.model';
+import { JobService } from '../job.service';
+import { Job } from '../job.model';
 
 @Component({
   selector: 'app-job-Search-Page',

@@ -4,11 +4,11 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-  
+
     <div *ngIf="error" class="alert alert-danger">
       {{error}}
     </div>
-  
+
     <div *ngIf="!loading && !error && job" class="row">
       <div class="col-lg-8">
         <div class="card mb-4">
@@ -20,7 +20,7 @@
               </div>
               <span class="badge bg-primary">{{job.type}}</span>
             </div>
-  
+
             <div class="mb-4">
               <div class="mb-2">
                 <i class="fas fa-map-marker-alt text-muted me-2"></i>
@@ -35,12 +35,12 @@
                 <span>Posted: {{job.postedDate | date}}</span>
               </div>
             </div>
-  
+
             <div class="mb-4">
               <h3 class="h5">Job Description</h3>
               <p>{{job.description}}</p>
             </div>
-  
+
             <div class="mb-4">
               <h3 class="h5">Requirements</h3>
               <ul class="list-unstyled">
@@ -50,7 +50,7 @@
                 </li>
               </ul>
             </div>
-  
+
             <div class="alert alert-info">
               <i class="fas fa-clock me-2"></i>
               Application deadline: {{job.deadline | date}}
@@ -58,7 +58,7 @@
           </div>
         </div>
       </div>
-  
+
       <div class="col-lg-4">
         <div class="card">
           <div class="card-body">
@@ -66,17 +66,19 @@
             <form (ngSubmit)="applyForJob()">
               <div class="mb-3">
                 <label for="resume" class="form-label">Upload Resume</label>
-                <input type="file" class="form-control" id="resume" accept=".pdf,.doc,.docx">
+                <a href="upload-Resume" for="resume" class="animated-gradient-button nav-link">Apply</a>
+                <input type="file" id="resume" accept=".pdf,.doc,.docx">
               </div>
               <div class="mb-3">
                 <label for="coverLetter" class="form-label">Cover Letter</label>
                 <textarea class="form-control" id="coverLetter" rows="5" placeholder="Write your cover letter here..."></textarea>
               </div>
-              <button type="submit" class="btn btn-primary w-100">Submit Application</button>
+
+              <button type="submit" class="animated-gradient-button">Submit Application</button>
             </form>
+
           </div>
         </div>
       </div>
     </div>
   </div>
-  
