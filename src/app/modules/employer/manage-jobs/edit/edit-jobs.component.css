@@ -15,7 +15,7 @@
 
 .btn-primary:disabled {
   background: #e0e0e0;
-  transform: none;
+  transform: none; 
   box-shadow: none;
 }
 

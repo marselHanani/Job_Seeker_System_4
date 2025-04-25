@@ -17,7 +17,7 @@ main{
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
-
+ 
 .btn-primary:disabled {
   background: #e0e0e0;
   transform: none;

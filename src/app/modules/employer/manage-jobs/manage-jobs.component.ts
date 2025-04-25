@@ -22,7 +22,7 @@ export class ManageJobsComponent  implements OnInit {
   loading: boolean = true;
   error: string | null = null;
 
-  sortOption: string = '';
+  sortOption: string = ''; 
   sortOrder: 'asc' | 'desc' = 'asc';
 
   constructor(private jobService: JobService) { }

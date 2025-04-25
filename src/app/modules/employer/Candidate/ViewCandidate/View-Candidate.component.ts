@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
   styleUrls: ['./View-Candidate.component.css']
 })
 export class ViewCandidates {
-  searchText: string = '';
+  searchText: string = ''; 
   candidates = [
     { id: 1, name: 'John Doe', experience: 3 },
     { id: 2, name: 'Jane Smith', experience: 5 },

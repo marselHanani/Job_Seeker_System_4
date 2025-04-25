@@ -16,7 +16,7 @@ describe('CandidateListComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewCandidates);
-    component = fixture.componentInstance;
+    component = fixture.componentInstance; 
     fixture.detectChanges();
   });
 

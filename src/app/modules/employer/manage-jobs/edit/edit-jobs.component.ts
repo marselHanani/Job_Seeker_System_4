@@ -14,7 +14,7 @@ import { Job } from '../../../job-seeker/job.model';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule]
 })
-export class EditJobsComponent implements OnInit {
+export class EditJobsComponent implements OnInit {  
   editJobForm: FormGroup;
 
   jobRoles: string[] = ['Software Developer', 'Web Designer', 'Project Manager', 'Data Analyst', 'UI/UX Designer', 'DevOps Engineer', 'Product Manager'];

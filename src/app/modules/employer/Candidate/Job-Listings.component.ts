@@ -16,14 +16,14 @@ import { RouterLink } from '@angular/router';
 
   templateUrl: './job-listings.component.html',
   styleUrls: ['./job-listings.component.css']
-})
+}) 
 export class JobListingsComponent implements OnInit {
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   searchTerm: string = '';
   loading: boolean = true;
   error: string | null = null;
-  
+
   constructor(
     private router: Router,
     private jobService: JobService
