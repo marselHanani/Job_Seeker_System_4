@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="row mt-4">
+    <!-- Sidebar Filter -->
+    <div class="col-md-3">
+      <h5>Filters</h5>
+      <input type="number" [(ngModel)]="minSalary" class="form-control mb-2" placeholder="Min Salary">
+      <input type="number" [(ngModel)]="maxSalary" class="form-control mb-2" placeholder="Max Salary">
+      <select [(ngModel)]="selectedJobType" class="form-control mb-2">
+        <option value="All">All Job Types</option>
+        <option>Full-time</option>
+        <option>Part-time</option>
+        <option>Contract</option>
+      </select>
+      <select [(ngModel)]="selectedWorkMode" class="form-control mb-2">
+        <option value="All">All Work Modes</option>
+        <option>On-site</option>
+        <option>Remote</option>
+        <option>Hybrid</option>
+      </select>
+      <button class="btn btn-primary w-100" (click)="applyFilters()">Apply Filters</button>
+      <button class="btn btn-secondary w-100 mt-2" (click)="clearFilters()">Clear Filters</button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-9">
+      <h2>Manage Job Listings</h2>
+      <div class="input-group mb-4">
+        <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Search by job title">
+        <button class="btn btn-outline-secondary" type="button">Search</button>
+        <button class="btn btn-success ms-2" (click)="addNewJob()">+ Add New Job</button>
+      </div>
+
+      <!-- Job Cards Grid -->
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col" *ngFor="let job of filteredJobs">
+          <div class="card shadow-sm h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{ job.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
+              <p class="mb-1"><strong>Type:</strong> {{ job.jobType }}</p>
+              <p class="mb-1"><strong>Work Mode:</strong> {{ job.workMode }}</p>
+              <p class="mb-1"><strong>Salary:</strong> ${{ job.salary }}</p>
+              <p class="card-text text-muted">{{ job.description }}</p>
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+              <button class="btn btn-info btn-sm" (click)="viewDetails(job.id)">View</button>
+              <button class="btn btn-warning btn-sm" (click)="editJob(job.id)">Edit</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteJob(job.id)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

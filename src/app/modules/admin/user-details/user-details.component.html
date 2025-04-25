@@ -1,0 +1,47 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <!-- Loop through multiple users -->
+    <div class="col-md-4 mb-4" *ngFor="let user of users">
+      
+      <!-- User Card -->
+      <div class="user-details-card p-4">
+        <!-- Profile Picture -->
+        <div class="text-center mb-3">
+          <img src="https://via.placeholder.com/150" alt="User Picture" class="rounded-circle img-fluid user-img">
+        </div>
+
+        <!-- User Info -->
+        <h5 class="user-name">{{ user.name }}</h5>
+        <p class="user-job">{{ user.jobTitle }} at {{ user.company }}</p>
+
+        <!-- Job Information (Collapsible Card) -->
+        <div class="job-info-card mt-3">
+          <button class="btn btn-outline-primary w-100" (click)="toggleJobInfo(user)">View Job Information</button>
+          <div *ngIf="user.showJobInfo" class="job-info-details mt-3">
+            <p><strong>Position:</strong> {{ user.jobTitle }}</p>
+            <p><strong>Company:</strong> {{ user.company }}</p>
+            <p><strong>Salary:</strong> ${{ user.salary }}</p>
+            <p><strong>Start Date:</strong> {{ user.startDate | date }}</p>
+          </div>
+        </div>
+
+        <!-- Activity Log Card -->
+        <div class="activity-log-card mt-3">
+          <button class="btn btn-outline-secondary w-100" (click)="toggleActivityLog(user)">View Activity Log</button>
+          <div *ngIf="user.showActivityLog" class="activity-log-details mt-3">
+            <ul class="list-unstyled">
+              <li><i class="bi bi-clock"></i> Last login: {{ user.lastLogin | date }}</li>
+              <li><i class="bi bi-clock"></i> Profile last updated: {{ user.lastProfileUpdate | date }}</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Account Settings Card -->
+        <div class="account-settings-card mt-3">
+          <button class="btn btn-outline-primary w-100" (click)="editProfile(user)">Edit Profile</button>
+          <button class="btn btn-outline-danger w-100 mt-2" (click)="deleteAccount(user)">Delete Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

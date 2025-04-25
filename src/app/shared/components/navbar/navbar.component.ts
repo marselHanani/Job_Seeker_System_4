@@ -1,3 +1,4 @@
+
 import { AuthService } from './../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -56,4 +57,3 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 }
-
