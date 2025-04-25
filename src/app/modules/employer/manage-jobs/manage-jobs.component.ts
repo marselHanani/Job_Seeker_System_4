@@ -7,7 +7,6 @@ import { JobService } from '../../job-seeker/job.service';
 import { Job } from '../../job-seeker/job.model';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
   selector: 'app-job-Search-Page',
   standalone: true,
@@ -15,17 +14,22 @@ import { CommonModule } from '@angular/common';
   templateUrl: './manage-jobs.component.html',
   styleUrls: ['./manage-jobs.component.css']
 })
-export class ManageJobsComponent  implements OnInit {
+export class ManageJobsComponent implements OnInit {
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   searchQuery: string = '';
   loading: boolean = true;
   error: string | null = null;
 
-  sortOption: string = ''; 
+  sortOption: string = '';
   sortOrder: 'asc' | 'desc' = 'asc';
 
-  constructor(private jobService: JobService) { }
+  userType: string = '';
+
+  constructor(private jobService: JobService) {
+    // التحقق من نوع المستخدم من localStorage
+    this.userType = localStorage.getItem('userType') || '';
+  }
 
   ngOnInit(): void {
     this.loadJobs();
@@ -109,4 +113,13 @@ export class ManageJobsComponent  implements OnInit {
     job.saved = false;
   }
 
+  // دالة للتحقق ما إذا كان المستخدم هو صاحب عمل
+  isEmployer(): boolean {
+    return this.userType === 'employer';
+  }
+
+  // دالة للتحقق ما إذا كان المستخدم هو مسؤول النظام
+  isAdmin(): boolean {
+    return this.userType === 'admin';
+  }
 }

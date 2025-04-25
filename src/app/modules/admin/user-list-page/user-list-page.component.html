@@ -9,7 +9,7 @@
           <div>
             <h5 class="mb-1">{{ user.name }}</h5>
             <p class="mb-1 text-muted">{{ user.email }}</p>
-            <span 
+            <span
               class="badge"
               [ngClass]="{
                 'bg-primary': user.role === 'employer',
@@ -23,8 +23,8 @@
 
         <div class="card-footer d-flex justify-content-between align-items-center bg-transparent border-top-0">
           <small class="text-muted">Joined: {{ user.createdAt | date }}</small>
-          <a 
-            [routerLink]="['/user', user.id]" 
+          <a
+            [routerLink]="['/user', user.id]"
             class="animated-gradient-button btn btn-sm">
             <i class="fas fa-user me-1"></i> View details
           </a>

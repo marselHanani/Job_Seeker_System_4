@@ -9,13 +9,13 @@ import { RouterLink } from '@angular/router';
 @Component({
   standalone: true,
   selector: 'app-candidate-list',
-  imports: [CommonModule, RouterLink, FormsModule, NgFor, NgIf],
+  imports: [CommonModule, FormsModule, NgFor, NgIf],
 
   templateUrl: './View-Candidate.component.html',
   styleUrls: ['./View-Candidate.component.css']
 })
 export class ViewCandidates {
-  searchText: string = ''; 
+  searchText: string = '';
   candidates = [
     { id: 1, name: 'John Doe', experience: 3 },
     { id: 2, name: 'Jane Smith', experience: 5 },

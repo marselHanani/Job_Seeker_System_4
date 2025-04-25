@@ -74,11 +74,19 @@
 
                   <ul class="dropdown-menu dropdown-menu-end">
                     <li>
-                      <a class="dropdown-item" [routerLink]="['./edit', job.id]">  ✏️ Edit</a>
+                      <a class="dropdown-item" [routerLink]="['./edit', job.id]">✏️ Edit</a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
-                        🔗 Share
+                      <a class="dropdown-item" href="#">🔗 Share</a>
+                    </li>
+                    <li *ngIf="isEmployer()">
+                      <a class="dropdown-item text-danger">
+                        🗑️ Delete
+                      </a>
+                    </li>
+                    <li *ngIf="isAdmin()">
+                      <a class="dropdown-item" routerLink="/dashboard/manage-jobs/status">
+                        📊 Status
                       </a>
                     </li>
                   </ul>
@@ -98,7 +106,7 @@
             </div>
             <p class="card-text">{{ job.description | slice: 0: 100 }}...</p>
           </div>
- 
+
         </div>
       </div>
     </div>

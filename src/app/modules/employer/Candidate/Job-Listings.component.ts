@@ -12,11 +12,11 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-job-listings',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, NgFor, NgIf],
+  imports: [CommonModule, RouterLink, FormsModule],
 
   templateUrl: './job-listings.component.html',
   styleUrls: ['./job-listings.component.css']
-}) 
+})
 export class JobListingsComponent implements OnInit {
   jobs: Job[] = [];
   filteredJobs: Job[] = [];

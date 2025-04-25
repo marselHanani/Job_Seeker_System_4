@@ -1,23 +1,25 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-job-listings',
   templateUrl: './job-listing.component.html',
   styleUrls: ['./job-listing.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule,RouterModule]
 })
 export class JobListingsComponent {
+  constructor(private _Router:Router){}
   searchText: string = '';
-  
-  
+
+
   minSalary: number | null = null;
   maxSalary: number | null = null;
   selectedJobType: string = 'All';
   selectedWorkMode: string = 'All';
-  
+
   jobs = [
     {
       id: 1,
@@ -111,21 +113,21 @@ export class JobListingsComponent {
     }
   ];
 
- 
+
   get filteredJobs() {
     return this.jobs.filter(job => {
-      const matchesSalary = 
-        (this.minSalary === null || job.salary >= this.minSalary) && 
+      const matchesSalary =
+        (this.minSalary === null || job.salary >= this.minSalary) &&
         (this.maxSalary === null || job.salary <= this.maxSalary);
-        
-      const matchesJobType = 
+
+      const matchesJobType =
         this.selectedJobType === 'All' || job.jobType === this.selectedJobType;
-        
-      const matchesWorkMode = 
+
+      const matchesWorkMode =
         this.selectedWorkMode === 'All' || job.workMode === this.selectedWorkMode;
-        
+
       const matchesSearchText = job.title.toLowerCase().includes(this.searchText.toLowerCase());
-      
+
       return matchesSalary && matchesJobType && matchesWorkMode && matchesSearchText;
     });
   }
@@ -136,6 +138,7 @@ export class JobListingsComponent {
 
   viewDetails(id: number) {
     alert('Viewing details for job ID: ' + id);
+    this._Router.navigate(["/job-details"]);
   }
 
   editJob(id: number) {
@@ -148,7 +151,7 @@ export class JobListingsComponent {
     }
   }
 
-  
+
   applyFilters() {
     console.log('Filters applied:');
     console.log('Min Salary:', this.minSalary);
@@ -157,7 +160,7 @@ export class JobListingsComponent {
     console.log('Work Mode:', this.selectedWorkMode);
   }
 
-  
+
   clearFilters() {
     this.minSalary = null;
     this.maxSalary = null;

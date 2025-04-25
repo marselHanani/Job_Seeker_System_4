@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { JobListingsComponent } from './Job-Listings.component';
+import { JobListingsComponent } from './job-listings.component';
 
 describe('JobListingsComponent', () => {
   let component: JobListingsComponent;
@@ -16,7 +16,7 @@ describe('JobListingsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => { 
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
