@@ -1,0 +1,91 @@
+.job-card {
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.job-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+
+.search-filters {
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-filters h4 {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+
+button {
+  border-radius: 25px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0a74da;
+  color: white;
+}
+
+
+input, .form-control-range {
+  border-radius: 10px;
+}
+
+
+.job-card + .job-card {
+  margin-top: 20px;
+}
+
+
+@media (max-width: 768px) {
+  .search-filters {
+    margin-bottom: 20px;
+  }
+  
+  
+  .job-card {
+    width: 100%;
+  }
+
+  .job-listings-container {
+    display: block;
+  }
+
+  
+  input, .form-control-range {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  
+  button {
+    width: 100%;
+    padding: 12px 0;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .search-filters {
+    padding: 15px;
+  }
+
+ 
+  .job-card + .job-card {
+    margin-top: 15px;
+  }
+
+  button {
+    padding: 10px;
+  }
+}

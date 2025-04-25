@@ -10,7 +10,7 @@ import { ForgetPasswordComponent } from './modules/auth/forget-password/forget-p
 import { ResetPasswordComponent } from './modules/auth/reset-password/reset-password.component';
 import { PostJobComponent } from './modules/employer/post-job/post-job.component';
 import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
-import { ReportsComponent } from './modules/job-seeker/reports/reports.component';
+import { ReportsComponent } from './modules/job-seeker/reports/reports.component'; 
 import { EditProfileComponent } from './modules/job-seeker/edit-profile/edit-profile.component';
 import { ViewProfileComponent } from './modules/job-seeker/view-profile/view-profile.component';
 import { NotificationsComponent } from './shared/components/notifications/notifications.component';
@@ -21,6 +21,9 @@ import { authGuard } from './core/auth/auth.guard';
 import { AboutComponent } from './modules/public/about/about.component';
 import { ContactComponent } from './modules/public/contact/contact.component';
 import { JobAlertsComponent } from './modules/job-seeker/job-alerts/job-alerts.component';
+import { UserDetailsComponent } from './modules/admin/user-details/user-details.component';
+import { JobDetailsComponent } from './modules/admin/job-details/job-details.component';
+
 
 import { ManageJobsComponent } from './modules/employer/manage-jobs/manage-jobs.component';
 import { SavedJobsComponent } from './modules/job-seeker/saved-jobs/saved-jobs.component';
@@ -42,8 +45,12 @@ export const routes: Routes = [
   {path: 'dashboard/reports',component:ReportsComponent, title:'Reports'},
   {path:'dashboard/view-profile',component: ViewProfileComponent, title:'View Profile'},
   {path:'edit-profile',component:EditProfileComponent, title:'Edit Profile'},
+
   {path: 'jobs', component: jobSearchPageComponent },
   {path: 'jobs/:id', component: JobDetailComponent },
+
+  //{path:'manage-employers', component:EmployerManageComponent,title:'Manage Employers'},
+
   {path: 'applications', component: MyApplicationsComponent},
   {path: 'users', component: UserListPageComponent},
   {path:'notifications',component:NotificationsComponent, title:'notifications'},
@@ -56,7 +63,8 @@ export const routes: Routes = [
   {path: 'ViewCandidate/:id' , component: ViewCandidates , title: 'View Candidates'},
   {path: 'dashboard/JobListings' , component: JobListingsComponent , title: 'Job Listings'},
   {path:'notfound', component:NotfoundComponent, title:'Not Found'},
-  {path:'**', redirectTo:'notfound', pathMatch:'full'},
-
+  {path:'**', redirectTo:'notfound', pathMatch:'full'}
+  {path:'user-details', component:UserDetailsComponent, },
+  {path:'job-details', component:JobDetailsComponent, },
 ];
- 
+

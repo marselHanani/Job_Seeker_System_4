@@ -1,3 +1,4 @@
+
 import { AuthService } from './../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +17,6 @@ export class NavbarComponent implements OnInit {
   navItems = [
     { id: 'home', label: 'Home', authorized: true },
     { id: 'jobs', label: 'Find Job', authorized: true },
-    { id: 'findEmployers', label: 'Find Employers', authorized: false },
     { id: 'dashboard', label: 'Dashboard', authorized: false },
     { id: 'job-alerts', label: 'Job Alerts', authorized: true },
     { id: 'contact', label: 'Customer Supports', authorized: true },
@@ -57,4 +57,3 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 }
-

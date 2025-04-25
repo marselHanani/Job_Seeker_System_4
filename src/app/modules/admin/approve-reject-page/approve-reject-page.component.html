@@ -1,0 +1,68 @@
+<!-- Search & Filter Controls -->
+<div class="card p-3 mb-4 shadow-sm">
+  <div class="row g-3 align-items-center">
+    <!-- Search Input -->
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="Search by name, company, or email"
+             [(ngModel)]="searchQuery">
+    </div>
+
+    <!-- Status Filter -->
+    <div class="col-md-3">
+      <select class="form-select" [(ngModel)]="statusFilter">
+        <option value="">All Statuses</option>
+        <option value="Pending">Pending</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+      </select>
+    </div>
+
+    <!-- Date Filter -->
+    <div class="col-md-3">
+      <input type="date" class="form-control" [(ngModel)]="dateFilter">
+    </div>
+
+    <!-- Clear Filters Button -->
+    <div class="col-md-2">
+      <button class="btn btn-outline-secondary w-100" (click)="clearFilters()">Clear</button>
+    </div>
+  </div>
+</div>
+
+<!-- approve-reject-employers.component.html -->
+<div class="container mt-5">
+  <h2 class="text-primary mb-4">Manage Employers</h2>
+
+  <div class="row">
+    <div class="col-md-4" *ngFor="let employer of filteredEmployers()">
+      <div class="card employer-card p-4 mb-4 shadow-sm">
+        <div class="d-flex align-items-center mb-3">
+          <img [src]="employer.logoUrl" alt="Company Logo" class="company-logo me-3">
+          <div>
+            <h5 class="text-primary mb-1">{{ employer.companyName }}</h5>
+            <p class="mb-0"><strong>By:</strong> {{ employer.name }}</p>
+          </div>
+        </div>
+
+        <p><strong>Email:</strong> {{ employer.email }}</p>
+        <p><strong>Phone:</strong> {{ employer.phone }}</p>
+        <p><strong>Website:</strong> 
+          <a [href]="employer.website" target="_blank">{{ employer.website }}</a>
+        </p>
+        <p><strong>Request Date:</strong> {{ employer.createdAt | date:'mediumDate' }}</p>
+        <p><strong>Status:</strong> 
+          <span class="badge" [ngClass]="{
+            'bg-warning': employer.status === 'Pending',
+            'bg-success': employer.status === 'Approved',
+            'bg-danger': employer.status === 'Rejected'
+          }">{{ employer.status }}</span>
+        </p>
+
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-primary" (click)="approve(employer)">Approve</button>
+          <button class="btn btn-outline-danger" (click)="reject(employer)">Reject</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
