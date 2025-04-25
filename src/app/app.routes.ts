@@ -25,8 +25,12 @@ import { JobAlertsComponent } from './modules/job-seeker/job-alerts/job-alerts.c
 import { ManageJobsComponent } from './modules/employer/manage-jobs/manage-jobs.component';
 import { SavedJobsComponent } from './modules/job-seeker/saved-jobs/saved-jobs.component';
 import { EditJobsComponent } from './modules/employer/manage-jobs/edit/edit-jobs.component';
-import { JobListingsComponent } from './modules/employer/Candidate/Job-Listings.component';
+import { JobListingsComponent } from './modules/admin/job-listing/job-listing.component';
 import { ViewCandidates } from './modules/employer/Candidate/ViewCandidate/View-Candidate.component';
+import { EmployerManageComponent } from './modules/admin/employer-manage/employer-manage.component';
+import { UserDetailsComponent } from './modules/admin/user-details/user-details.component';
+import { JobDetailsComponent } from './modules/admin/job-details/job-details.component';
+import { ApproveRejectEmployersComponent } from './modules/admin/approve-reject-page/approve-reject-page.component';
 
 export const routes: Routes = [
   {path: 'home', component:HomeComponent, title:'Home'},
@@ -44,6 +48,7 @@ export const routes: Routes = [
   {path:'edit-profile',component:EditProfileComponent, title:'Edit Profile'},
   {path: 'jobs', component: jobSearchPageComponent },
   {path: 'jobs/:id', component: JobDetailComponent },
+  {path:'manage-employers', component:EmployerManageComponent,title:'Manage Employers'},
   {path: 'applications', component: MyApplicationsComponent},
   {path: 'users', component: UserListPageComponent},
   {path:'notifications',component:NotificationsComponent, title:'notifications'},
@@ -51,10 +56,14 @@ export const routes: Routes = [
   {path:'view-profile',component:ViewProfileComponent, title:'view-profile'},
   {path:'job-alerts',component:JobAlertsComponent, title:'job-alert'},
   {path:'dashboard/manage-jobs',component:ManageJobsComponent , title: 'manage job'},
+  {path:'dashboard/manage-jobs/status',component:ApproveRejectEmployersComponent , title: 'manage job status'},
   {path:'dashboard/saved-jobs' ,component:SavedJobsComponent , title: 'saved job'},
   {path: 'dashboard/manage-jobs/edit/:id', component: EditJobsComponent, title: 'Edit Job' },
-  {path: 'ViewCandidate/:id' , component: ViewCandidates , title: 'View Candidates'},
+  {path: 'view-candidate/:id' , component: ViewCandidates , title: 'View Candidates'},
   {path: 'dashboard/JobListings' , component: JobListingsComponent , title: 'Job Listings'},
+  {path:'user/:id', component:UserDetailsComponent,title:'User Details'},
+  {path:'job-details', component:JobDetailsComponent, title:'Job Details'},
   {path:'notfound', component:NotfoundComponent, title:'Not Found'},
-  {path:'**', redirectTo:'notfound', pathMatch:'full'},
+  {path:'**', redirectTo:'notfound', pathMatch:'full',title:'Not Found'},
 ];
+
