@@ -35,12 +35,12 @@ export class DashboardComponent implements AfterViewInit {
       { link: '/dashboard/messages', icon: 'fa-envelope', text: 'Messages' },
       { link: '/notifications', icon: 'fa-bell', text: 'Notifications' },
     ];
-
+    
     // Employer Items
     const employerItems = [
       { link: '/dashboard/post-job', icon: 'fa-paper-plane', text: 'Post Job' },
       { link: '/dashboard/manage-jobs', icon: 'fa-tasks', text: 'Manage Jobs' },
-      { link: '/dashboard/candidates', icon: 'fa-users', text: 'Candidates' },
+      { link: '/dashboard/JobListings', icon: 'fa-solid fa-briefcase', text: 'Job Listings' },
     ];
 
     // Job Seeker Items

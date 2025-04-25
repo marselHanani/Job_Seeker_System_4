@@ -25,6 +25,11 @@ import { UserDetailsComponent } from './modules/admin/user-details/user-details.
 import { JobDetailsComponent } from './modules/admin/job-details/job-details.component';
 
 
+import { ManageJobsComponent } from './modules/employer/manage-jobs/manage-jobs.component';
+import { SavedJobsComponent } from './modules/job-seeker/saved-jobs/saved-jobs.component';
+import { EditJobsComponent } from './modules/employer/manage-jobs/edit/edit-jobs.component';
+import { JobListingsComponent } from './modules/employer/Candidate/Job-Listings.component';
+import { ViewCandidates } from './modules/employer/Candidate/ViewCandidate/View-Candidate.component';
 
 export const routes: Routes = [
   {path: 'home', component:HomeComponent, title:'Home'},
@@ -40,17 +45,26 @@ export const routes: Routes = [
   {path: 'dashboard/reports',component:ReportsComponent, title:'Reports'},
   {path:'dashboard/view-profile',component: ViewProfileComponent, title:'View Profile'},
   {path:'edit-profile',component:EditProfileComponent, title:'Edit Profile'},
+
+  {path: 'jobs', component: jobSearchPageComponent },
+  {path: 'jobs/:id', component: JobDetailComponent },
+
   //{path:'manage-employers', component:EmployerManageComponent,title:'Manage Employers'},
-  { path: 'jobs', component: jobSearchPageComponent },
-  { path: 'jobs/:id', component: JobDetailComponent },
+
   {path: 'applications', component: MyApplicationsComponent},
   {path: 'users', component: UserListPageComponent},
   {path:'notifications',component:NotificationsComponent, title:'notifications'},
   {path:'upload-Resume',component:UploadResumeComponent, title:'Upload-Resume'},
   {path:'view-profile',component:ViewProfileComponent, title:'view-profile'},
   {path:'job-alerts',component:JobAlertsComponent, title:'job-alert'},
+  {path:'dashboard/manage-jobs',component:ManageJobsComponent , title: 'manage job'},
+  {path:'dashboard/saved-jobs' ,component:SavedJobsComponent , title: 'saved job'},
+  {path: 'dashboard/manage-jobs/edit/:id', component: EditJobsComponent, title: 'Edit Job' },
+  {path: 'ViewCandidate/:id' , component: ViewCandidates , title: 'View Candidates'},
+  {path: 'dashboard/JobListings' , component: JobListingsComponent , title: 'Job Listings'},
   {path:'notfound', component:NotfoundComponent, title:'Not Found'},
-  {path:'**', redirectTo:'notfound', pathMatch:'full'},
+  {path:'**', redirectTo:'notfound', pathMatch:'full'}
   {path:'user-details', component:UserDetailsComponent, },
   {path:'job-details', component:JobDetailsComponent, },
 ];
+

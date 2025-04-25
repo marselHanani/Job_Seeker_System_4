@@ -1,0 +1,116 @@
+main {
+  background: linear-gradient(135deg, #d1e6ff 0%, #fedee0 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h2 {
+  font-weight: bold;
+  color: #333;
+}
+
+.badge.bg-secondary {
+  background-color: #ff9a9e;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 20px;
+}
+
+.card {
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+} 
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.card-body {
+  position: relative;
+}
+
+.card .text-end {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+}
+
+.card .btn-outline-primary {
+  background: linear-gradient(135deg, #d1e6ff 0%, #ffd6d9 100%);
+  border: none;
+  color: #333;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px 20px;
+  font-size: 0.85rem;
+}
+
+.card .btn-outline-primary:hover {
+  background: linear-gradient(135deg, #c2ddff 0%, #ffc2c7 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.card .badge {
+  font-size: 0.75rem;
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #4a90e2 0%, #ff9a9e 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 25px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:disabled {
+  background: #e0e0e0;
+  transform: none;
+  box-shadow: none;
+}
+
+.form-control,
+.form-select {
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+.alert-danger {
+  border-radius: 10px;
+  background-color: rgba(255, 154, 158, 0.1);
+  border: 1px solid rgba(255, 154, 158, 0.3);
+  color: #dc3545;
+}
+
+.alert-info {
+  border-radius: 10px;
+  background-color: rgba(74, 144, 226, 0.05);
+  border: 1px solid rgba(74, 144, 226, 0.2);
+  color: #3178c6;
+}

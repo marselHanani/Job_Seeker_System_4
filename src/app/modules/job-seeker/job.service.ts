@@ -241,7 +241,7 @@ private jobs: Job[] = [
 
   searchJobs(query: string): Observable<Job[]> {
     const lowercaseQuery = query.toLowerCase();
-    const filteredJobs = this.jobs.filter(job => 
+    const filteredJobs = this.jobs.filter(job =>
       job.title.toLowerCase().includes(lowercaseQuery) ||
       job.company.toLowerCase().includes(lowercaseQuery) ||
       job.location.toLowerCase().includes(lowercaseQuery) ||
@@ -258,4 +258,19 @@ private jobs: Job[] = [
     this.jobs.push(newJob);
     return of(newJob);
   }
+
+  updateJob(id: string, updatedJob: Job): Observable<Job | undefined> {
+    const index = this.jobs.findIndex(job => job.id === id);
+    if (index !== -1) {
+      this.jobs[index] = { ...updatedJob, id };
+      return of(this.jobs[index]);
+    }
+    return of(undefined);
+  }
+
+  deleteJob(id: string) {
+    return this.http.delete(`api/jobs/${id}`);
+  }
+
+
 }
