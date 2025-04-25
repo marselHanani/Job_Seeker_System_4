@@ -3,6 +3,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
+import {jwtDecode}  from 'jwt-decode';
 
 declare const FB: any;
 
@@ -21,32 +22,29 @@ export class LoginComponent {
     private auth: AuthService
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      (window as any)['handleGoogleSignIn'] = (response: any) => {
-        this.ngZone.run(() => {
-          this.handleGoogleSignIn(response);
-        });
-      }
+      this.initializeGoogleSignIn();
     }
+  }
+
+  private initializeGoogleSignIn(): void {
+    (window as any).handleGoogleSignIn = (response: any) => {
+      this.ngZone.run(() => {
+        this.handleGoogleSignIn(response);
+      });
+    };
   }
 
   handleGoogleSignIn(response: any) {
-    const decodedToken = this.decodeJwtResponse(response.credential);
-    console.log('Google user data:', decodedToken);
-    this.LoginForm.patchValue({
-      username: decodedToken.name,
-      password: decodedToken.password
-    });
-  }
-
-    private decodeJwtResponse(token: string) {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-      return JSON.parse(jsonPayload);
+    try {
+      const decodedToken = jwtDecode(response.credential);
+      this.LoginForm.patchValue({
+        username: (decodedToken as any).name,
+        password: (decodedToken as any).sub
+      });
+    } catch (error) {
+      console.error('error Google:', error);
     }
-
+  }
 
   LoginForm: FormGroup = new FormGroup({
     username : new FormControl(null,[Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
@@ -60,7 +58,6 @@ export class LoginComponent {
 
   printData(formGroup: FormGroup) {
     if (isPlatformBrowser(this.platformId)) {
-      // Check for admin first
       if (
         formGroup.value.username === this.adminInfo.username &&
         formGroup.value.password === this.adminInfo.password
@@ -79,8 +76,6 @@ export class LoginComponent {
           userData.password === formGroup.value.password
         ) {
           this.auth.token = userDataStr;
-
-          // Fix user type checking
           const username = userData.username.toLowerCase();
           if (username === 'admin') {
             localStorage.setItem('userType', 'admin');

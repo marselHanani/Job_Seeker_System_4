@@ -4,6 +4,7 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { Route, Router } from '@angular/router';
 import { routes } from '../../../app.routes';
 import { AuthService } from '../../../core/auth/auth.service';
+import {jwtDecode} from 'jwt-decode';
 
 declare const FB: any;
 
@@ -22,12 +23,16 @@ export class RegisterComponent {
     private auth: AuthService
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      (window as any)['handleGoogleSignUp'] = (response: any) => {
-        this.ngZone.run(() => {
-          this.handleGoogleSignUp(response);
-        });
-      }
+      this.initializeGoogleSignUp();
     }
+  }
+
+  private initializeGoogleSignUp(): void {
+    (window as any).handleGoogleSignUp = (response: any) => {
+      this.ngZone.run(() => {
+        this.handleGoogleSignUp(response);
+      });
+    };
   }
 
   private passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
@@ -39,41 +44,34 @@ export class RegisterComponent {
     }
     return null;
   }
-    RegisterForm : FormGroup = new FormGroup({
-      username : new FormControl(null , [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
-      email : new FormControl(null, [Validators.required, Validators.email]),
-      password : new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]),
-      confirmPassword : new FormControl(null, [Validators.required]),
-      rules: new FormControl(false, Validators.requiredTrue)
-    },{validators: this.passwordMatchValidator});
 
-    SaveData(formGroup:FormGroup){
-      // Save user data in localStorage with username as key
-      const userData = JSON.stringify(formGroup.value);
-      localStorage.setItem(formGroup.value.username + 'Info', userData);
-      // Optionally, you can store the last registered username for easier login
-      localStorage.setItem('lastRegisteredUser', formGroup.value.username);
-      formGroup.reset();
-      this._Router.navigate(['/login']);
-    }
+  RegisterForm: FormGroup = new FormGroup({
+    username: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+    email: new FormControl(null, [Validators.required, Validators.email]),
+    password: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]),
+    confirmPassword: new FormControl(null, [Validators.required]),
+    rules: new FormControl(false, Validators.requiredTrue)
+  }, {validators: this.passwordMatchValidator});
 
-
-    handleGoogleSignUp(response: any) {
-    const decodedToken = this.decodeJwtResponse(response.credential);
-    console.log('Google user data:', decodedToken);
-    this.RegisterForm.patchValue({
-      username: decodedToken.name,
-      email: decodedToken.email
-    });
+  SaveData(formGroup: FormGroup) {
+    const userData = JSON.stringify(formGroup.value);
+    localStorage.setItem(formGroup.value.username + 'Info', userData);
+    localStorage.setItem('lastRegisteredUser', formGroup.value.username);
+    formGroup.reset();
+    this._Router.navigate(['/login']);
   }
 
-  private decodeJwtResponse(token: string) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
+  handleGoogleSignUp(response: any) {
+    try {
+      const decodedToken = jwtDecode(response.credential);
+      console.log('Google user data:', decodedToken);
+      this.RegisterForm.patchValue({
+        username: (decodedToken as any).name,
+        email: (decodedToken as any).email
+      });
+    } catch (error) {
+      console.error('Error decoding Google token:', error);
+    }
   }
 
   registerWithFacebook(formGroup: FormGroup) {

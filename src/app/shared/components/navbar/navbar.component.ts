@@ -16,7 +16,6 @@ export class NavbarComponent implements OnInit {
   navItems = [
     { id: 'home', label: 'Home', authorized: true },
     { id: 'jobs', label: 'Find Job', authorized: true },
-    { id: 'findEmployers', label: 'Find Employers', authorized: false },
     { id: 'dashboard', label: 'Dashboard', authorized: false },
     { id: 'job-alerts', label: 'Job Alerts', authorized: true },
     { id: 'contact', label: 'Customer Supports', authorized: true },

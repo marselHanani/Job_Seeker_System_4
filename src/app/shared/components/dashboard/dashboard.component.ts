@@ -32,7 +32,6 @@ export class DashboardComponent implements AfterViewInit {
     // Common Items
     const commonItems = [
       { link: '/dashboard', icon: 'fa-th-large', text: 'Dashboard', active: true },
-      { link: '/dashboard/messages', icon: 'fa-envelope', text: 'Messages' },
       { link: '/notifications', icon: 'fa-bell', text: 'Notifications' },
     ];
 
@@ -59,6 +58,7 @@ export class DashboardComponent implements AfterViewInit {
       ...employerItems,
       { link: '/users', icon: 'fa-users-cog', text: 'Manage Users' },
       { link: '/dashboard/reports', icon: 'fa-chart-bar', text: 'Reports' },
+      { link: '/manage-employers', icon: 'fa-users-cog', text: 'Manage Employers' },
     ];
 
     // Set menuItems based on user type

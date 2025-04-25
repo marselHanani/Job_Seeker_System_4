@@ -62,7 +62,13 @@
               <div class="col-12">
                 <div class="form-group">
                   <label for="message" class="form-label">Message</label>
-                  <textarea class="form-control" id="message" rows="5" placeholder="Your message"></textarea>
+                  <quill-editor
+                    [(ngModel)]="messageContent"
+                    name="message"
+                    [styles]="{ height: '200px' }"
+                    [modules]="quillConfig"
+                    placeholder="Your message"
+                  ></quill-editor>
                 </div>
               </div>
               <div class="col-12">

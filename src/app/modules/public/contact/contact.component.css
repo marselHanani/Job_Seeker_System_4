@@ -116,3 +116,37 @@
     padding: 20px;
   }
 }
+
+
+/* Quill Editor Styles */
+:host ::ng-deep .ql-container {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background: #fff;
+}
+
+:host ::ng-deep .ql-toolbar {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background: #fff;
+  border-color: #e0e0e0;
+}
+
+:host ::ng-deep .ql-editor {
+  min-height: 200px;
+  font-size: 16px;
+  padding: 12px;
+}
+
+:host ::ng-deep .ql-editor:focus {
+  border-color: #2196f3;
+}
+
+:host ::ng-deep .ql-toolbar button:hover,
+:host ::ng-deep .ql-toolbar button:focus {
+  color: #2196f3;
+}
+
+:host ::ng-deep .ql-toolbar button.ql-active {
+  color: #2196f3;
+}

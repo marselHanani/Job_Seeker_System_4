@@ -2,6 +2,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, NgZone, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import {jwtDecode} from 'jwt-decode';
 
 declare const FB: any;
 
@@ -28,20 +29,15 @@ export class ForgetPasswordComponent {
   }
 
   handleGoogleSignIn(response: any) {
-    const decodedToken = this.decodeJwtResponse(response.credential);
-    console.log('Google user data:', decodedToken);
-    this.ForgetPass.patchValue({
-      email: decodedToken.email
-    });
-  }
-
-  private decodeJwtResponse(token: string) {
-    const base64Url = token.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
+    try {
+      const decodedToken = jwtDecode(response.credential);
+      console.log('Google user data:', decodedToken);
+      this.ForgetPass.patchValue({
+        email: (decodedToken as any).email
+      });
+    } catch (error) {
+      console.error('Error decoding Google token:', error);
+    }
   }
 
   navigate() {

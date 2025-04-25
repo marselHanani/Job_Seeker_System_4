@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
-import { CreateReportDialogComponent } from './create-report-dialog/create-report-dialog.component';
-
+import { CreateReportDialogComponent } from '../create-report-dialog/create-report-dialog.component';
 interface Report {
   id: number;
   title: string;
@@ -28,7 +27,7 @@ export class ReportsComponent implements OnInit {
   searchText: string = '';
   selectedFilter: string = 'All Reports';
   filteredReports: Report[] = [];
-  
+
   reports: Report[] = [
     {
       id: 1,
@@ -121,7 +120,7 @@ export class ReportsComponent implements OnInit {
 
   createNewReport() {
     const dialogRef = this.dialog.open(CreateReportDialogComponent);
-    
+
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const newReport: Report = {
@@ -134,7 +133,7 @@ export class ReportsComponent implements OnInit {
           downloads: 0,
           icon: 'fa-file-alt'
         };
-        
+
         this.reports.unshift(newReport);
         this.filterReports(this.selectedFilter);
         this.showNotification('New report created successfully!');
@@ -149,10 +148,10 @@ export class ReportsComponent implements OnInit {
       verticalPosition: 'top'
     });
   }
-  
+
   // Add to your component class
   isSidebarOpen = true;
-  
+
   toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
       const sidebar = document.querySelector('.sidebar');
