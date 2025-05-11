@@ -16,7 +16,6 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'confirm_password',
         'image',
         'role_id',
     ];
@@ -29,10 +28,6 @@ class User extends Authenticatable
         return $this->belongsToMany(Job::class, 'job_user');
     }
 
-    public function jobAlerts() {
-        return $this->hasMany(JobAlert::class);
-    }
-
     public function notifications() {
         return $this->hasMany(Notification::class);
     }
@@ -42,9 +37,6 @@ class User extends Authenticatable
     }
 
     public function posts() {
-        return $this->hasMany(Post::class);
-    }
-    public function customers_support(){
-        return $this->hasMany(CustomerSupport::class);
+        return $this->hasOne(Employer::class);
     }
 }
