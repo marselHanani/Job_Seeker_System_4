@@ -2,13 +2,13 @@ import {
   takeUntilDestroyed
 } from "./chunk-Y2BAU6IR.js";
 import {
-  DomSanitizer
-} from "./chunk-JLMIBE6Y.js";
-import "./chunk-BHIIOTIK.js";
-import {
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR
 } from "./chunk-QP4KAO7E.js";
+import {
+  DomSanitizer
+} from "./chunk-JLMIBE6Y.js";
+import "./chunk-BHIIOTIK.js";
 import {
   DOCUMENT,
   isPlatformServer
