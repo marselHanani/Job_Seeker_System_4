@@ -1,0 +1,55 @@
+.btn-primary {
+  background: linear-gradient(135deg, #4a90e2 0%, #ff9a9e 100%);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px 25px;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary:disabled {
+  background: #e0e0e0;
+  transform: none; 
+  box-shadow: none;
+}
+
+.form-control, .form-select {
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  padding: 10px 15px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+}
+
+.alert-danger {
+  border-radius: 10px;
+  background-color: rgba(255, 154, 158, 0.1);
+  border: 1px solid rgba(255, 154, 158, 0.3);
+  color: #dc3545;
+}
+
+.btn-outline-primary {
+  background: linear-gradient(135deg, #d1e6ff 0%, #ffd6d9 100%);
+  border: none;
+  color: #333;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 8px 20px;
+}
+
+.btn-outline-primary:hover {
+  background: linear-gradient(135deg, #c2ddff 0%, #ffc2c7 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}

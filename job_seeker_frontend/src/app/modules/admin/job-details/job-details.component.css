@@ -1,0 +1,105 @@
+
+body {
+    background-color: #0a74da;
+    color: white;
+  }
+  
+  .job-details-page {
+    padding: 20px;
+    background-color: #f7f7f7; 
+    border-radius: 8px;
+  }
+  
+  .job-details-header {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 15px;
+    color: #2196f3; 
+  }
+  
+ 
+  .job-details-page .card {
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .job-details-page .card-header h3 {
+    color: #0a74da; 
+  }
+  
+  .job-details-page .card-body {
+    padding: 20px;
+  }
+  
+  .job-actions button {
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 1rem;
+    background-color: #2196f3;
+    border: none;
+    color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .job-actions button:hover {
+    background-color: #1976d2;
+  }
+  
+ 
+  .applicants-list {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 10px;
+  }
+  
+  .applicant {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .applicant a {
+    color: #2196f3;
+    text-decoration: none;
+  }
+  
+  .applicant a:hover {
+    text-decoration: underline;
+  }
+  
+ 
+  button {
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background-color: #2196f3;
+    border: none;
+    color: white;
+  }
+  
+  button:hover {
+    background-color: #1976d2; 
+  
+  .btn-outline-primary {
+    border-color: #2196f3;
+    color: #2196f3;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #2196f3;
+    color: white;
+  }
+  
+ 
+  hr {
+    border: 1px solid #ddd;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}

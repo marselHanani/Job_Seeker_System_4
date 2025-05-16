@@ -1,0 +1,50 @@
+<div class="job-details-page">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h3>Job Details: {{ job.title }}</h3>
+      </div>
+      <div class="card-body">
+        <p class="job-details-header">Description:</p>
+        <p>{{ job.description }}</p>
+
+        <p class="job-details-header">Company:</p>
+        <p>{{ job.company }}</p>
+
+        <p class="job-details-header">Location:</p>
+        <p>{{ job.location }}</p>
+
+        <p class="job-details-header">Salary:</p>
+        <p>{{ job.salary }}</p>
+
+        <p class="job-details-header">Requirements:</p>
+        <ul>
+          <li *ngFor="let requirement of job.requirements">{{ requirement }}</li>
+        </ul>
+
+        <p class="job-details-header">Dates:</p>
+        <p>Posted on: {{ job.publishDate }}</p>
+        <p>Application Deadline: {{ job.deadline }}</p>
+
+        <div class="job-actions">
+         
+          <button class="btn-custom" (click)="editJob(job.id)">Edit</button>
+          <button class="btn-custom" (click)="deleteJob(job.id)">Delete</button>
+          <button class="btn-custom" (click)="toggleApplicants()">View Applicants</button>
+        </div>
+
+        <!-- Applicants List -->
+        <div *ngIf="showApplicants" class="applicants-list">
+          <h4>Applicants for {{ job.title }}</h4>
+          <div *ngFor="let applicant of job.applicants" class="applicant">
+            <p><strong>Name:</strong> {{ applicant.name }}</p>
+            <p><strong>Email:</strong> <a href="mailto:{{ applicant.email }}">{{ applicant.email }}</a></p>
+            <p><strong>Status:</strong> {{ applicant.status }}</p>
+            <p><strong>Resume:</strong> <a href="{{ applicant.resumeLink }}" target="_blank">View Resume</a></p>
+            <hr>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

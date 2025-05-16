@@ -1,0 +1,126 @@
+h2 {
+  color: #333; 
+  font-size: 1.8rem;
+}
+
+.custom-bg-color {
+  background-color: #fff; 
+}
+
+.employer-card {
+  background-color: #fff; 
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.employer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+button {
+  border-radius: 25px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0a74da; 
+  color: white;
+}
+
+.btn-outline-danger:hover {
+  background-color: #f44336; 
+  color: white;
+}
+
+.company-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid #ddd;
+}
+
+a {
+  color: #0a74da; 
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  border-radius: 25px;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0a74da;
+  color: white;
+}
+
+.btn-outline-danger:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .employer-card {
+    margin-bottom: 20px;
+  }
+  
+  /* Adjust the card and buttons for smaller screens */
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .employer-card {
+    padding: 15px;
+  }
+
+  button {
+    font-size: 0.85rem;
+  }
+
+  /* Adjust layout for smaller screens */
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .col-md-6 {
+    width: 100%;
+  }
+
+  .company-logo {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Mobile adjustments */
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .company-logo {
+    width: 40px;
+    height: 40px;
+  }
+
+  .employer-card {
+    padding: 10px;
+  }
+
+  button {
+    font-size: 0.8rem;
+  }
+}

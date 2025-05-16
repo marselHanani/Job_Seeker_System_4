@@ -1,0 +1,36 @@
+<div class="container mt-4">
+  <h3 class="mb-4">Candidates</h3>
+
+  <div *ngIf="filteredCandidates.length > 0; else noCandidates">
+    <div *ngFor="let candidate of filteredCandidates" class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ candidate.name }}</h5>
+        <p class="card-text">Experience: {{ candidate.experience }} years</p>
+
+        <div class="d-flex gap-2">
+          <button
+            class="btn btn-success"
+            (click)="acceptCandidate(candidate.id)">
+            Accept
+          </button>
+
+          <button
+            class="btn btn-danger"
+            (click)="rejectCandidate(candidate.id)">
+            Reject
+          </button>
+ 
+          <button
+            class="btn btn-primary ms-auto"
+            (click)="viewCandidateDetails(candidate.id)">
+            View Profile
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noCandidates>
+    <div class="alert alert-info">No candidates found</div>
+  </ng-template>
+</div>
