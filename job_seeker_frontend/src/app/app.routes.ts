@@ -26,6 +26,7 @@ import { ManageJobsComponent } from './modules/employer/manage-jobs/manage-jobs.
 import { SavedJobsComponent } from './modules/job-seeker/saved-jobs/saved-jobs.component';
 import { EditJobsComponent } from './modules/employer/manage-jobs/edit/edit-jobs.component';
 import { JobListingsComponent } from './modules/admin/job-listing/job-listing.component';
+import {JobListingsComponent as job_list} from './modules/employer/Candidate/job-listings.component'
 import { ViewCandidates } from './modules/employer/Candidate/ViewCandidate/View-Candidate.component';
 import { EmployerManageComponent } from './modules/admin/employer-manage/employer-manage.component';
 import { UserDetailsComponent } from './modules/admin/user-details/user-details.component';
@@ -61,6 +62,7 @@ export const routes: Routes = [
   {path: 'dashboard/manage-jobs/edit/:id', component: EditJobsComponent, title: 'Edit Job' },
   {path: 'view-candidate/:id' , component: ViewCandidates , title: 'View Candidates'},
   {path: 'dashboard/JobListings' , component: JobListingsComponent , title: 'Job Listings'},
+  {path: 'dashboard/job-listings' , component: job_list , title: 'Job Listings'},
   {path:'user/:id', component:UserDetailsComponent,title:'User Details'},
   {path:'job-details', component:JobDetailsComponent, title:'Job Details'},
   {path:'notfound', component:NotfoundComponent, title:'Not Found'},
