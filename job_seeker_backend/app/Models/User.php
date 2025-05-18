@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail , JWTSubject
 {
     use HasFactory, Notifiable;
 
@@ -18,6 +20,7 @@ class User extends Authenticatable
         'password',
         'image',
         'role_id',
+        'is_verified',
     ];
 
     public function role() {
@@ -25,7 +28,7 @@ class User extends Authenticatable
     }
 
     public function jobs() {
-        return $this->belongsToMany(Job::class, 'job_user');
+        return $this->belongsToMany(PostJob::class, 'job_user');
     }
 
     public function notifications() {
@@ -38,5 +41,19 @@ class User extends Authenticatable
 
     public function posts() {
         return $this->hasOne(Employer::class);
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [
+            'user_id' => $this->id,
+            'username' => $this->username,
+            'role' => $this->role->name,
+        ];
     }
 }

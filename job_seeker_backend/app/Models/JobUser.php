@@ -10,7 +10,7 @@ class JobUser extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'job_id',
+        'post_job_id',
     ];
 
 }
