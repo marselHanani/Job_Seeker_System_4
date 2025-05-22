@@ -20,29 +20,27 @@ export class DashboardComponent implements AfterViewInit {
 
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
-    private authService: AuthService  // Add AuthService
+    private authService: AuthService 
   ) {
-    this.userType = this.authService.getUserType();  // Use AuthService instead
+    this.userType = this.authService.getUserType();
     this.setMenuItems();
   }
 
-  // Remove getUserType method as we're using AuthService now
+
 
   private setMenuItems() {
-    // Common Items
     const commonItems = [
       { link: '/dashboard', icon: 'fa-th-large', text: 'Dashboard', active: true },
       { link: '/notifications', icon: 'fa-bell', text: 'Notifications' },
     ];
 
-    // Employer Items
+
     const employerItems = [
       { link: '/dashboard/post-job', icon: 'fa-paper-plane', text: 'Post Job' },
       { link: '/dashboard/manage-jobs', icon: 'fa-tasks', text: 'Manage Jobs' },
       { link: '/dashboard/job-listings', icon: 'fa-solid fa-briefcase', text: 'Job Listings' },
     ];
 
-    // Job Seeker Items
     const jobSeekerItems = [
       { link: '/applications', icon: 'fa-briefcase', text: 'My Applications' },
       { link: '/dashboard/saved-jobs', icon: 'fa-bookmark', text: 'Saved Jobs' },
@@ -50,7 +48,6 @@ export class DashboardComponent implements AfterViewInit {
       { link: '/jobs', icon: 'fa-search', text: 'Search Jobs' },
     ];
 
-    // Admin Items
     const adminItems = [
       ...commonItems,
       { link: '/dashboard/view-profile', icon: 'fa-user', text: 'My Profile' },
@@ -61,7 +58,6 @@ export class DashboardComponent implements AfterViewInit {
       { link: '/manage-employers', icon: 'fa-users-cog', text: 'Manage Employers' },
     ];
 
-    // Set menuItems based on user type
     switch (this.userType) {
       case 'admin':
         this.menuItems = adminItems;

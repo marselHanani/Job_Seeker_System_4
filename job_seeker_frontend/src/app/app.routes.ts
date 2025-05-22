@@ -32,6 +32,8 @@ import { EmployerManageComponent } from './modules/admin/employer-manage/employe
 import { UserDetailsComponent } from './modules/admin/user-details/user-details.component';
 import { JobDetailsComponent } from './modules/admin/job-details/job-details.component';
 import { ApproveRejectEmployersComponent } from './modules/admin/approve-reject-page/approve-reject-page.component';
+import { CreateEmployerComponent } from './modules/admin/create-employer/create-employer.component';
+import { AddUserComponent } from './modules/admin/add-user/add-user.component';
 
 export const routes: Routes = [
   {path: 'home', component:HomeComponent, title:'Home'},
@@ -41,17 +43,18 @@ export const routes: Routes = [
   {path:'register',component:RegisterComponent, title:'Register'},
   {path:'login',component:LoginComponent, title:'Login'},
   {path:'forget-password',component:ForgetPasswordComponent, title:'Forget Password'},
-  {path:'reset-password',component:ResetPasswordComponent, title:'Reset Password'},
+  {path:'reset-password/:id',component:ResetPasswordComponent, title:'Reset Password'},
   {path: 'dashboard',component:DashboardComponent,canActivate:[authGuard], title:'Dashboard'},
   {path:'dashboard/post-job', component: PostJobComponent, title:'Post Job'},
   {path: 'dashboard/reports',component:ReportsComponent, title:'Reports'},
   {path:'dashboard/view-profile',component: ViewProfileComponent, title:'View Profile'},
   {path:'edit-profile',component:EditProfileComponent, title:'Edit Profile'},
-  {path: 'jobs', component: jobSearchPageComponent },
-  {path: 'jobs/:id', component: JobDetailComponent },
+  {path: 'jobs', component: jobSearchPageComponent ,title:'Jobs'},
+  {path: 'jobs/:id', component: JobDetailComponent, title:'Job Detail' },
+  {path:'create-user', component:AddUserComponent, title:'Create User'},
   {path:'manage-employers', component:EmployerManageComponent,title:'Manage Employers'},
   {path: 'applications', component: MyApplicationsComponent},
-  {path: 'users', component: UserListPageComponent},
+  {path: 'users', component: UserListPageComponent,title:'Users'},
   {path:'notifications',component:NotificationsComponent, title:'notifications'},
   {path:'upload-Resume',component:UploadResumeComponent, title:'Upload-Resume'},
   {path:'view-profile',component:ViewProfileComponent, title:'view-profile'},

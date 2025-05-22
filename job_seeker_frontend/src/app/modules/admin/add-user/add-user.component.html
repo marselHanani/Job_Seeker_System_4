@@ -1,0 +1,48 @@
+<!-- Main Container with Background Image -->
+<div class="bg-img">
+  <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()" class="m-auto w-40 pt-5 w-80">
+    <div class="d-flex justify-content-between">
+      <h3 class="text-dark mb-4">Add New User</h3>
+    </div>
+
+    <!-- Username Input Field -->
+    <div class="pt-3">
+      <input formControlName="username" type="text" class="form-control p-2" placeholder="Username">
+    </div>
+    <div class="alert alert-danger" *ngIf="addUserForm.get('username')?.errors && (addUserForm.get('username')?.touched || submitted)">
+      <span *ngIf="addUserForm.get('username')?.hasError('required')">Username is required</span>
+      <span *ngIf="addUserForm.get('username')?.hasError('minlength')">Minimum length is 3 characters</span>
+      <span *ngIf="addUserForm.get('username')?.hasError('maxlength')">Maximum length is 20 characters</span>
+    </div>
+
+    <!-- Password Input Field -->
+    <div class="pt-4">
+      <input formControlName="password" type="password" class="form-control p-2" placeholder="Password">
+    </div>
+    <div class="alert alert-danger" *ngIf="addUserForm.get('password')?.errors && (addUserForm.get('password')?.touched || submitted)">
+      <span *ngIf="addUserForm.get('password')?.hasError('required')">Password is required</span>
+      <span *ngIf="addUserForm.get('password')?.hasError('pattern')">
+        Password must be at least 8 characters long and include at least one lowercase letter, one uppercase letter, one number, and one special character
+      </span>
+    </div>
+
+    <!-- Role Select List -->
+    <div class="pt-4">
+      <select formControlName="role" class="form-select p-2">
+        <option value="" disabled selected>Select role</option>
+        <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+      </select>
+    </div>
+    <div class="alert alert-danger" *ngIf="addUserForm.get('role')?.errors && (addUserForm.get('role')?.touched || submitted)">
+      <span *ngIf="addUserForm.get('role')?.hasError('required')">Role selection is required</span>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="pt-2">
+      <button [disabled]="addUserForm.invalid" type="submit" class="login-btn form-control p-2 mt-3">
+        Add User <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </form>
+</div>
+<p>add-user works!</p>

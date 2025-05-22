@@ -20,7 +20,7 @@ class ResetPass extends Mailable
     public function __construct($user)
     {
         $this->user = $user;
-        $this->url = url('api/reset-password/'.$this->user->id);
+        $this->url = url('http://localhost:4200/reset-password/'.$this->user->id);
     }
 
     /**

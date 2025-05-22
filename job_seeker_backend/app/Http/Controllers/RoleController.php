@@ -112,7 +112,7 @@ class RoleController extends Controller
         else{
             return response()->json([
                 'status'=> 404,
-               'message' => 'Role not found'
+                'message' => 'Role not found'
             ]);
         }
     }

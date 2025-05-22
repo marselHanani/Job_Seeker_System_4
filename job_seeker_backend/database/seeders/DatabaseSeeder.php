@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'admin']);
         Role::create(['name'=> 'employer']);
         Role::create(['name'=> 'job_seeker']);
+        $this->call(AdminInfoSeeder::class);
         //User::factory(10)->create();
         //PostJob::factory(10)->create();
         //Employer::factory(3)->create();

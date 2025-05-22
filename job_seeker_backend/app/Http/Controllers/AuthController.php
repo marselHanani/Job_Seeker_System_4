@@ -49,7 +49,7 @@ class AuthController extends Controller
         if (!$token = auth('api')->attempt($credentials)) {
             return response()->json(['message' => 'Invalid credentials.'], 401);
         }
-        return response()->json(['token' => $token]);
+        return response()->json(['token' => $token,'message'=>'Login successfully']);
     }
     public function forgetPass(Request $request){
         $user = User::where("email",$request->email)->first();
@@ -62,9 +62,6 @@ class AuthController extends Controller
     public function resetPass(Request $request){
         $user = User::find($request->id);
         $user->password = Hash::make($request->password);
-        if($request->password != $request->confirm_password){
-            return response()->json(["message"=> "Password and confirm password must be same"]);
-        }
         $user->save();
         return response()->json(["message"=> "Password reset successfully"]);
     }

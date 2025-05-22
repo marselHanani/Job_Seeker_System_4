@@ -1,7 +1,7 @@
 <!-- Main Container with Background Image -->
 <div class="bg-img">
   <!-- Login Form with Reactive Form Binding -->
-  <form [formGroup]="LoginForm" (ngSubmit)="printData(LoginForm)" class="m-auto w-40 pt-5 w-80">
+  <form [formGroup]="LoginForm" (ngSubmit)="Login(LoginForm)" class="m-auto w-40 pt-5 w-80">
     <!-- Form Header -->
     <div class="d-flex justify-content-between">
       <h3 class="text-dark mb-4">Sign In.</h3>
@@ -48,7 +48,7 @@
     <!-- Social Login Buttons Container -->
     <div class="d-flex justify-content-between gap-2 mt-3">
       <!-- Google Sign-in Button -->
-      <button class="filter-btn w-50 d-flex align-items-center justify-content-center">
+      <button type="button" class="filter-btn w-50 d-flex align-items-center justify-content-center" (click)="signInWithGoogle()">
         <i class="fab fa-google me-2"></i>
         <span>Google</span>
       </button>

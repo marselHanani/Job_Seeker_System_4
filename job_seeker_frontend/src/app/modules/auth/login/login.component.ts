@@ -20,26 +20,40 @@ export class LoginComponent {
     @Inject(PLATFORM_ID) private platformId: Object,
     private _Router: Router,
     private auth: AuthService
-  ) {
-    if (isPlatformBrowser(this.platformId)) {
-      this.initializeGoogleSignIn();
-    }
-  }
+  ) {}
 
-  private initializeGoogleSignIn(): void {
-    (window as any).handleGoogleSignIn = (response: any) => {
-      this.ngZone.run(() => {
-        this.handleGoogleSignIn(response);
+  signInWithGoogle(){
+      const client = (window as any).google.accounts.oauth2.initTokenClient({
+        client_id: '1041401952762-nesjnl04bfl9g28gf8aclj3impjhsvno.apps.googleusercontent.com',
+        scope: 'email profile',
+        callback: (response: any) => {
+          this.ngZone.run(() => {
+            this.handleGoogleSignIn(response);
+          });
+        }
       });
-    };
+      client.requestAccessToken();
   }
 
   handleGoogleSignIn(response: any) {
     try {
-      const decodedToken = jwtDecode(response.credential);
-      this.LoginForm.patchValue({
-        username: (decodedToken as any).name,
-        password: (decodedToken as any).sub
+      fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: {
+          Authorization: `Bearer ${response.access_token}`
+        }
+      })
+      .then(res => res.json())
+      .then(userInfo => {
+        this.auth.loginWithGoogle({
+          username: userInfo.name,
+          email: userInfo.email
+        }).subscribe({
+          next: (res) => {
+            this.auth.token = res.token;
+            this._Router.navigate(['/home']);
+          },
+        })
+        
       });
     } catch (error) {
       console.error('error Google:', error);
@@ -50,49 +64,19 @@ export class LoginComponent {
     username : new FormControl(null,[Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     password: new FormControl(null,[Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$#%^&+=!])(?=\\S+$).{8,}$'),Validators.required])
   })
-  adminInfo = {
-    username: "marsel",
-    email : "marsel@gmail.com",
-    password:"Marsel@123"
-  }
 
-  printData(formGroup: FormGroup) {
-    if (isPlatformBrowser(this.platformId)) {
-      if (
-        formGroup.value.username === this.adminInfo.username &&
-        formGroup.value.password === this.adminInfo.password
-      ) {
-        this.auth.token = JSON.stringify(this.adminInfo);
-        localStorage.setItem('userType', 'admin');
-        this._Router.navigateByUrl('/dashboard');
-        return;
-      }
 
-      const userDataStr = localStorage.getItem(formGroup.value.username + 'Info');
-      if (userDataStr) {
-        const userData = JSON.parse(userDataStr);
-        if (
-          userData.username === formGroup.value.username &&
-          userData.password === formGroup.value.password
-        ) {
-          this.auth.token = userDataStr;
-          const username = userData.username.toLowerCase();
-          if (username === 'admin') {
-            localStorage.setItem('userType', 'admin');
-          } else if (username === 'employer') {
-            localStorage.setItem('userType', 'employer');
-          } else {
-            localStorage.setItem('userType', 'job-seeker');
+  Login(data: FormGroup) {
+    if(data.valid){
+      this.auth.login(data.value).subscribe({
+        next:(res)=>{
+          if(res.message === 'Login successfully'){
+            localStorage.setItem('userToken',res.token);
+            this.auth.saveCurrentUser();
+            this._Router.navigate(['/home'])
           }
-
-          localStorage.setItem('currentUserImage', userData.image || '');
-          this._Router.navigateByUrl('/dashboard');
-        } else {
-          alert('Invalid username or password');
         }
-      } else {
-        alert('User not found');
-      }
+      })
     }
   }
   loginWithFacebook() {

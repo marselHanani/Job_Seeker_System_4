@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from "@angular/forms";
+import { AuthService } from '../../../core/auth/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reset-password',
@@ -13,7 +15,13 @@ import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, 
   styleUrl: './reset-password.component.css'
 })
 export class ResetPasswordComponent {
-  constructor(){}
+  private userId: string | null = null;
+
+  constructor(private auth: AuthService, private route: ActivatedRoute) {
+    this.route.paramMap.subscribe(params => {
+      this.userId = params.get('id');
+    });
+  }
 
   private passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const password = control.get('password');
@@ -24,8 +32,17 @@ export class ResetPasswordComponent {
     }
     return null;
   }
-  printData(formGroup:FormGroup){
-    console.log(formGroup.value);
+  ResetPassword(data: FormGroup) {
+    if (data.valid) {
+      this.auth.resetPassword(this.userId, data.value).subscribe({
+        next: (res) => {
+          console.log(res);
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    }
   }
   ResetPass: FormGroup = new FormGroup({
     password: new FormControl(null, [

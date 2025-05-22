@@ -47,10 +47,16 @@ class JobRequest extends FormRequest
 
     protected function failedValidation(Validator $validator)
     {
+        $errors = [];
+        foreach ($validator->errors()->messages() as $fieldErrors) {
+            foreach ($fieldErrors as $error) {
+                $errors[] = $error;
+            }
+        }
         throw new HttpResponseException(
             response()->json([
                 'message' =>'Validation failed',
-                'errors' => $validator->errors()
+                'errors' => $errors
             ], 422)
         );
     }

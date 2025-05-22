@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('street')->nullable();
             $table->string('tags')->nullable();
             $table->string('location')->nullable();
-
             $table->timestamps();
         });
     }
