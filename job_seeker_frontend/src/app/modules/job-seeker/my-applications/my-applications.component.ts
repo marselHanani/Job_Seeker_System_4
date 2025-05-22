@@ -3,6 +3,7 @@ import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { JobService } from '../job.service';
 import { Job, JobApplication } from '../job.model';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-my-applications',
@@ -16,26 +17,77 @@ export class MyApplicationsComponent implements OnInit {
   jobs: Job[] = [];
   loading = true;
   error: string | null = null;
-  userId = 'u1'; // your test user ID
+  userId = '';
 
-  constructor(private jobService: JobService) {}
+  constructor(private jobService: JobService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.loading = true;
+    
+    // Check if user is a job seeker
+    const userType = this.authService.getUserType();
+    if (userType !== 'job-seeker') {
+      this.error = 'Only job seekers can view their applications';
+      this.loading = false;
+      return;
+    }
+    
+    // Get the current authenticated user's ID
+    this.userId = this.authService.getCurrentUserId();
+    
+    // TEMPORARY FIX: Set a default user ID for testing if none exists
+    // Remove this in production
+    if (!this.userId) {
+      console.log('No user ID found, setting temporary ID for testing');
+      this.authService.setCurrentUserId('u1');
+      this.userId = 'u1';
+    }
+    
+    // Load jobs first
     this.jobService.getJobs().subscribe({
       next: jobs => {
         this.jobs = jobs;
+        
+        // Try to get applications from API
         this.jobService.getApplicationsByUser(this.userId).subscribe({
-          next: apps => {
-            this.applications = apps;
+          next: (apiApps) => {
+            // Check if we have any applications in localStorage (for newly submitted applications)
+            const storedApplications = localStorage.getItem('userApplications');
+            if (storedApplications) {
+              const localApps = JSON.parse(storedApplications);
+              
+              // Merge API applications with localStorage applications
+              // Avoid duplicates by checking IDs
+              const apiAppIds = new Set(apiApps.map(app => app.id));
+              // Only include applications for the current user
+              const uniqueLocalApps = localApps.filter((app: JobApplication) => 
+                !apiAppIds.has(app.id) && app.userId === this.userId
+              );
+              
+              this.applications = [...apiApps, ...uniqueLocalApps];
+            } else {
+              this.applications = apiApps;
+            }
+            
             this.loading = false;
           },
-          error: () => {
-            this.error = 'Failed to load applications';
+          error: (err) => {
+            console.error('Error loading applications from API:', err);
+            
+            // Fallback to localStorage if API fails
+            const storedApplications = localStorage.getItem('userApplications');
+            if (storedApplications) {
+              const localApps = JSON.parse(storedApplications);
+              // Only include applications for the current user
+              this.applications = localApps.filter((app: JobApplication) => app.userId === this.userId);
+            }
+            
             this.loading = false;
           }
         });
       },
-      error: () => {
+      error: (err) => {
+        console.error('Error loading jobs:', err);
         this.error = 'Failed to load jobs';
         this.loading = false;
       }

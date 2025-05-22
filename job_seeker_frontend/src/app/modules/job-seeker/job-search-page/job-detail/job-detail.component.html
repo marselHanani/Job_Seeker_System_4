@@ -8,6 +8,13 @@
     <div *ngIf="error" class="alert alert-danger">
       {{error}}
     </div>
+    
+    <div *ngIf="submitting" class="text-center py-3">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Submitting application...</span>
+      </div>
+      <p class="mt-2">Submitting your application...</p>
+    </div>
 
     <div *ngIf="!loading && !error && job" class="row">
       <div class="col-lg-8">
@@ -66,15 +73,15 @@
             <form (ngSubmit)="applyForJob()">
               <div class="mb-3">
                 <label for="resume" class="form-label">Upload Resume</label>
-                <a href="upload-Resume" for="resume" class="animated-gradient-button nav-link">Apply</a>
-                <input type="file" id="resume" accept=".pdf,.doc,.docx">
+                <input type="file" class="form-control" id="resume" accept=".pdf,.doc,.docx" (change)="onFileSelected($event)" [disabled]="submitting">
+                <small class="text-muted">Accepted formats: PDF, DOC, DOCX (max 2MB)</small>
               </div>
               <div class="mb-3">
                 <label for="coverLetter" class="form-label">Cover Letter</label>
-                <textarea class="form-control" id="coverLetter" rows="5" placeholder="Write your cover letter here..."></textarea>
+                <textarea class="form-control" id="coverLetter" rows="5" placeholder="Write your cover letter here..." [(ngModel)]="coverLetter" name="coverLetter" [disabled]="submitting"></textarea>
               </div>
 
-              <button type="submit" class="animated-gradient-button">Submit Application</button>
+              <button type="submit" class="animated-gradient-button" [disabled]="submitting">Submit Application</button>
             </form>
 
           </div>

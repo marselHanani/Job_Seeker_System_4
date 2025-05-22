@@ -2,6 +2,7 @@ import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+
 import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
@@ -10,9 +11,12 @@ import { jwtDecode } from 'jwt-decode';
 export class AuthService {
   private readonly TOKEN_KEY = 'userToken';
   private readonly USER_TYPE_KEY = 'userType';
+  private readonly USER_ID_KEY = 'userId';
   public tokenSubject: BehaviorSubject<string | null>;
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object,private _HttpClient:HttpClient) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private _HttpClient: HttpClient
+  ) {
     const initialToken = this.getStorageItem(this.TOKEN_KEY);
     this.tokenSubject = new BehaviorSubject<string | null>(initialToken);
   }
@@ -100,8 +104,28 @@ export class AuthService {
   registerWithGoogle(data:any):Observable<any>{
      return this._HttpClient.post('http://127.0.0.1:8000/api/google-register',data);
   }
-  
+
   loginWithGoogle(data:any):Observable<any>{
     return this._HttpClient.post('http://127.0.0.1:8000/api/google-login',data);
+  }
+
+   // Get the current authenticated user's ID
+   getCurrentUserId(): string {
+    if (isPlatformBrowser(this.platformId)) {
+      const userId = localStorage.getItem(this.USER_ID_KEY);
+      if (userId) {
+        return userId;
+      }
+    }
+    // If no user ID is found, return an empty string
+    // In a real app, you would redirect to login
+    return '';
+  }
+
+  // Set the current user ID in localStorage
+  setCurrentUserId(userId: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.USER_ID_KEY, userId);
+    }
   }
 }

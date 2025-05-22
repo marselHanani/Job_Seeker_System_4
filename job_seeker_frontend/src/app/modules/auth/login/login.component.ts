@@ -53,7 +53,7 @@ export class LoginComponent {
             this._Router.navigate(['/home']);
           },
         })
-        
+
       });
     } catch (error) {
       console.error('error Google:', error);
@@ -64,7 +64,6 @@ export class LoginComponent {
     username : new FormControl(null,[Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     password: new FormControl(null,[Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$#%^&+=!])(?=\\S+$).{8,}$'),Validators.required])
   })
-
 
   Login(data: FormGroup) {
     if(data.valid){
