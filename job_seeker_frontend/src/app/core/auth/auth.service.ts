@@ -1,16 +1,21 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly TOKEN_KEY = 'userToken';
-  private readonly USER_TYPE_KEY = 'userType'; // Add this line
+  private readonly USER_TYPE_KEY = 'userType';
+  private readonly USER_ID_KEY = 'userId';
   public tokenSubject: BehaviorSubject<string | null>;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private http: HttpClient
+  ) {
     const initialToken = this.getStorageItem(this.TOKEN_KEY);
     this.tokenSubject = new BehaviorSubject<string | null>(initialToken);
   }
@@ -64,5 +69,25 @@ export class AuthService {
       return localStorage.getItem(key);
     }
     return null;
+  }
+  
+  // Get the current authenticated user's ID
+  getCurrentUserId(): string {
+    if (isPlatformBrowser(this.platformId)) {
+      const userId = localStorage.getItem(this.USER_ID_KEY);
+      if (userId) {
+        return userId;
+      }
+    }
+    // If no user ID is found, return an empty string
+    // In a real app, you would redirect to login
+    return '';
+  }
+  
+  // Set the current user ID in localStorage
+  setCurrentUserId(userId: string): void {
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.USER_ID_KEY, userId);
+    }
   }
 }

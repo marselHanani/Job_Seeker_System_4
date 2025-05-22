@@ -23,6 +23,11 @@ Route::apiResource('/users', UserController::class)->middleware(['auth:api']);
 //job route
 Route::apiResource('/jobs', JobController::class);
 
+//job applications route
+use App\Http\Controllers\JobApplicationController;
+Route::apiResource('/applications', JobApplicationController::class);
+Route::get('/my-applications', [JobApplicationController::class, 'getApplicationsByUser']);
+
 //Role route
 Route::apiResource('/roles', RoleController::class);
 //auth routes

@@ -64,6 +64,8 @@ export class LoginComponent {
       ) {
         this.auth.token = JSON.stringify(this.adminInfo);
         localStorage.setItem('userType', 'admin');
+        // Set the user ID for the admin user
+        this.auth.setCurrentUserId('admin1');
         this._Router.navigateByUrl('/dashboard');
         return;
       }
@@ -77,6 +79,11 @@ export class LoginComponent {
         ) {
           this.auth.token = userDataStr;
           const username = userData.username.toLowerCase();
+          
+          // Set the user ID based on the username
+          // In a real app, this would be the user's actual ID from the database
+          this.auth.setCurrentUserId(userData.id || username);
+          
           if (username === 'admin') {
             localStorage.setItem('userType', 'admin');
           } else if (username === 'employer') {
