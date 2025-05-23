@@ -69,7 +69,12 @@ export class NavbarComponent implements OnInit {
       employersItem.authorized = isAuthorized;
     }
   }
-
+  isLoggedIn() {
+    if(! localStorage.getItem('userToken')){
+      return false;
+    }else{
+      return true;}
+  }
   removeToken(): void {
     this.auth.token = null;
     localStorage.removeItem('currentUserImage');
@@ -81,6 +86,19 @@ export class NavbarComponent implements OnInit {
     const navbarCollapse = document.querySelector('.navbar-collapse.show');
     if (navbarCollapse && !this.eRef.nativeElement.contains(event.target)) {
       (navbarCollapse as HTMLElement).classList.remove('show');
+    }
+  }
+  closeDropdown(event: Event): void {
+    event.preventDefault();
+    const dropdownMenu = document.querySelector('.dropdown-menu.show');
+    if (dropdownMenu) {
+      dropdownMenu.classList.remove('show');
+    }
+  }
+  closeMainMenu(): void {
+    const navbarCollapse = document.querySelector('.navbar-collapse.show');
+    if (navbarCollapse) {
+      navbarCollapse.classList.remove('show');
     }
   }
 }
