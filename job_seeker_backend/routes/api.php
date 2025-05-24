@@ -26,7 +26,7 @@ Route::apiResource('/users', UserController::class)->middleware(AdminMiddleware:
 //job applications route
 use App\Http\Controllers\JobApplicationController;
 Route::apiResource('/applications', JobApplicationController::class);
-Route::get('/my-applications', [JobApplicationController::class, 'getApplicationsByUser']);
+Route::get('/my-applications', [JobApplicationController::class, 'getApplicationsByUser'])->middleware();
 
 //Role route
 Route::apiResource('/roles', RoleController::class)->middleware(AdminMiddleware::class);
