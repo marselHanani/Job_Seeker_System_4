@@ -18,6 +18,7 @@ class Employer extends Model
         'company_logo',
         'company_cover',
         'company_social',
+        'status',
     ];
 
     public function user()
