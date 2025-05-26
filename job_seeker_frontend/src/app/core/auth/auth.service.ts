@@ -26,10 +26,12 @@ export class AuthService {
   }
 
   set token(value: string | null) {
-    if (value) {
-      localStorage.setItem(this.TOKEN_KEY, value);
-    } else {
-      localStorage.removeItem(this.TOKEN_KEY);
+    if (isPlatformBrowser(this.platformId)) {
+      if (value) {
+        localStorage.setItem(this.TOKEN_KEY, value);
+      } else {
+        localStorage.removeItem(this.TOKEN_KEY);
+      }
     }
     this.tokenSubject.next(value);
   }
@@ -89,8 +91,10 @@ export class AuthService {
     return this._HttpClient.post('http://127.0.0.1:8000/api/login',data);
   }
   saveCurrentUser(){
-    const token = localStorage.getItem('userToken');
-    this.token = token;
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('userToken');
+      this.token = token;
+    }
   }
 
   forgetPassword(data:any):Observable<any>{

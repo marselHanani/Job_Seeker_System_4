@@ -1,6 +1,7 @@
+import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   isPlatformBrowser
-} from "./chunk-ZSH3GF6Q.js";
+} from "./chunk-KIZJ5BNP.js";
 import {
   ElementRef,
   Injectable,
@@ -8,7 +9,7 @@ import {
   inject,
   setClassMetadata,
   ɵɵdefineInjectable
-} from "./chunk-NPH2M667.js";
+} from "./chunk-MUMOU5BW.js";
 
 // node_modules/@angular/cdk/fesm2022/platform-DmdVEw_C.mjs
 var hasV8BreakIterator;
@@ -90,4 +91,4 @@ export {
   coerceNumberProperty,
   coerceElement
 };
-//# sourceMappingURL=chunk-JF7BE4JC.js.map
+//# sourceMappingURL=chunk-BRYB3I3C.js.map

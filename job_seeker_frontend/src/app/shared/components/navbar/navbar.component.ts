@@ -1,4 +1,5 @@
 
+
 import { AuthService } from './../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
@@ -70,14 +71,17 @@ export class NavbarComponent implements OnInit {
     }
   }
   isLoggedIn() {
-    if(! localStorage.getItem('userToken')){
-      return false;
-    }else{
-      return true;}
+    // Check if we're in a browser environment before accessing localStorage
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return !!localStorage.getItem('userToken');
+    }
+    return false;
   }
   removeToken(): void {
     this.auth.token = null;
-    localStorage.removeItem('currentUserImage');
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.removeItem('currentUserImage');
+    }
     this.router.navigate(['/login']);
   }
 
