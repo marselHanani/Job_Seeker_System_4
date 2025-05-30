@@ -47,3 +47,14 @@ Route::post('/forget-password',[AuthController::class,'forgetPass']);
 Route::post('/reset-password/{id}',[AuthController::class,'resetPass']);
 Route::post('/google-register',[AuthController::class,'googleRegister']);
 Route::post('/google-login',[AuthController::class,'googleLogin']);
+
+
+
+use App\Http\Controllers\EmployerController;
+
+Route::resource('employers', EmployerController::class);
+
+
+
+
+
