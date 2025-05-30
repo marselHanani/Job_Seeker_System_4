@@ -11,12 +11,12 @@
     </button>
 
     <!-- Collapsible Navigation Content -->
-    <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="collapse navbar-collapse media" id="navbarNav">
       <!-- Left Side Navigation Items -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <!-- Dynamic Navigation Items -->
         <li class="nav-item" *ngFor="let item of navItems">
-          <a *ngIf="item.authorized" class="nav-link" routerLink="{{item.id}}" routerLinkActive="active">{{item.label}}</a>
+          <a *ngIf="item.authorized" class="nav-link" routerLink="{{item.id}}" routerLinkActive="active" (click)="closeMainMenu()">{{item.label}}</a>
         </li>
       </ul>
 
@@ -24,16 +24,16 @@
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <!-- Authentication Links -->
         <li class="nav-item" *ngIf="!auth.token">
-          <a class="nav-link" routerLink="login" routerLinkActive="active">Login</a>
+          <a class="nav-link" routerLink="login" routerLinkActive="active" (click)="closeMainMenu()">Login</a>
         </li>
         <li class="nav-item" *ngIf="!auth.token">
-          <a class="nav-link" routerLink="register" routerLinkActive="active">Register</a>
+          <a class="nav-link" routerLink="register" routerLinkActive="active" (click)="closeMainMenu()">Register</a>
         </li>
         <!-- Notification Icon -->
         <li class="nav-item" *ngIf="auth.token">
           <a class="nav-link position-relative" routerLink="/notifications" routerLinkActive="active">
             <i class="fas fa-bell"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            <span class="position-absolute translate-middle badge rounded-pill bg-danger notification-badge">
               5+
               <span class="visually-hidden">unread notifications</span>
             </span>
@@ -43,26 +43,25 @@
           <!-- User Image -->
           <img *ngIf="userImage" [src]="userImage" alt="User" class="rounded-circle me-2" style="width:32px;height:32px;object-fit:cover;">
         </li>
-      </ul>
-
         <!-- Language and User Settings Dropdown -->
-        <li class="nav-link dropdown ms-2">
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-globe me-1"></i>
           </a>
           <!-- Dropdown Menu -->
-          <ul class="dropdown-menu dropdown-menu-end">
+          <ul class="dropdown-menu media mt-3">
             <!-- Language Options -->
-            <li><a class="dropdown-item" href="#">English</a></li>
-            <li><a class="dropdown-item" href="#">Arabic</a></li>
+            <li><a class="dropdown-item" href="#" (click)="closeDropdown($event)">English</a></li>
+            <li><a class="dropdown-item" href="#" (click)="closeDropdown($event)">Arabic</a></li>
             <!-- Divider -->
             <li><hr class="dropdown-divider"></li>
             <!-- User Actions -->
-            <li><a class="dropdown-item" (click)="removeToken()">Logout</a></li>
+            <li><a class="dropdown-item" *ngIf="isLoggedIn()" (click)="removeToken(); closeDropdown($event)">Logout</a></li>
           </ul>
         </li>
+      </ul>
     </div>
   </div>
 </nav>
 
-<!-- Add this after the nav element -->
-<div class="navbar-spacing" style="height: 76px;"></div>
+

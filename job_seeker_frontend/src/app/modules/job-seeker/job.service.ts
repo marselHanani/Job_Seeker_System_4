@@ -1,7 +1,8 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
+import { map, catchError, delay } from 'rxjs/operators';
 import { Job, JobApplication } from '../job-seeker/job.model';
 
 @Injectable({
@@ -10,39 +11,43 @@ import { Job, JobApplication } from '../job-seeker/job.model';
 
 
 export class JobService {
-private applications: JobApplication[] = [
-  {
-    id: '1',
-    jobId: '1',
-    userId: 'u1',
-    status: 'pending',
-    appliedDate: new Date('2025-04-05'),
-    resume: 'resume.pdf',
-    coverLetter: 'I am very excited to apply...'
-  },
-  {
-    id: '2',
-    jobId: '2',
-    userId: 'u1',
-    status: 'accepted',
-    appliedDate: new Date('2025-04-02'),
-    resume: 'resume.pdf',
-    coverLetter: 'My background in UX makes me a good fit...'
-  },
-  {
-    id: '3',
-    jobId: '4',
-    userId: 'u1',
-    status: 'rejected',
-    appliedDate: new Date('2025-11-02'),
-    resume: 'sss.pdf',
-    coverLetter: 'My background in UX makes me a good fit...'
-  }
-];
-
+// Get applications by user from the API
 getApplicationsByUser(userId: string): Observable<JobApplication[]> {
-  const userApps = this.applications.filter(app => app.userId === userId);
-  return of(userApps);
+  // First try to get from API
+  return this.http.get<any>(`/api/applications?user_id=${userId}`).pipe(
+    map(response => {
+      if (response && response.result) {
+        // Map backend application format to our JobApplication model
+        const applications = response.result.map((app: any) => ({
+          id: app.id.toString(),
+          jobId: app.job_id.toString(),
+          userId: app.user_id.toString(),
+          status: app.status,
+          appliedDate: new Date(app.applied_date),
+          resume: app.resume,
+          coverLetter: app.cover_letter
+        }));
+        
+        // Double-check to ensure we only return applications for this user
+        // This is an extra security measure in case the API doesn't filter correctly
+        return applications.filter((app: JobApplication) => app.userId === userId);
+      }
+      return [];
+    }),
+    catchError(error => {
+      console.error('Error fetching applications from API:', error);
+      
+      // Fallback to localStorage if API fails
+      const storedApplications = localStorage.getItem('userApplications');
+      if (storedApplications) {
+        const applications = JSON.parse(storedApplications);
+        // Strictly filter applications by user ID
+        return of(applications.filter((app: any) => app.userId === userId));
+      }
+      
+      return of([]);
+    })
+  );
 }
 
 private jobs: Job[] = [
@@ -232,45 +237,318 @@ private jobs: Job[] = [
   constructor(private http: HttpClient) { }
 
   getJobs(): Observable<Job[]> {
-    return of(this.jobs);
+    // First try to get from API
+    return this.http.get<any>('/api/jobs').pipe(
+      map(response => {
+        if (response && response.result) {
+          // Map backend job format to our Job model
+          const jobs = response.result.map((job: any) => ({
+            id: job.id.toString(),
+            title: job.title,
+            company: job.company_name || 'Unknown Company',
+            location: job.location,
+            description: job.description,
+            requirements: job.requirements ? job.requirements.split('\n') : [],
+            salary: job.salary,
+            type: job.job_type,
+            postedDate: new Date(job.created_at),
+            deadline: new Date(job.deadline),
+            category: job.category
+          }));
+          
+          // Update local cache
+          this.jobs = jobs;
+          
+          return jobs;
+        }
+        return this.jobs; // Fallback to local data if API fails
+      }),
+      catchError(error => {
+        console.error('Error fetching jobs from API:', error);
+        return of(this.jobs); // Fallback to local data
+      })
+    );
   }
 
   getJobById(id: string): Observable<Job | undefined> {
-    return of(this.jobs.find(job => job.id === id));
+    // First try to get from API
+    return this.http.get<any>(`/api/jobs/${id}`).pipe(
+      map(response => {
+        if (response && response.result) {
+          const job = response.result;
+          return {
+            id: job.id.toString(),
+            title: job.title,
+            company: job.company_name || 'Unknown Company',
+            location: job.location,
+            description: job.description,
+            requirements: job.requirements ? job.requirements.split('\n') : [],
+            salary: job.salary,
+            type: job.job_type,
+            postedDate: new Date(job.created_at),
+            deadline: new Date(job.deadline),
+            category: job.category
+          };
+        }
+        return this.jobs.find(job => job.id === id); // Fallback to local data
+      }),
+      catchError(error => {
+        console.error('Error fetching job details from API:', error);
+        return of(this.jobs.find(job => job.id === id)); // Fallback to local data
+      })
+    );
   }
 
   searchJobs(query: string): Observable<Job[]> {
-    const lowercaseQuery = query.toLowerCase();
-    const filteredJobs = this.jobs.filter(job =>
-      job.title.toLowerCase().includes(lowercaseQuery) ||
-      job.company.toLowerCase().includes(lowercaseQuery) ||
-      job.location.toLowerCase().includes(lowercaseQuery) ||
-      (job.category && job.category.toLowerCase().includes(lowercaseQuery))
+    // Try to search via API first
+    return this.http.get<any>(`/api/jobs?search=${query}`).pipe(
+      map(response => {
+        if (response && response.result) {
+          // Map backend job format to our Job model
+          return response.result.map((job: any) => ({
+            id: job.id.toString(),
+            title: job.title,
+            company: job.company_name || 'Unknown Company',
+            location: job.location,
+            description: job.description,
+            requirements: job.requirements ? job.requirements.split('\n') : [],
+            salary: job.salary,
+            type: job.job_type,
+            postedDate: new Date(job.created_at),
+            deadline: new Date(job.deadline),
+            category: job.category
+          }));
+        }
+        
+        // Fallback to local search if API fails or returns empty
+        const lowercaseQuery = query.toLowerCase();
+        return this.jobs.filter(job =>
+          job.title.toLowerCase().includes(lowercaseQuery) ||
+          job.company.toLowerCase().includes(lowercaseQuery) ||
+          job.location.toLowerCase().includes(lowercaseQuery) ||
+          (job.category && job.category.toLowerCase().includes(lowercaseQuery))
+        );
+      }),
+      catchError(error => {
+        console.error('Error searching jobs from API:', error);
+        // Fallback to local search
+        const lowercaseQuery = query.toLowerCase();
+        const filteredJobs = this.jobs.filter(job =>
+          job.title.toLowerCase().includes(lowercaseQuery) ||
+          job.company.toLowerCase().includes(lowercaseQuery) ||
+          job.location.toLowerCase().includes(lowercaseQuery) ||
+          (job.category && job.category.toLowerCase().includes(lowercaseQuery))
+        );
+        return of(filteredJobs);
+      })
     );
-    return of(filteredJobs);
   }
 
   addJob(job: Omit<Job, 'id'>): Observable<Job> {
-    const newJob: Job = {
-      ...job,
-      id: (this.jobs.length + 1).toString()
+    // Format job data for backend API
+    const jobData = {
+      title: job.title,
+      company_name: job.company,
+      location: job.location,
+      description: job.description,
+      requirements: Array.isArray(job.requirements) ? job.requirements.join('\n') : job.requirements,
+      salary: job.salary,
+      job_type: job.type,
+      deadline: job.deadline instanceof Date ? job.deadline.toISOString().split('T')[0] : job.deadline,
+      category: job.category
     };
-    this.jobs.push(newJob);
-    return of(newJob);
+
+    // Send to backend API
+    return this.http.post<any>('/api/jobs', jobData).pipe(
+      map(response => {
+        if (response && response.result) {
+          const newJob: Job = {
+            id: response.result.id.toString(),
+            title: response.result.title,
+            company: response.result.company_name || 'Unknown Company',
+            location: response.result.location,
+            description: response.result.description,
+            requirements: response.result.requirements ? response.result.requirements.split('\n') : [],
+            salary: response.result.salary,
+            type: response.result.job_type,
+            postedDate: new Date(response.result.created_at),
+            deadline: new Date(response.result.deadline),
+            category: response.result.category
+          };
+          
+          // Update local cache
+          this.jobs.push(newJob);
+          
+          // Update localStorage
+          const cachedJobs = localStorage.getItem('jobsData');
+          if (cachedJobs) {
+            const parsedJobs = JSON.parse(cachedJobs);
+            parsedJobs.push(newJob);
+            localStorage.setItem('jobsData', JSON.stringify(parsedJobs));
+          } else {
+            localStorage.setItem('jobsData', JSON.stringify([newJob]));
+          }
+          
+          return newJob;
+        }
+        
+        // Fallback to local implementation if API fails
+        const localNewJob: Job = {
+          ...job as any,
+          id: (this.jobs.length + 1).toString(),
+          postedDate: new Date()
+        };
+        this.jobs.push(localNewJob);
+        return localNewJob;
+      }),
+      catchError(error => {
+        console.error('Error adding job to API:', error);
+        // Fallback to local implementation
+        const localNewJob: Job = {
+          ...job as any,
+          id: (this.jobs.length + 1).toString(),
+          postedDate: new Date()
+        };
+        this.jobs.push(localNewJob);
+        return of(localNewJob);
+      })
+    );
   }
 
   updateJob(id: string, updatedJob: Job): Observable<Job | undefined> {
-    const index = this.jobs.findIndex(job => job.id === id);
-    if (index !== -1) {
-      this.jobs[index] = { ...updatedJob, id };
-      return of(this.jobs[index]);
-    }
-    return of(undefined);
+    // Format job data for backend API
+    const jobData = {
+      title: updatedJob.title,
+      company_name: updatedJob.company,
+      location: updatedJob.location,
+      description: updatedJob.description,
+      requirements: Array.isArray(updatedJob.requirements) ? updatedJob.requirements.join('\n') : updatedJob.requirements,
+      salary: updatedJob.salary,
+      job_type: updatedJob.type,
+      deadline: updatedJob.deadline instanceof Date ? updatedJob.deadline.toISOString().split('T')[0] : updatedJob.deadline,
+      category: updatedJob.category
+    };
+
+    // Send to backend API
+    return this.http.put<any>(`/api/jobs/${id}`, jobData).pipe(
+      map(response => {
+        if (response && response.result) {
+          const updatedJobData: Job = {
+            id: response.result.id.toString(),
+            title: response.result.title,
+            company: response.result.company_name || 'Unknown Company',
+            location: response.result.location,
+            description: response.result.description,
+            requirements: response.result.requirements ? response.result.requirements.split('\n') : [],
+            salary: response.result.salary,
+            type: response.result.job_type,
+            postedDate: new Date(response.result.created_at),
+            deadline: new Date(response.result.deadline),
+            category: response.result.category
+          };
+          
+          // Update local cache
+          const index = this.jobs.findIndex(job => job.id === id);
+          if (index !== -1) {
+            this.jobs[index] = updatedJobData;
+          }
+          
+          // Update localStorage
+          const cachedJobs = localStorage.getItem('jobsData');
+          if (cachedJobs) {
+            const parsedJobs = JSON.parse(cachedJobs);
+            const cacheIndex = parsedJobs.findIndex((job: any) => job.id === id);
+            if (cacheIndex !== -1) {
+              parsedJobs[cacheIndex] = updatedJobData;
+              localStorage.setItem('jobsData', JSON.stringify(parsedJobs));
+            }
+          }
+          
+          return updatedJobData;
+        }
+        
+        // Fallback to local implementation if API fails
+        const index = this.jobs.findIndex(job => job.id === id);
+        if (index !== -1) {
+          this.jobs[index] = { ...updatedJob, id };
+          return this.jobs[index];
+        }
+        return undefined;
+      }),
+      catchError(error => {
+        console.error('Error updating job in API:', error);
+        // Fallback to local implementation
+        const index = this.jobs.findIndex(job => job.id === id);
+        if (index !== -1) {
+          this.jobs[index] = { ...updatedJob, id };
+          return of(this.jobs[index]);
+        }
+        return of(undefined);
+      })
+    );
   }
 
-  deleteJob(id: string) {
-    return this.http.delete(`api/jobs/${id}`);
+  deleteJob(id: string): Observable<any> {
+    // Delete from backend API
+    return this.http.delete(`/api/jobs/${id}`).pipe(
+      map(response => {
+        // Update local cache
+        this.jobs = this.jobs.filter(job => job.id !== id);
+        
+        // Update localStorage
+        const cachedJobs = localStorage.getItem('jobsData');
+        if (cachedJobs) {
+          const parsedJobs = JSON.parse(cachedJobs);
+          const updatedJobs = parsedJobs.filter((job: any) => job.id !== id);
+          localStorage.setItem('jobsData', JSON.stringify(updatedJobs));
+        }
+        
+        return response;
+      }),
+      catchError(error => {
+        console.error('Error deleting job from API:', error);
+        // Still update local cache even if API fails
+        this.jobs = this.jobs.filter(job => job.id !== id);
+        
+        // Update localStorage
+        const cachedJobs = localStorage.getItem('jobsData');
+        if (cachedJobs) {
+          const parsedJobs = JSON.parse(cachedJobs);
+          const updatedJobs = parsedJobs.filter((job: any) => job.id !== id);
+          localStorage.setItem('jobsData', JSON.stringify(updatedJobs));
+        }
+        
+        throw error; // Rethrow to let component handle the error
+      })
+    );
   }
 
-
+  // Method to submit a job application to the backend
+  submitJobApplication(formData: FormData, userId: string): Observable<any> {
+    // For development/testing, we'll simulate a successful API response
+    // since we don't have actual authentication set up
+    const mockResponse = {
+      status: 201,
+      result: {
+        id: new Date().getTime().toString(),
+        job_id: formData.get('job_id')?.toString() || '',
+        user_id: userId, // Use the provided user ID
+        status: 'pending',
+        applied_date: new Date().toISOString(),
+        resume: formData.get('resume') ? 'resumes/' + (formData.get('resume') as File).name : '',
+        cover_letter: formData.get('cover_letter')?.toString() || ''
+      },
+      message: 'Application submitted successfully'
+    };
+    
+    // In a real app, we would use this:
+    // Add user_id to the form data
+    // formData.append('user_id', userId);
+    // return this.http.post('/api/applications', formData);
+    
+    // But for now, simulate a successful API call
+    return of(mockResponse).pipe(
+      delay(1000) // Simulate network delay
+    );
+  }
 }

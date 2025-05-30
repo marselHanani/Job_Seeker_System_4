@@ -1,8 +1,11 @@
 
+
 import { AuthService } from './../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { HostListener, ElementRef } from '@angular/core';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-navbar',
@@ -13,6 +16,7 @@ import { Router, RouterModule } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   userImage: string | null = null;
+  isSidebarOpen: boolean = false; // تأكد من أن القيمة الافتراضية هي false
 
   navItems = [
     { id: 'home', label: 'Home', authorized: true },
@@ -24,14 +28,30 @@ export class NavbarComponent implements OnInit {
 
   ];
 
-  constructor(public auth: AuthService, private router: Router) {}
+  constructor(public auth: AuthService, private router: Router, private eRef: ElementRef) {}
 
   ngOnInit(): void {
     this.auth.tokenSubject.subscribe(token => {
       if (token) {
-        const userData = JSON.parse(token);
-        this.userImage = userData.image || null;
-        this.updateDashboardAccess(true);
+        try {
+          const userData: any = this.auth.user;
+          const now = Math.floor(Date.now() / 1000);
+          if (userData.exp && userData.exp < now) {
+            this.removeToken();
+            return;
+          }
+          const timeToExpire = (userData.exp - now) * 1000;
+          if (timeToExpire > 0) {
+            setTimeout(() => {
+              this.removeToken();
+            }, timeToExpire);
+          }
+          this.userImage = userData.image || null;
+          this.updateDashboardAccess(true);
+        } catch (e) {
+          this.userImage = null;
+          this.updateDashboardAccess(false);
+        }
       } else {
         this.userImage = null;
         this.updateDashboardAccess(false);
@@ -50,10 +70,39 @@ export class NavbarComponent implements OnInit {
       employersItem.authorized = isAuthorized;
     }
   }
-
+  isLoggedIn() {
+    // Check if we're in a browser environment before accessing localStorage
+    if (typeof window !== 'undefined' && window.localStorage) {
+      return !!localStorage.getItem('userToken');
+    }
+    return false;
+  }
   removeToken(): void {
     this.auth.token = null;
-    localStorage.removeItem('currentUserImage');
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.removeItem('currentUserImage');
+    }
     this.router.navigate(['/login']);
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClickOutside(event: MouseEvent) {
+    const navbarCollapse = document.querySelector('.navbar-collapse.show');
+    if (navbarCollapse && !this.eRef.nativeElement.contains(event.target)) {
+      (navbarCollapse as HTMLElement).classList.remove('show');
+    }
+  }
+  closeDropdown(event: Event): void {
+    event.preventDefault();
+    const dropdownMenu = document.querySelector('.dropdown-menu.show');
+    if (dropdownMenu) {
+      dropdownMenu.classList.remove('show');
+    }
+  }
+  closeMainMenu(): void {
+    const navbarCollapse = document.querySelector('.navbar-collapse.show');
+    if (navbarCollapse) {
+      navbarCollapse.classList.remove('show');
+    }
   }
 }

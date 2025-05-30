@@ -7,6 +7,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 import {jwtDecode} from 'jwt-decode';
 
 declare const FB: any;
+declare const google: any;
 
 @Component({
   selector: 'app-register',
@@ -27,6 +28,7 @@ export class RegisterComponent {
     }
   }
 
+  registerErrors: string[] = [];
   private initializeGoogleSignUp(): void {
     (window as any).handleGoogleSignUp = (response: any) => {
       this.ngZone.run(() => {
@@ -46,31 +48,69 @@ export class RegisterComponent {
   }
 
   RegisterForm: FormGroup = new FormGroup({
+    first_name: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
+    last_name: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
     username: new FormControl(null, [Validators.required, Validators.minLength(3), Validators.maxLength(15)]),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)]),
     confirmPassword: new FormControl(null, [Validators.required]),
-    rules: new FormControl(false, Validators.requiredTrue)
+    rules: new FormControl(false, Validators.requiredTrue),
+    role_id: new FormControl(3),
   }, {validators: this.passwordMatchValidator});
 
-  SaveData(formGroup: FormGroup) {
-    const userData = JSON.stringify(formGroup.value);
-    localStorage.setItem(formGroup.value.username + 'Info', userData);
-    localStorage.setItem('lastRegisteredUser', formGroup.value.username);
-    formGroup.reset();
-    this._Router.navigate(['/login']);
+  register(formGroup: FormGroup){
+    if (formGroup.valid) {
+      const userData = formGroup.value;
+      this.auth.register(userData).subscribe({
+        next: (response) => {
+          if(response.message ==="Verification email sent, Please verify your email within 10 minutes"){
+            this._Router.navigate(['/login']);
+          }
+        },
+        error: (error) => {
+          this.registerErrors = error.error.errors;
+        }
+      })
+    }
+  }
+
+  signUpWithGoogle() {
+    const client = (window as any).google.accounts.oauth2.initTokenClient({
+      client_id: '1041401952762-nesjnl04bfl9g28gf8aclj3impjhsvno.apps.googleusercontent.com',
+      scope: 'email profile',
+      callback: (response: any) => {
+        this.ngZone.run(() => {
+          this.handleGoogleSignUp(response);
+        });
+      }
+    });
+    client.requestAccessToken();
   }
 
   handleGoogleSignUp(response: any) {
     try {
-      const decodedToken = jwtDecode(response.credential);
-      console.log('Google user data:', decodedToken);
-      this.RegisterForm.patchValue({
-        username: (decodedToken as any).name,
-        email: (decodedToken as any).email
+      fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: {
+          Authorization: `Bearer ${response.access_token}`
+        }
+      })
+      .then(res => res.json())
+      .then(userInfo => {
+        this.auth.registerWithGoogle({
+          username: userInfo.name,
+          email: userInfo.email
+        }).subscribe({
+          next: (res) => {
+            this.auth.token = res.token;
+            this._Router.navigate(['/home']);
+          },
+          error: (err) => {
+            console.error(err);
+          }
+        });
       });
     } catch (error) {
-      console.error('Error decoding Google token:', error);
+      console.error(error);
     }
   }
 
