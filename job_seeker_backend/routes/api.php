@@ -2,7 +2,7 @@
 
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmployerController;
+
 
 Route::get('/employers', [EmployerController::class, 'index']);
 Route::patch('/employers/{id}/status', [EmployerController::class, 'updateStatus']);
@@ -54,4 +54,15 @@ Route::post('/forget-password',[AuthController::class,'forgetPass']);
 Route::post('/reset-password/{id}',[AuthController::class,'resetPass']);
 Route::post('/google-register',[AuthController::class,'googleRegister']);
 Route::post('/google-login',[AuthController::class,'googleLogin']);
+
+
+
+
+
+use App\Http\Controllers\EmployerController;
+
+Route::resource('employers', EmployerController::class);
+
+
+
 
