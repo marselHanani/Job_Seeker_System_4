@@ -45,7 +45,7 @@ export const routes: Routes = [
     component:LoginComponent, title:'Login'},
   {path:'forget-password',component:ForgetPasswordComponent, title:'Forget Password'},
   {path:'reset-password/:id',component:ResetPasswordComponent, title:'Reset Password'},
-  {path: 'dashboard',component:DashboardComponent,canActivate:[authGuard], title:'Dashboard'},
+  {path: 'dashboard',component:DashboardComponent, title:'Dashboard'},
   {path:'dashboard/post-job', component: PostJobComponent, title:'Post Job'},
   {path: 'dashboard/reports',component:ReportsComponent, title:'Reports'},
   {path:'dashboard/view-profile',component: ViewProfileComponent, title:'View Profile'},

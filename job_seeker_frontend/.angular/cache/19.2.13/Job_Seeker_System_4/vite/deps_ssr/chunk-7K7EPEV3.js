@@ -1,7 +1,7 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
   DOCUMENT
-} from "./chunk-KIZJ5BNP.js";
+} from "./chunk-C373I3JS.js";
 import {
   Directive,
   EventEmitter,
@@ -181,4 +181,4 @@ export {
   Dir,
   BidiModule
 };
-//# sourceMappingURL=chunk-SYMGMR7G.js.map
+//# sourceMappingURL=chunk-7K7EPEV3.js.map
