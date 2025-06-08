@@ -8,6 +8,7 @@
 
 # Node
 /job_seeker_frontend/node_modules
+/job_seeker_backend/vendor
 npm-debug.log
 yarn-error.log
 

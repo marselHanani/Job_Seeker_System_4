@@ -3,25 +3,25 @@
   padding: 20px;
   padding-top: 80px;
   min-height: 100%;
-  background: #f5f7fb;
+  background: var(--background-color);
 }
 
 .sidebar {
   width: 200px;
   height: calc(100vh - 64px);
-  background: #ffffff;
+  background: var(--sidebar-bg);
   padding: 20px 15px;
   margin-top: 64px;
   position: fixed;
   left: 0;
   top: 0;
   z-index: 100;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
   transition: all 0.3s ease;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
-  scrollbar-color: #d1d1d1 transparent;
+  scrollbar-color: var(--disabled-bg) transparent;
 }
 
 .sidebar-menu {
@@ -43,7 +43,7 @@
 }
 
 .sidebar::-webkit-scrollbar-thumb {
-  background-color: #d1d1d1;
+  background-color: var(--disabled-bg);
   border-radius: 10px;
 }
 
@@ -61,7 +61,7 @@
   display: flex;
   align-items: center;
   padding: 12px 15px;
-  color: #444;
+  color: var(--sidebar-text);
   text-decoration: none;
   border-radius: 10px;
   transition: all 0.3s ease;
@@ -71,17 +71,17 @@
 }
 
 .sidebar-menu a:hover {
-  background: #f0f4f8;
-  color: #1976d2;
+  background: var(--sidebar-hover-bg);
+  color: var(--sidebar-hover-text);
   transform: translateX(6px);
-  box-shadow: inset 2px 0 0 #1976d2;
+  box-shadow: inset 2px 0 0 var(--sidebar-hover-text);
 }
 
 .sidebar-menu a.active {
-  background: #e3f2fd;
-  color: #1976d2;
+  background: var(--sidebar-active-bg);
+  color: var(--sidebar-active-text);
   font-weight: 600;
-  box-shadow: inset 4px 0 0 #1976d2;
+  box-shadow: inset 4px 0 0 var(--sidebar-active-text);
 }
 
 .sidebar-menu a.active::before {
@@ -91,7 +91,7 @@
   top: 0;
   height: 100%;
   width: 4px;
-  background: #1976d2;
+  background: var(--sidebar-active-text);
   border-radius: 0 2px 2px 0;
 }
 
@@ -120,7 +120,8 @@
   border-radius: 10px;
   display: flex;
   align-items: center;
-  color: #333;
+  color: var(--stat-card-text);
+  background: var(--stat-card-bg);
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -152,36 +153,36 @@
 }
 
 .stat-card.pink {
-  background-color: #ffe6e6;
+  background-color: var(--stat-card-pink-bg);
 }
 
 .stat-card.pink i {
-  color: #ff4d4d;
+  color: var(--stat-card-pink-icon);
 }
 
 .stat-card.orange {
-  background-color: #fff3e0;
+  background-color: var(--stat-card-orange-bg);
 }
 
 .stat-card.orange i {
-  color: #ff9800;
+  color: var(--stat-card-orange-icon);
 }
 
 .stat-card.green {
-  background-color: #e8f5e9;
+  background-color: var(--stat-card-green-bg);
 }
 
 .stat-card.green i {
-  color: #4caf50;
+  color: var(--stat-card-green-icon);
 }
 
 .stat-card.blue {
-  background: linear-gradient(to right, #2196f3, #ff9800);
-  color: white;
+  background: var(--stat-card-blue-gradient);
+  color: var(--btn-text-color);
 }
 
 .stat-card.blue:hover {
-  background: linear-gradient(45deg, #2196f3, #ff9800);
+  background: var(--stat-card-blue-hover-gradient);
 }
 
 .graph-section {
@@ -192,10 +193,10 @@
 }
 
 .visitor-stats {
-  background: white;
+  background: var(--card-bg);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .visitor-stats h3 {
@@ -207,10 +208,10 @@
 }
 
 .tasks-section {
-  background: white;
+  background: var(--card-bg);
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .tasks-section .section-header {
@@ -223,7 +224,7 @@
 .tasks-section .section-header button {
   border: none;
   background: none;
-  color: #666;
+  color: var(--meeting-secondary-text);
   cursor: pointer;
 }
 
@@ -248,20 +249,20 @@
   position: absolute;
   width: 130px;
   height: 130px;
-  background: white;
+  background: var(--card-bg);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 24px;
   font-weight: bold;
-  color: #4caf50;
+  color: var(--progress-text);
 }
 
 .circle {
   font-size: 32px;
   font-weight: bold;
-  color: #4caf50;
+  color: var(--progress-text);
 }
 
 .task-legend .legend-item {
@@ -277,12 +278,12 @@
   margin-right: 10px;
 }
 
-.task-legend .legend-item .dot.active { background: #4caf50; }
-.task-legend .legend-item .dot.completed { background: #2196f3; }
-.task-legend .legend-item .dot.killed { background: #ff4d4d; }
+.task-legend .legend-item .dot.active { background: var(--progress-active); }
+.task-legend .legend-item .dot.completed { background: var(--progress-completed); }
+.task-legend .legend-item .dot.killed { background: var(--progress-killed); }
 
 .meeting-section .meeting-card {
-  background: #f8f9fa;
+  background: var(--meeting-card-bg);
   padding: 20px;
   border-radius: 8px;
 }
@@ -298,11 +299,11 @@
   margin: 0;
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: var(--meeting-text);
 }
 
 .call-text {
-  color: #666;
+  color: var(--meeting-secondary-text);
   font-size: 14px;
   cursor: pointer;
 }
@@ -312,13 +313,13 @@
 }
 
 .date-label {
-  color: #666;
+  color: var(--meeting-secondary-text);
   margin-right: 5px;
   font-size: 14px;
 }
 
 .date {
-  color: #333;
+  color: var(--meeting-text);
   font-size: 14px;
 }
 
@@ -343,7 +344,7 @@
 
 .user-avatar .username {
   font-size: 13px;
-  color: #666;
+  color: var(--meeting-secondary-text);
   margin-left: 0;
 }
 
@@ -365,7 +366,7 @@
 }
 
 .btn-edit, .btn-more {
-  color: #666;
+  color: var(--meeting-secondary-text);
   background: none;
   border: none;
   padding: 4px;
@@ -373,8 +374,8 @@
 }
 
 .status-badge {
-  background-color: #dc3545;
-  color: white;
+  background-color: var(--status-badge-bg);
+  color: var(--btn-text-color);
   padding: 3px 10px;
   border-radius: 4px;
   font-size: 12px;
@@ -386,9 +387,9 @@
   left: 20px;
   top: 70px;
   z-index: 999;
-  background: #2196f3;
+  background: var(--primary-color);
   border: none;
-  color: white;
+  color: var(--btn-text-color);
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
@@ -466,21 +467,21 @@
   display: flex;
   gap: 10px;
   padding: 10px;
-  background: white;
+  background: var(--card-bg);
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .user-type-switcher .btn {
   padding: 8px 16px;
   border-radius: 20px;
   border: none;
-  background: #f5f5f5;
-  color: #666;
+  background: var(--disabled-bg);
+  color: var(--meeting-secondary-text);
   transition: all 0.3s ease;
 }
 
 .user-type-switcher .btn-primary {
-  background: linear-gradient(135deg, #4a90e2 0%, #ff9a9e 100%);
-  color: white;
+  background: var(--primary-gradient);
+  color: var(--btn-text-color);
 }

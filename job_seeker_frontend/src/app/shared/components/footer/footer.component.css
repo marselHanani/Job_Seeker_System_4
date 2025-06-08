@@ -28,7 +28,7 @@ h6 {
   letter-spacing: 1px;
 }
 .bg-d{
-  background-color: rgb(35 52 78);
+  background-color: var(--footer-bg);
 }
 @media (max-width:768px) {
  .text-media{

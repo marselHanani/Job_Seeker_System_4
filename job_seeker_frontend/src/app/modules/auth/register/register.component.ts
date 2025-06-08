@@ -4,7 +4,8 @@ import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validatio
 import { Route, Router } from '@angular/router';
 import { routes } from '../../../app.routes';
 import { AuthService } from '../../../core/auth/auth.service';
-import {jwtDecode} from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
+import { ToastrService } from 'ngx-toastr';
 
 declare const FB: any;
 declare const google: any;
@@ -21,7 +22,8 @@ export class RegisterComponent {
     private ngZone: NgZone,
     @Inject(PLATFORM_ID) private platformId: Object,
     private _Router: Router,
-    private auth: AuthService
+    private auth: AuthService,
+    private toastr: ToastrService
   ) {
     if (isPlatformBrowser(this.platformId)) {
       this.initializeGoogleSignUp();
@@ -58,17 +60,33 @@ export class RegisterComponent {
     role_id: new FormControl(3),
   }, {validators: this.passwordMatchValidator});
 
-  register(formGroup: FormGroup){
+  isLoading = false;
+
+  register(formGroup: FormGroup) {
     if (formGroup.valid) {
+      this.isLoading = true;
       const userData = formGroup.value;
       this.auth.register(userData).subscribe({
         next: (response) => {
-          if(response.message ==="Verification email sent, Please verify your email within 10 minutes"){
+          if(response.message === "Verification email sent, Please verify your email within 10 minutes") {
+            this.toastr.success('Verification email has been sent to your email', 'Registration Successful', {
+              positionClass: 'toast-top-right',
+              progressBar: true,
+              timeOut: 5000
+            });
             this._Router.navigate(['/login']);
           }
         },
         error: (error) => {
           this.registerErrors = error.error.errors;
+          this.toastr.error('Please check your input data', 'Registration Failed', {
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            timeOut: 5000
+          });
+        },
+        complete: () => {
+          this.isLoading = false;
         }
       })
     }
@@ -102,15 +120,30 @@ export class RegisterComponent {
         }).subscribe({
           next: (res) => {
             this.auth.token = res.token;
+            this.toastr.success('Successfully registered with Google', 'Welcome!', {
+              positionClass: 'toast-top-right',
+              progressBar: true,
+              timeOut: 3000
+            });
             this._Router.navigate(['/home']);
           },
           error: (err) => {
             console.error(err);
+            this.toastr.error('Failed to register with Google', 'Error', {
+              positionClass: 'toast-top-right',
+              progressBar: true,
+              timeOut: 3000
+            });
           }
         });
       });
     } catch (error) {
       console.error(error);
+      this.toastr.error('Failed to register with Google', 'Error', {
+        positionClass: 'toast-top-right',
+        progressBar: true,
+        timeOut: 3000
+      });
     }
   }
 
@@ -118,7 +151,6 @@ export class RegisterComponent {
     FB.login((response: any) => {
       if (response.authResponse) {
         FB.api('/me', { fields: 'name,email,picture' }, (userInfo: any) => {
-          console.log('Facebook user data:', userInfo);
           this.RegisterForm.patchValue({
             username: userInfo.name,
             email: userInfo.email
@@ -130,10 +162,18 @@ export class RegisterComponent {
             email: userInfo.email,
             picture: userInfo.picture?.data?.url
           };
-          console.log('Facebook registration data:', facebookData);
+          this.toastr.success('Register with Facebook successfully', 'Success', {
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            timeOut: 3000
+          });
         });
       } else {
-        console.log('Facebook registration failed');
+        this.toastr.error('Failed register with Facebook', 'Error', {
+          positionClass: 'toast-top-right',
+          progressBar: true,
+          timeOut: 3000
+        });
       }
     }, { scope: 'email,public_profile' });
   }

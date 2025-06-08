@@ -3,7 +3,8 @@ import {
 } from "./chunk-5FRV7MIT.js";
 import {
   DomSanitizer
-} from "./chunk-H4463NPT.js";
+} from "./chunk-H2LI7XUZ.js";
+import "./chunk-WKHLPP7E.js";
 import "./chunk-DUYU27QJ.js";
 import {
   NG_VALIDATORS,

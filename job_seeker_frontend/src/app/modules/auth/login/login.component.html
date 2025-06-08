@@ -62,8 +62,11 @@
 
     <!-- Submit Button -->
     <div class="pt-2">
-      <button [disabled]="LoginForm.invalid" type="submit" class="login-btn form-control p-2 mt-3">
-       Login at Account <i class="fa-solid fa-arrow-right"></i>
+      <button [disabled]="LoginForm.invalid || isLoading" type="submit" class="login-btn form-control p-2 mt-3">
+        <span *ngIf="!isLoading">Login at Account <i class="fa-solid fa-arrow-right"></i></span>
+        <span *ngIf="isLoading">
+          <i class="fas fa-spinner fa-spin me-2"></i> Logging in...
+        </span>
       </button>
     </div>
   </form>

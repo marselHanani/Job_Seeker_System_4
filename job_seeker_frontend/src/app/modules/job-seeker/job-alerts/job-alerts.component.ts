@@ -35,45 +35,46 @@ export class JobAlertsComponent implements OnInit {
   }
 
   private loadAlerts() {
-    const savedAlerts = localStorage.getItem('jobAlerts');
-    if (savedAlerts) {
-      this.alerts = JSON.parse(savedAlerts);
-    } else {
-      this.alerts = [
-        {
-          id: 1,
-          title: 'Software Developer',
-          location: 'Nablus',
-          frequency: 'Daily',
-          keywords: ['Angular', 'TypeScript', 'Node.js'],
-          isActive: true
-        },
-        {
-          id: 2,
-          title: 'Frontend Developer',
-          location: 'Gaza',
-          frequency: 'Weekly',
-          keywords: ['React', 'JavaScript', 'CSS'],
-          isActive: true
-        },
-        {
-          id: 3,
-          title: 'UI/UX Designer',
-          location: 'Ramallah',
-          frequency: 'Monthly',
-          keywords: ['Figma', 'Adobe XD', 'UI Design'],
-          isActive: false
-        },
-        {
-          id: 4,
-          title: 'Full Stack Developer',
-          location: 'Remote',
-          frequency: 'Daily',
-          keywords: ['MongoDB', 'Express', 'React', 'Node'],
-          isActive: true
-        }
-      ];
-      this.saveToLocalStorage();
+    if (typeof window !== 'undefined') {
+      const savedAlerts = localStorage.getItem('jobAlerts');
+      if (savedAlerts) {
+        this.alerts = JSON.parse(savedAlerts);
+      } else {
+        this.alerts = [
+          {
+            id: 1,
+            title: 'Software Developer',
+            location: 'Nablus',
+            frequency: 'Daily',
+            keywords: ['Angular', 'TypeScript', 'Node.js'],
+            isActive: true
+          },
+          {
+            id: 2,
+            title: 'Frontend Developer',
+            location: 'Gaza',
+            frequency: 'Weekly',
+            keywords: ['React', 'JavaScript', 'CSS'],
+            isActive: true
+          },
+          {
+            id: 3,
+            title: 'UI/UX Designer',
+            location: 'Ramallah',
+            frequency: 'Monthly',
+            keywords: ['Figma', 'Adobe XD', 'UI Design'],
+            isActive: false
+          },
+          {
+            id: 4,
+            title: 'Full Stack Developer',
+            location: 'Remote',
+            frequency: 'Daily',
+            keywords: ['MongoDB', 'Express', 'React', 'Node'],
+            isActive: true
+          }
+        ];
+      }
     }
   }
 

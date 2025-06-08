@@ -1,7 +1,7 @@
 .about-hero {
   padding: 100px 0;
-  background: linear-gradient(135deg, #e3f2fd, #ffe6e6);
-  color: #333;
+  background: var(--hero-bg);
+  color: var(--text-color);
   position: relative;
   overflow: hidden;
 }
@@ -18,10 +18,11 @@
 }
 
 .mission-card {
-  background: white;
+  color:var(--text-color);
+  background: var(--card-bg);
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.1);
+  box-shadow: var(--shadow-md);
   height: 100%;
   transition: all 0.3s ease;
   cursor: pointer;
@@ -29,64 +30,70 @@
 
 .mission-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(33, 150, 243, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .stats-card {
   padding: 30px;
-  background: white;
+  background: var(--card-bg);
   border-radius: 15px;
   transition: all 0.3s ease;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.1);
+  color:var(--text-color);
+  box-shadow: var(--shadow-md);
 }
 
 .stats-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(33, 150, 243, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .stats-card h2 {
-  background: linear-gradient(135deg, #2196f3, #ff9999);
+  color:var(--text-color);
+  background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .team-card {
-  background: white;
+  color:var(--text-color);
+  background: var(--card-bg);
   padding: 30px;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.1);
+  box-shadow: var(--shadow-md);
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .team-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(33, 150, 243, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .team-card img {
   width: 150px;
   height: 150px;
   object-fit: cover;
-  border: 5px solid #e3f2fd;
+  border: 5px solid var(--primary-color);
   transition: all 0.3s ease;
 }
 
 .team-card:hover img {
+  color:var(--text-color);
   transform: scale(1.05);
-  border-color: #2196f3;
+  border-color: var(--secondary-color);
 }
 
 .contact-card {
-  background: white;
+  color:var(--text-color);
+  background: var(--card-bg);
   padding: 40px;
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .contact-info {
+  color:var(--text-color);
   padding: 20px;
   border-radius: 10px;
   transition: all 0.3s ease;
@@ -94,13 +101,14 @@
 }
 
 .contact-info:hover {
-  background: #e3f2fd;
+  background: var(--sidebar-hover-bg);
   transform: translateY(-5px);
 }
 
 .contact-info i {
+  color:var(--text-color);
   font-size: 24px;
-  background: linear-gradient(135deg, #2196f3, #ff9999);
+  background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: all 0.3s ease;
@@ -108,6 +116,7 @@
 
 .contact-info:hover i {
   transform: scale(1.1);
+  color:var(--text-color);
 }
 
 @media (max-width: 768px) {

@@ -12,17 +12,24 @@ export class AuthService {
   private readonly TOKEN_KEY = 'userToken';
   private readonly USER_TYPE_KEY = 'userType';
   private readonly USER_ID_KEY = 'userId';
-  public tokenSubject: BehaviorSubject<string | null>;
+  private _token = new BehaviorSubject<string | null>(null);
+
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private _HttpClient: HttpClient
   ) {
-    const initialToken = this.getStorageItem(this.TOKEN_KEY);
-    this.tokenSubject = new BehaviorSubject<string | null>(initialToken);
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem(this.TOKEN_KEY);
+      this._token.next(token);
+    }
+  }
+
+  get token$() {
+    return this._token.asObservable();
   }
 
   get token(): string | null {
-    return this.tokenSubject.value;
+    return this._token.value;
   }
 
   set token(value: string | null) {
@@ -33,7 +40,7 @@ export class AuthService {
         localStorage.removeItem(this.TOKEN_KEY);
       }
     }
-    this.tokenSubject.next(value);
+    this._token.next(value);
   }
 
   get user(): any | null {

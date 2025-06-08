@@ -1,11 +1,12 @@
 
-
 import { AuthService } from './../../../core/auth/auth.service';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID  } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HostListener, ElementRef } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
+import { isPlatformBrowser } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -15,48 +16,85 @@ import { jwtDecode } from 'jwt-decode';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent implements OnInit {
+  isDarkMode: boolean = false;
   userImage: string | null = null;
-  isSidebarOpen: boolean = false; // تأكد من أن القيمة الافتراضية هي false
-
+  isSidebarOpen: boolean = false;
+  isLoggedIn$: Observable<string | null>;
   navItems = [
     { id: 'home', label: 'Home', authorized: true },
     { id: 'jobs', label: 'Find Job', authorized: true },
     { id: 'dashboard', label: 'Dashboard', authorized: false },
-    { id: 'job-alerts', label: 'Job Alerts', authorized: true },
     { id: 'contact', label: 'Customer Supports', authorized: true },
     { id: 'about', label: 'About Us', authorized: true },
 
   ];
+  isLoggedIn() {
+    if (typeof window !== 'undefined') {
+      return !!localStorage.getItem('userToken');
+    }
+    return false;
+  }
+  constructor(
+    public auth: AuthService,
+    private router: Router,
+    private eRef: ElementRef,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    this.isLoggedIn$ = this.auth.token$;
+  }
 
-  constructor(public auth: AuthService, private router: Router, private eRef: ElementRef) {}
+  toggleDarkMode() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.isDarkMode = !this.isDarkMode;
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('darkMode', this.isDarkMode ? 'enabled' : 'disabled');
+    }
+  }
+  notificationCount: number = 0; // Add this property
 
   ngOnInit(): void {
-    this.auth.tokenSubject.subscribe(token => {
-      if (token) {
-        try {
-          const userData: any = this.auth.user;
-          const now = Math.floor(Date.now() / 1000);
-          if (userData.exp && userData.exp < now) {
-            this.removeToken();
-            return;
+    if (isPlatformBrowser(this.platformId)) {
+      // Load dark mode preference
+      const darkMode = localStorage.getItem('darkMode');
+      if (darkMode === 'enabled') {
+        this.isDarkMode = true;
+        document.body.classList.add('dark-mode');
+      }
+
+      // Existing token subscription
+      this.auth.token$.subscribe(token => {
+        if (token) {
+          try {
+            const userData: any = this.auth.user;
+            if (userData) {
+              const now = Math.floor(Date.now() / 1000);
+              if (userData.exp && userData.exp < now) {
+                this.removeToken();
+                return;
+              }
+              this.userImage = userData.image || null;
+              this.updateDashboardAccess(true);
+
+              // Update notification count (you can replace this with actual API call)
+              this.getNotificationCount();
+            }
+          } catch (e) {
+            this.userImage = null;
+            this.updateDashboardAccess(false);
           }
-          const timeToExpire = (userData.exp - now) * 1000;
-          if (timeToExpire > 0) {
-            setTimeout(() => {
-              this.removeToken();
-            }, timeToExpire);
-          }
-          this.userImage = userData.image || null;
-          this.updateDashboardAccess(true);
-        } catch (e) {
+        } else {
           this.userImage = null;
           this.updateDashboardAccess(false);
         }
-      } else {
-        this.userImage = null;
-        this.updateDashboardAccess(false);
-      }
-    });
+      });
+    }
+  }
+
+  // Add this method to get notification count
+  private getNotificationCount(): void {
+    // Replace this with actual API call to get notifications
+    // For now, using a mock value
+    this.notificationCount = 3;
   }
 
   private updateDashboardAccess(isAuthorized: boolean): void {
@@ -70,18 +108,10 @@ export class NavbarComponent implements OnInit {
       employersItem.authorized = isAuthorized;
     }
   }
-  isLoggedIn() {
-    // Check if we're in a browser environment before accessing localStorage
-    if (typeof window !== 'undefined' && window.localStorage) {
-      return !!localStorage.getItem('userToken');
-    }
-    return false;
-  }
+
   removeToken(): void {
     this.auth.token = null;
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.removeItem('currentUserImage');
-    }
+    localStorage.removeItem('currentUserImage');
     this.router.navigate(['/login']);
   }
 
