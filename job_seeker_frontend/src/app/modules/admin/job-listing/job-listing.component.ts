@@ -36,39 +36,17 @@ export class JobListingsComponent implements OnInit {
 
   loadJobs(): void {
     this.loading = true;
-
-    // Check if jobs exist in localStorage
-    const cachedJobs = localStorage.getItem('jobsData');
-
-    if (cachedJobs) {
-      // Use jobs from localStorage
-      const parsedJobs = JSON.parse(cachedJobs);
-      this.jobs = parsedJobs.map((job: any) => ({
-        ...job,
-        postedDate: new Date(job.postedDate),
-        deadline: new Date(job.deadline),
-        saved: false
-      }));
-      this.filteredJobs = [...this.jobs];
-      this.loading = false;
-    } else {
-      // Fetch from database if not in localStorage
-      this.jobService.getJobs().subscribe({
-        next: (jobs) => {
-          this.jobs = jobs.map(job => ({ ...job, saved: false }));
-          this.filteredJobs = [...this.jobs];
-
-          // Store in localStorage for future use
-          localStorage.setItem('jobsData', JSON.stringify(this.jobs));
-
-          this.loading = false;
-        },
-        error: () => {
-          this.error = 'Failed to load jobs';
-          this.loading = false;
-        }
-      });
-    }
+    this.jobService.getJobs().subscribe({
+      next: (jobs) => {
+        this.jobs = jobs.map(job => ({ ...job, saved: false }));
+        this.filteredJobs = [...this.jobs];
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Failed to load jobs';
+        this.loading = false;
+      }
+    });
   }
 
   searchJobs(): void {

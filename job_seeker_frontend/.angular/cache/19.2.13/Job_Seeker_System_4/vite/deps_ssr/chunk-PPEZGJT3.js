@@ -1976,6 +1976,19 @@ function hasModifierKey(event, ...modifiers) {
   return event.altKey || event.shiftKey || event.ctrlKey || event.metaKey;
 }
 
+// node_modules/@angular/cdk/fesm2022/boolean-property-DaaVhX5A.mjs
+function coerceBooleanProperty(value) {
+  return value != null && `${value}` !== "false";
+}
+
+// node_modules/@angular/cdk/fesm2022/css-pixel-value-C_HEqLhI.mjs
+function coerceCssPixelValue(value) {
+  if (value == null) {
+    return "";
+  }
+  return typeof value === "string" ? value : `${value}px`;
+}
+
 // node_modules/@angular/cdk/fesm2022/list-key-manager-CyOIXo8P.mjs
 var import_rxjs5 = __toESM(require_cjs(), 1);
 
@@ -3095,19 +3108,6 @@ var ConfigurableFocusTrapFactory = class _ConfigurableFocusTrapFactory {
   }], () => [], null);
 })();
 
-// node_modules/@angular/cdk/fesm2022/boolean-property-DaaVhX5A.mjs
-function coerceBooleanProperty(value) {
-  return value != null && `${value}` !== "false";
-}
-
-// node_modules/@angular/cdk/fesm2022/css-pixel-value-C_HEqLhI.mjs
-function coerceCssPixelValue(value) {
-  if (value == null) {
-    return "";
-  }
-  return typeof value === "string" ? value : `${value}px`;
-}
-
 // node_modules/@angular/material/fesm2022/common-module-WayjW0Pb.mjs
 var MATERIAL_SANITY_CHECKS = new InjectionToken("mat-sanity-checks", {
   providedIn: "root",
@@ -3173,14 +3173,14 @@ export {
   FocusTrapFactory,
   LiveAnnouncer,
   A11yModule,
+  _isTestEnvironment,
+  coerceCssPixelValue,
   _IdGenerator,
   hasModifierKey,
+  coerceBooleanProperty,
   ActiveDescendantKeyManager,
   addAriaReferencedId,
   removeAriaReferencedId,
-  _isTestEnvironment,
-  coerceBooleanProperty,
-  coerceCssPixelValue,
   MatCommonModule
 };
-//# sourceMappingURL=chunk-EK6VR476.js.map
+//# sourceMappingURL=chunk-PPEZGJT3.js.map
