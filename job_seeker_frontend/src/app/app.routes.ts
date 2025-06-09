@@ -45,7 +45,7 @@ export const routes: Routes = [
     component:LoginComponent, title:'Login'},
   {path:'forget-password',component:ForgetPasswordComponent, title:'Forget Password'},
   {path:'reset-password/:id',component:ResetPasswordComponent, title:'Reset Password'},
-  {path: 'dashboard',component:DashboardComponent,canActivate:[authGuard], title:'Dashboard'},
+  {path: 'dashboard',component:DashboardComponent, title:'Dashboard'},
   {path:'dashboard/post-job', component: PostJobComponent, title:'Post Job'},
   {path: 'dashboard/reports',component:ReportsComponent, title:'Reports'},
   {path:'dashboard/view-profile',component: ViewProfileComponent, title:'View Profile'},
@@ -68,7 +68,7 @@ export const routes: Routes = [
   {path: 'dashboard/JobListings' , component: JobListingsComponent , title: 'Job Listings'},
   {path: 'dashboard/job-listings' , component: job_list , title: 'Job Listings'},
   {path:'user/:id', component:UserDetailsComponent,title:'User Details'},
-  {path:'job-details', component:JobDetailsComponent, title:'Job Details'},
+  { path: 'job-details/:id', component: JobDetailsComponent, title: 'Job Details' },
   {path:'notfound', component:NotfoundComponent, title:'Not Found'},
   {path:'**', redirectTo:'notfound', pathMatch:'full',title:'Not Found'},
 ];

@@ -21,3 +21,6 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+job_seeker_frontend/.angular/cache/
+
+

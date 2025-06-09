@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('company_description');
             $table->string('company_cover');
             $table->string('company_social')->nullable();
+          
+
+
             $table->timestamps();
         });
     }

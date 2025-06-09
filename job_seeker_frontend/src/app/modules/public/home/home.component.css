@@ -1,8 +1,7 @@
-/* Hero Section */
 .hero-section {
   padding: 120px 0;
-  background: linear-gradient(135deg, #e3f2fd, #ffe6e6);
-  color: #333;
+  background: var(--hero-bg);
+  color: var(--text-color);
   position: relative;
   overflow: hidden;
 }
@@ -22,25 +21,30 @@
   font-size: 4rem;
   font-weight: 800;
   margin-bottom: 1.5rem;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+  color: var(--btn-text-color);
+  text-shadow: 2px 2px 4px var(--feature-card-shadow);
 }
 
 .search-box {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--search-box-bg);
   backdrop-filter: blur(10px);
   padding: 25px;
   border-radius: 15px;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--category-card-border);
 }
-
+input::placeholder {
+  color: var(--text-color);
+}
 .search-box input {
+  color:var(--text-color);
   height: 50px;
   border-radius: 8px;
   border: none;
   padding: 0 20px;
   font-size: 1.1rem;
+  background: var(--card-bg);
+  color: var(--text-color);
 }
 
 .btn {
@@ -57,29 +61,29 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #2196f3, #ff9999);
-  color: white;
+  background: var(--primary-gradient);
+  color: var(--btn-text-color);
 }
 
 .btn-outline-primary {
   background: transparent;
-  border: 2px solid #2196f3;
-  color: #2196f3;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 .btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+  box-shadow: var(--shadow-md);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #1976d2, #ff8080);
-  color: white;
+  background: var(--filter-btn-hover-gradient);
+  color: var(--btn-text-color);
 }
 
 .btn-outline-primary:hover {
-  background: linear-gradient(135deg, #2196f3, #ff9999);
-  color: white;
+  background: var(--primary-gradient);
+  color: var(--btn-text-color);
   border-color: transparent;
 }
 
@@ -87,83 +91,48 @@
   transform: translateY(1px);
 }
 
-.btn-outline-primary:hover {
-  background: linear-gradient(135deg, #2196f3, #ff9999);
-}
-
-/* Feature Cards Hover */
 .feature-card {
+  padding-top: 20px;
   transition: all 0.3s ease;
   cursor: pointer;
+  background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
 }
 
 .feature-card:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(33, 150, 243, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .feature-card:hover i {
   transform: scale(1.1);
-  color: #2196f3;
-}
-
-/* Category Cards Hover */
-.category-card {
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.category-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(33, 150, 243, 0.1);
-}
-
-.category-card:hover i {
-  transform: scale(1.1);
-  color: #2196f3;
-}
-
-/* Buttons Hover */
-.btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
-}
-
-.btn-outline-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
-}
-
-.feature-card i {
-  background: linear-gradient(135deg, #2196f3, #ff9999);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--primary-color);
 }
 
 .category-card {
-  background: white;
+  background: var(--category-card-bg);
   padding: 30px;
   border-radius: 15px;
   text-align: center;
   transition: all 0.4s ease;
-  border: 1px solid rgba(44,130,201,0.1);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border: 1px solid var(--category-card-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .category-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 15px 40px rgba(44,130,201,0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .category-card i {
-  background: linear-gradient(135deg, #2196f3, #ff9999);
+  background: var(--primary-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .cta-section {
-  background: linear-gradient(135deg, #e3f2fd, #ffe6e6);
-  color: #333;
+  background: var(--hero-bg);
+  color: var(--text-color);
 }
 
 .cta-section::before {
@@ -171,13 +140,13 @@
 }
 
 .btn-outline-light {
-  border: 2px solid #2196f3;
-  color: #2196f3;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 .btn-outline-light:hover {
-  background: linear-gradient(135deg, #2196f3, #ff9999);
-  color: white;
+  background: var(--primary-gradient);
+  color: var(--btn-text-color);
 }
 
 .hero-image {

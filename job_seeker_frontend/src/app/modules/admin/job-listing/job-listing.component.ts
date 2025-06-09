@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf, DatePipe, SlicePipe, CommonModule } from '@angular/common';
+import { NgFor, NgIf, CommonModule } from '@angular/common';
 import { JobService } from '../../job-seeker/job.service';
 import { Job } from '../../job-seeker/job.model';
 
 @Component({
   selector: 'app-job-listings',
   standalone: true,
-  imports: [FormsModule, NgFor, NgIf,CommonModule],
+  imports: [FormsModule, NgFor, NgIf, CommonModule],
   templateUrl: './job-listing.component.html',
   styleUrls: ['./job-listing.component.css'],
 })
@@ -36,46 +36,24 @@ export class JobListingsComponent implements OnInit {
 
   loadJobs(): void {
     this.loading = true;
-
-    // Check if jobs exist in localStorage
-    const cachedJobs = localStorage.getItem('jobsData');
-
-    if (cachedJobs) {
-      // Use jobs from localStorage
-      const parsedJobs = JSON.parse(cachedJobs);
-      this.jobs = parsedJobs.map((job: any) => ({
-        ...job,
-        postedDate: new Date(job.postedDate),
-        deadline: new Date(job.deadline),
-        saved: false
-      }));
-      this.filteredJobs = [...this.jobs];
-      this.loading = false;
-    } else {
-      // Fetch from database if not in localStorage
-      this.jobService.getJobs().subscribe({
-        next: (jobs) => {
-          this.jobs = jobs.map(job => ({ ...job, saved: false }));
-          this.filteredJobs = [...this.jobs];
-
-          // Store in localStorage for future use
-          localStorage.setItem('jobsData', JSON.stringify(this.jobs));
-
-          this.loading = false;
-        },
-        error: () => {
-          this.error = 'Failed to load jobs';
-          this.loading = false;
-        }
-      });
-    }
+    this.jobService.getJobs().subscribe({
+      next: (jobs) => {
+        console.log('Jobs from API:', jobs); 
+        this.jobs = jobs.map(job => ({ ...job, saved: false }));
+        this.filteredJobs = [...this.jobs];
+        this.loading = false;
+      },
+      error: () => {
+        this.error = 'Failed to load jobs';
+        this.loading = false;
+      }
+    });
   }
 
   searchJobs(): void {
     if (this.searchText.trim() === '') {
       this.filteredJobs = [...this.jobs];
     } else {
-      // Search in local storage data instead of making API call
       const query = this.searchText.toLowerCase();
       this.filteredJobs = this.jobs.filter(job =>
         job.title.toLowerCase().includes(query) ||
@@ -99,7 +77,7 @@ export class JobListingsComponent implements OnInit {
           case 'salary':
             const getMinSalary = (salary: string): number => {
               if (!salary) return 0;
-              const match = salary.toString().match(/\$?(\d+[,\d]*)/); // Only match the first number
+              const match = salary.toString().match(/\$?(\d+[,\d]*)/);
               return match ? parseInt(match[1].replace(/,/g, '')) : 0;
             };
             aValue = getMinSalary(a.salary);
@@ -130,9 +108,8 @@ export class JobListingsComponent implements OnInit {
     console.log('Job Type:', this.selectedJobType);
     console.log('Work Mode:', this.selectedWorkMode);
     this.filteredJobs = this.jobs.filter(job => {
-      // Parse salary as number for comparison
       const salaryString = job.salary?.toString() || '';
-      const salaryMatch = salaryString.match(/\$?(\d+[,\d]*)/); // Match first number in string
+      const salaryMatch = salaryString.match(/\$?(\d+[,\d]*)/);
       const jobSalary = salaryMatch ? parseInt(salaryMatch[1].replace(/,/g, '')) : 0;
 
       const matchesSalary =
@@ -175,12 +152,9 @@ export class JobListingsComponent implements OnInit {
 
   deleteJob(id: string) {
     if (confirm('Are you sure you want to delete this job?')) {
-      // First remove from local array
+      // Remove from local arrays
       this.jobs = this.jobs.filter(job => job.id !== id);
       this.filteredJobs = this.filteredJobs.filter(job => job.id !== id);
-
-      // Update localStorage
-      localStorage.setItem('jobsData', JSON.stringify(this.jobs));
 
       // Delete from database
       this.jobService.deleteJob(id).subscribe({

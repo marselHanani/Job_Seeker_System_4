@@ -1,9 +1,0 @@
-{
-  "routes": {
-    "/": {},
-    "/home": {},
-    "/login": {},
-    "/notfound": {},
-    "/register": {}
-  }
-}

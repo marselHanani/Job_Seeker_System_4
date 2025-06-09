@@ -1,6 +1,107 @@
 @import 'quill/dist/quill.core.css';
 @import 'quill/dist/quill.snow.css';
 
+:root {
+  --text-color-placeholder:#000000
+  --primary-color: #2196f3;
+  --secondary-color: #ff9999;
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --nav-bg: linear-gradient(135deg, #2196f3, #ff9999);
+  --card-bg: #ffffff;
+  --hero-bg: linear-gradient(135deg, #e3f2fd, #ffe6e6);
+  --feature-card-shadow: rgba(33, 150, 243, 0.1);
+  --category-card-bg: white;
+  --category-card-border: rgba(44, 130, 201, 0.749);
+  --search-box-bg: rgba(255, 255, 255, 0.1);
+  --login-gradient: linear-gradient(135deg, #e6eeff 0%, #ffe6ea 100%);
+  --primary-gradient: linear-gradient(135deg, #4a90e2 0%, #ff9a9e 100%);
+  --btn-text-color: white;
+  --shadow-md: 0 6px 8px rgba(0, 0, 0, 0.15);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --disabled-bg: #e0e0e0;
+  --facebook-color: #1877f2;
+  --facebook-hover-color: #166fe5;
+  --filter-btn-gradient: linear-gradient(135deg, #d1e6ff 0%, #ffd6d9 100%);
+  --filter-btn-hover-gradient: linear-gradient(135deg, #c2ddff 0%, #ffc2c7 100%);
+  --filter-btn-active-gradient: linear-gradient(135deg, #3a80d2 0%, #ff8a8e 100%);
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #444;
+  --sidebar-hover-bg: #f0f4f8;
+  --sidebar-hover-text: #1976d2;
+  --sidebar-active-bg: #e3f2fd;
+  --sidebar-active-text: #1976d2;
+  --stat-card-bg: #ffffff;
+  --stat-card-text: #333;
+  --meeting-card-bg: #f8f9fa;
+  --meeting-text: #333;
+  --meeting-secondary-text: #666;
+  --stat-card-pink-bg: #ffe6e6;
+  --stat-card-pink-icon: #ff4d4d;
+  --stat-card-orange-bg: #fff3e0;
+  --stat-card-orange-icon: #ff9800;
+  --stat-card-green-bg: #e8f5e9;
+  --stat-card-green-icon: #4caf50;
+  --stat-card-blue-gradient: linear-gradient(to right, #2196f3, #ff9800);
+  --stat-card-blue-hover-gradient: linear-gradient(45deg, #2196f3, #ff9800);
+  --progress-circle-gradient: conic-gradient(#4caf50 60%, #ff9800 60% 80%, #ff4d4d 80%);
+  --progress-text: #4caf50;
+  --progress-active: #4caf50;
+  --progress-completed: #2196f3;
+  --progress-killed: #ff4d4d;
+  --status-badge-bg: #dc3545;
+  --footer-bg:rgb(35 52 78);
+}
+
+.dark-mode {
+  --text-color-placeholder:#333
+  --background-color: #1a1a1a;
+  --text-color: #ffffff;
+  --nav-bg: linear-gradient(135deg, #1a237e, #880e4f);
+  --card-bg: #2d2d2d;
+  --hero-bg: linear-gradient(135deg, #1a237e, #880e4f);
+  --feature-card-shadow: rgba(33, 150, 243, 0.2);
+  --category-card-bg: #2d2d2d;
+  --category-card-border: rgba(255,255,255,0.1);
+  --search-box-bg: rgba(0, 0, 0, 0.2);
+  --login-gradient: linear-gradient(135deg, #1a237e 0%, #880e4f 100%);
+  --primary-gradient: linear-gradient(135deg, #1a237e 0%, #880e4f 100%);
+  --btn-text-color: #ffffff;
+  --shadow-md: 0 6px 8px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --disabled-bg: #404040;
+  --facebook-color: #1877f2;
+  --facebook-hover-color: #166fe5;
+  --filter-btn-gradient: linear-gradient(135deg, #1a237e 0%, #880e4f 100%);
+  --filter-btn-hover-gradient: linear-gradient(135deg, #1a237e 0%, #880e4f 100%);
+  --filter-btn-active-gradient: linear-gradient(135deg, #1a237e 0%, #880e4f 100%);
+  --sidebar-bg: #2d2d2d;
+  --sidebar-text: #ffffff;
+  --sidebar-hover-bg: #3d3d3d;
+  --sidebar-hover-text: #2196f3;
+  --sidebar-active-bg: #404040;
+  --sidebar-active-text: #2196f3;
+  --stat-card-bg: #2d2d2d;
+  --stat-card-text: #ffffff;
+  --meeting-card-bg: #2d2d2d;
+  --meeting-text: #ffffff;
+  --meeting-secondary-text: #aaaaaa;
+  --stat-card-pink-bg: #4a1f1f;
+  --stat-card-pink-icon: #ff6b6b;
+  --stat-card-orange-bg: #4a2f1f;
+  --stat-card-orange-icon: #ffb74d;
+  --stat-card-green-bg: #1f4a2f;
+  --stat-card-green-icon: #81c784;
+  --stat-card-blue-gradient: linear-gradient(to right, #1565c0, #f57c00);
+  --stat-card-blue-hover-gradient: linear-gradient(45deg, #1565c0, #f57c00);
+  --progress-circle-gradient: conic-gradient(#81c784 60%, #ffb74d 60% 80%, #ff6b6b 80%);
+  --progress-text: #81c784;
+  --progress-active: #81c784;
+  --progress-completed: #64b5f6;
+  --progress-killed: #ff6b6b;
+  --status-badge-bg: #b71c1c;
+  --footer-bg: #000;
+}
 * {
   box-sizing: border-box;
   margin: 0;

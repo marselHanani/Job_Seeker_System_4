@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from '../../../core/auth/auth.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-reset-password',
@@ -17,7 +18,12 @@ import { ActivatedRoute } from '@angular/router';
 export class ResetPasswordComponent {
   private userId: string | null = null;
 
-  constructor(private auth: AuthService, private route: ActivatedRoute) {
+  constructor(
+    private auth: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id');
     });
@@ -32,18 +38,35 @@ export class ResetPasswordComponent {
     }
     return null;
   }
+
+  isLoading = false;
+
   ResetPassword(data: FormGroup) {
     if (data.valid) {
+      this.isLoading = true;
       this.auth.resetPassword(this.userId, data.value).subscribe({
         next: (res) => {
-          console.log(res);
+          this.toastr.success('Password reset successful', 'Success', {
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            timeOut: 5000
+          });
+          this.router.navigate(['/login']);
         },
         error: (err) => {
-          console.log(err);
+          this.toastr.error(err.error.message || 'Failed to reset password', 'Error', {
+            positionClass: 'toast-top-right',
+            progressBar: true,
+            timeOut: 5000
+          });
+        },
+        complete: () => {
+          this.isLoading = false;
         }
       })
     }
   }
+
   ResetPass: FormGroup = new FormGroup({
     password: new FormControl(null, [
       Validators.required,

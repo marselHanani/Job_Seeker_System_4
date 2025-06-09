@@ -1,10 +1,6 @@
 <?php
-
-
-use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\EmployerController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\testController;
@@ -14,6 +10,13 @@ use App\Http\Middleware\EmployerAuth;
 
 
 
+Route::patch('/employers/{id}/status', [EmployerController::class, 'updateStatus']);
+
+
+use App\Http\Controllers\AuthController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -22,6 +25,12 @@ Route::get('/login', function(){
     return "done";
 });
 
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\testController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\EmployerAuth;
 
 //user route
 Route::apiResource('/users', UserController::class)->middleware(AdminMiddleware::class);
@@ -30,6 +39,10 @@ Route::apiResource('/users', UserController::class)->middleware(AdminMiddleware:
 use App\Http\Controllers\JobApplicationController;
 Route::apiResource('/applications', JobApplicationController::class);
 Route::get('/my-applications', [JobApplicationController::class, 'getApplicationsByUser'])->middleware();
+
+// for job applications
+Route::post('/add-applications', [JobApplicationController::class, 'storeInDatabase']);
+Route::get('/applications', [JobApplicationController::class, 'getFromDatabase']);
 
 //Role route
 Route::apiResource('/roles', RoleController::class)->middleware(AdminMiddleware::class);
@@ -56,3 +69,6 @@ Route::post('/notifications', [NotificationController::class, 'store'])->middlew
 Route::get('/notifications/{id}', [NotificationController::class, 'show']);
 Route::patch('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
 Route::delete('/notifications/{id}', [NotificationController::class, 'destroy']);
+
+
+Route::resource('employers', EmployerController::class);

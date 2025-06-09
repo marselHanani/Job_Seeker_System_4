@@ -101,8 +101,11 @@
 
     <!-- Submit Button -->
     <div class="pt-2">
-      <button [disabled]="RegisterForm.invalid" type="submit" class="login-btn form-control p-2 mt-3">
-       Create Account <i class="fa-solid fa-arrow-right"></i>
+      <button [disabled]="RegisterForm.invalid || isLoading" type="submit" class="login-btn form-control p-2 mt-3">
+        <span *ngIf="!isLoading">Create Account <i class="fa-solid fa-arrow-right"></i></span>
+        <span *ngIf="isLoading">
+          <i class="fas fa-spinner fa-spin me-2"></i> Creating Account...
+        </span>
       </button>
     </div>
   </form>
