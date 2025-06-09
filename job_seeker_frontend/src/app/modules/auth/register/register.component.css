@@ -1,13 +1,15 @@
 
-.bg-img{
+.bg-img {
   margin: 0;
   padding: 0;
+  margin-bottom: 2%;
   background: linear-gradient(135deg, #e6eeff 0%, #ffe6ea 100%);
   width: 100%;
-  height: calc(100vh - 4rem);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-y: auto;
+  min-height: 100vh;
 }
 
 .login-btn {
@@ -78,4 +80,30 @@
   .w-80{
     width: 80% !important;
   }
+}
+
+.custom-google-btn {
+  width: 48%;
+  border-radius: 30px !important;
+  overflow: hidden;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #e3f0ff 0%, #ffe3ec 100%);
+  border: none !important;
+  height: 48px;
+}
+
+.custom-google-btn > div {
+  width: 100% !important;
+  border-radius: 30px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.g_id_signin {
+  display: none !important;
 }

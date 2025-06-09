@@ -26,20 +26,34 @@
       <h2>Manage Job Listings</h2>
       <div class="input-group mb-4">
         <input type="text" [(ngModel)]="searchText" class="form-control" placeholder="Search by job title">
-        <button class="btn btn-outline-secondary" type="button">Search</button>
+        <button class="btn btn-outline-secondary" type="button" (click)="searchJobs()">Search</button>
         <button class="btn btn-success ms-2" (click)="addNewJob()">+ Add New Job</button>
       </div>
 
       <!-- Job Cards Grid -->
-      <div class="row row-cols-1 row-cols-md-2 g-4">
+      <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert alert-danger">
+        {{error}}
+      </div>
+
+      <div *ngIf="!loading && filteredJobs.length === 0" class="alert alert-info">
+        No jobs found matching your criteria.
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 g-4" *ngIf="!loading && filteredJobs.length > 0">
         <div class="col" *ngFor="let job of filteredJobs">
           <div class="card shadow-sm h-100">
             <div class="card-body">
               <h5 class="card-title">{{ job.title }}</h5>
               <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
-              <p class="mb-1"><strong>Type:</strong> {{ job.jobType }}</p>
-              <p class="mb-1"><strong>Work Mode:</strong> {{ job.workMode }}</p>
-              <p class="mb-1"><strong>Salary:</strong> ${{ job.salary }}</p>
+              <p class="mb-1"><strong>Type:</strong> {{ job.type }}</p>
+              <p class="mb-1"><strong>Location:</strong> {{ job.location }}</p>
+              <p class="mb-1"><strong>Salary:</strong> {{ job.salary }}</p>
               <p class="card-text text-muted">{{ job.description }}</p>
             </div>
             <div class="card-footer d-flex justify-content-between">

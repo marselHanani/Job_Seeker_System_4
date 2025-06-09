@@ -3,6 +3,7 @@ import { Component, Inject, NgZone, PLATFORM_ID } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {jwtDecode} from 'jwt-decode';
+import { AuthService } from '../../../core/auth/auth.service';
 
 declare const FB: any;
 
@@ -15,6 +16,7 @@ declare const FB: any;
 })
 export class ForgetPasswordComponent {
   constructor(
+    private auth :AuthService,
     private _Router: Router,
     private ngZone: NgZone,
     @Inject(PLATFORM_ID) private platformId: Object
@@ -50,14 +52,19 @@ export class ForgetPasswordComponent {
     email: new FormControl(null, [Validators.required, Validators.email])
   });
 
-  printData(formGroup: FormGroup) {
-    if (formGroup.valid) {
-      console.log('Form Data:', formGroup.value);
-      this.navigate();
-    } else {
-      console.log('Form is invalid');
+  ForgetPassword(data: FormGroup) {
+    if(data.valid){
+      this.auth.forgetPassword(data.value).subscribe({
+        next:(res)=>{
+          console.log(res);
+        },
+        error:(err)=>{
+          console.log(err);
+        }
+      })
     }
   }
+
 
   loginWithFacebook() {
     FB.login((response: any) => {
