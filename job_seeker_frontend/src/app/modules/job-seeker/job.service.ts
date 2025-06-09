@@ -105,7 +105,8 @@ private jobs: Job[] = [];
             type: job.job_type,
             postedDate: new Date(job.created_at),
             deadline: new Date(job.deadline),
-            category: job.category
+            category: job.category,
+            applicants: job.applicants || []
           };
         }
         return this.jobs.find(job => job.id === id); // Fallback to local data
@@ -191,7 +192,8 @@ private jobs: Job[] = [];
             type: response.result.job_type,
             postedDate: new Date(response.result.created_at),
             deadline: new Date(response.result.deadline),
-            category: response.result.category
+            category: response.result.category,
+            applicants: response.result.applicants || []
           };
 
           // Update local cache
@@ -262,7 +264,9 @@ private jobs: Job[] = [];
             type: response.result.job_type,
             postedDate: new Date(response.result.created_at),
             deadline: new Date(response.result.deadline),
-            category: response.result.category
+            category: response.result.category,
+            applicants: response.result.applicants || []
+
           };
 
           // Update local cache

@@ -10,7 +10,6 @@ use App\Http\Middleware\EmployerAuth;
 
 
 
-Route::get('/employers', [EmployerController::class, 'index']);
 Route::patch('/employers/{id}/status', [EmployerController::class, 'updateStatus']);
 
 

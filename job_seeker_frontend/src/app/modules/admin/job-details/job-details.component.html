@@ -23,7 +23,7 @@
         </ul>
 
         <p class="job-details-header">Dates:</p>
-        <p>Posted on: {{ job.publishDate }}</p>
+        <p>Posted on: {{ job.postedDate | date:'mediumDate' }}</p>
         <p>Application Deadline: {{ job.deadline }}</p>
 
         <div class="job-actions">
