@@ -1,1 +1,5 @@
 *.sqlite*
+
+job_seeker_frontend/.angular/cache/
+
+node_modules/
