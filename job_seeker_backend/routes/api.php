@@ -15,7 +15,6 @@ Route::patch('/employers/{id}/status', [EmployerController::class, 'updateStatus
 
 use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -25,12 +24,7 @@ Route::get('/login', function(){
     return "done";
 });
 
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\testController;
-use App\Http\Controllers\UserController;
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\EmployerAuth;
+
 
 //user route
 Route::apiResource('/users', UserController::class)->middleware(AdminMiddleware::class);
