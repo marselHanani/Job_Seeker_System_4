@@ -2,14 +2,21 @@
 
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\EmployerController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\testController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\EmployerAuth;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\AuthController;
+use Illuminate\Http\Request;
 
 Route::get('/employers', [EmployerController::class, 'index']);
 Route::patch('/employers/{id}/status', [EmployerController::class, 'updateStatus']);
 
 
-use App\Http\Controllers\AuthController;
-use Illuminate\Http\Request;
 
 
 Route::get('/user', function (Request $request) {
@@ -20,12 +27,6 @@ Route::get('/login', function(){
     return "done";
 });
 
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\testController;
-use App\Http\Controllers\UserController;
-use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\EmployerAuth;
 
 //user route
 Route::apiResource('/users', UserController::class)->middleware(AdminMiddleware::class);
@@ -55,11 +56,9 @@ Route::post('/reset-password/{id}',[AuthController::class,'resetPass']);
 Route::post('/google-register',[AuthController::class,'googleRegister']);
 Route::post('/google-login',[AuthController::class,'googleLogin']);
 
-
-
-
-
-use App\Http\Controllers\EmployerController;
+Route::apiResource('reports', ReportController::class);
+Route::post('reports/{report}/download', [ReportController::class, 'download']);
+Route::post('reports/{report}/share', [ReportController::class, 'share']);
 
 Route::resource('employers', EmployerController::class);
 

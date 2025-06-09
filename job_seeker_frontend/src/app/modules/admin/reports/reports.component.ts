@@ -1,3 +1,6 @@
+// Remove the local Report interface if you have one
+// Add this import at the top of the file
+import { ReportService, Report } from '../../../services/report.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -5,16 +8,6 @@ import { RouterModule } from '@angular/router';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatSnackBarModule, MatSnackBar } from '@angular/material/snack-bar';
 import { CreateReportDialogComponent } from '../create-report-dialog/create-report-dialog.component';
-interface Report {
-  id: number;
-  title: string;
-  type: string;
-  lastUpdated: string;
-  views: number;
-  downloads: number;
-  icon: string;
-  description?: string;
-}
 
 @Component({
   selector: 'app-reports',
@@ -26,77 +19,39 @@ interface Report {
 export class ReportsComponent implements OnInit {
   searchText: string = '';
   selectedFilter: string = 'All Reports';
+  reports: Report[] = [];
   filteredReports: Report[] = [];
-
-  reports: Report[] = [
-    {
-      id: 1,
-      title: 'Performance Analysis',
-      type: 'Monthly',
-      lastUpdated: '2 days ago',
-      views: 245,
-      downloads: 56,
-      icon: 'fa-chart-bar',
-      description: 'Monthly performance metrics and KPIs'
-    },
-    {
-      id: 2,
-      title: 'Employee Statistics',
-      type: 'Quarterly',
-      lastUpdated: '1 week ago',
-      views: 189,
-      downloads: 42,
-      icon: 'fa-users',
-      description: 'Quarterly employee engagement and statistics'
-    },
-    {
-      id: 3,
-      title: 'Annual Review',
-      type: 'Annual',
-      lastUpdated: '1 month ago',
-      views: 567,
-      downloads: 123,
-      icon: 'fa-chart-line',
-      description: 'Annual company performance review'
-    }
-  ];
 
   constructor(
     private dialog: MatDialog,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private reportService: ReportService // Inject the service
   ) {}
 
   ngOnInit() {
-    this.filteredReports = [...this.reports];
+    this.loadReports();
+  }
+
+  loadReports() {
+    this.reportService.getReports(this.searchText, this.selectedFilter).subscribe(
+      (data) => {
+        this.reports = data;
+        this.filteredReports = [...this.reports];
+      },
+      (error) => {
+        console.error('Error loading reports:', error);
+        this.showNotification('Failed to load reports.');
+      }
+    );
   }
 
   filterReports(type: string) {
     this.selectedFilter = type;
-    if (type === 'All Reports') {
-      this.filteredReports = this.reports;
-    } else {
-      this.filteredReports = this.reports.filter(report => report.type === type);
-    }
-    this.applySearch();
+    this.loadReports(); // Reload reports based on filter
   }
 
   applySearch() {
-    const searchTerm = this.searchText.toLowerCase();
-    if (!searchTerm) {
-      if (this.selectedFilter === 'All Reports') {
-        this.filteredReports = [...this.reports];
-      } else {
-        this.filteredReports = this.reports.filter(report => report.type === this.selectedFilter);
-      }
-      return;
-    }
-
-    this.filteredReports = this.reports.filter(report => {
-      const matchesSearch = report.title.toLowerCase().includes(searchTerm) ||
-                          report.description?.toLowerCase().includes(searchTerm);
-      const matchesFilter = this.selectedFilter === 'All Reports' || report.type === this.selectedFilter;
-      return matchesSearch && matchesFilter;
-    });
+    this.loadReports(); // Reload reports based on search
   }
 
   searchReports() {
@@ -104,18 +59,32 @@ export class ReportsComponent implements OnInit {
   }
 
   downloadReport(id: number) {
-    const report = this.reports.find(r => r.id === id);
-    if (report) {
-      report.downloads++;
-      this.showNotification(`Downloading ${report.title}...`);
-    }
+    this.reportService.downloadReport(id).subscribe(
+      (response) => {
+        this.showNotification(response.message);
+        // Optionally update the downloads count in the frontend if needed
+        const report = this.reports.find(r => r.id === id);
+        if (report) {
+          report.downloads = response.downloads; // Update downloads from backend response
+        }
+      },
+      (error) => {
+        console.error('Error downloading report:', error);
+        this.showNotification('Failed to download report.');
+      }
+    );
   }
 
   shareReport(id: number) {
-    const report = this.reports.find(r => r.id === id);
-    if (report) {
-      this.showNotification(`Sharing ${report.title}...`);
-    }
+    this.reportService.shareReport(id).subscribe(
+      (response) => {
+        this.showNotification(response.message);
+      },
+      (error) => {
+        console.error('Error sharing report:', error);
+        this.showNotification('Failed to share report.');
+      }
+    );
   }
 
   createNewReport() {
@@ -123,20 +92,17 @@ export class ReportsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const newReport: Report = {
-          id: this.reports.length + 1,
-          title: result.title,
-          type: result.type,
-          description: result.description,
-          lastUpdated: 'Just now',
-          views: 0,
-          downloads: 0,
-          icon: 'fa-file-alt'
-        };
-
-        this.reports.unshift(newReport);
-        this.filterReports(this.selectedFilter);
-        this.showNotification('New report created successfully!');
+        this.reportService.createReport(result).subscribe(
+          (newReport) => {
+            this.reports.unshift(newReport);
+            this.filterReports(this.selectedFilter); // Re-filter to include new report
+            this.showNotification('New report created successfully!');
+          },
+          (error) => {
+            console.error('Error creating report:', error);
+            this.showNotification('Failed to create report.');
+          }
+        );
       }
     });
   }
@@ -160,10 +126,17 @@ export class ReportsComponent implements OnInit {
       }
   }
 
-  deleteReport(reportId: number) { // Change the type to number
-      // Logic to delete the report
-      console.log(`Report with ID ${reportId} deleted`);
-      // Update the filteredReports array to remove the deleted report
-      this.filteredReports = this.filteredReports.filter(report => report.id !== reportId);
+  deleteReport(reportId: number) {
+    this.reportService.deleteReport(reportId).subscribe(
+      () => {
+        this.reports = this.reports.filter(report => report.id !== reportId);
+        this.filteredReports = this.filteredReports.filter(report => report.id !== reportId);
+        this.showNotification('Report deleted successfully!');
+      },
+      (error) => {
+        console.error('Error deleting report:', error);
+        this.showNotification('Failed to delete report.');
+      }
+    );
   }
 }

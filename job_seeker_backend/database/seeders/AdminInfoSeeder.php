@@ -24,6 +24,16 @@ class AdminInfoSeeder extends Seeder
             'is_verified' => 1,
             'role_id' => 1,
         ]);
+        User::create([
+            'first_name' => 'marsell',
+            'last_name' => 'marsell',
+            'email' =>'marsell@gmail.com',
+            'password' => Hash::make('Marsel@123'),
+            'username' => 'marsell',
+            'email_verified_at' => now(),
+            'is_verified' => 1,
+            'role_id' => 2,
+        ]);
     }
 }
 
