@@ -10,7 +10,10 @@ import {
   OverlayRef,
   PortalModule,
   TemplatePortal
-} from "./chunk-NHB67OEG.js";
+} from "./chunk-B5Y7EKP7.js";
+import {
+  CdkScrollable
+} from "./chunk-3HQYNW3P.js";
 import {
   A11yModule,
   ESCAPE,
@@ -21,11 +24,8 @@ import {
   _IdGenerator,
   _getFocusedElementPierceShadowDom,
   hasModifierKey
-} from "./chunk-3APXFM3O.js";
+} from "./chunk-UHX4VVGT.js";
 import "./chunk-VQULXDCG.js";
-import {
-  CdkScrollable
-} from "./chunk-3HQYNW3P.js";
 import "./chunk-2O4WY5GE.js";
 import {
   Directionality
