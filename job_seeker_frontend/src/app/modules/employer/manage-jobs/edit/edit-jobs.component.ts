@@ -94,7 +94,8 @@ export class EditJobsComponent implements OnInit {
               postedDate: oldJob.postedDate,
               deadline: new Date(formValues.expirationDate),
               description: formValues.description,
-              requirements: formValues.responsibilities.split('\n')
+              requirements: formValues.responsibilities.split('\n'),
+              applicants: undefined
             };
 
             this.jobService.updateJob(jobId, updatedJob).subscribe(updated => {

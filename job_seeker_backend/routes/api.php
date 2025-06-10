@@ -15,7 +15,6 @@ use App\Http\Controllers\ReportController;
 use Illuminate\Http\Request;
 
 
-Route::get('/employers', [EmployerController::class, 'index']);
 Route::patch('/employers/{id}/status', [EmployerController::class, 'updateStatus']);
 
 //user route

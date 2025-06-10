@@ -21,11 +21,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['name' => 'admin']);
-        Role::create(['name'=> 'employer']);
-        Role::create(['name'=> 'job_seeker']);
+        Role::firstOrCreate(['name' => 'admin']);
+        Role::firstOrCreate(['name' => 'employer']);
+        Role::firstOrCreate(['name' => 'job_seeker']);;
         $this->call(AdminInfoSeeder::class);
         $this->call(PostJobsTableSeeder::class);
+        $this->call(UserSeeder::class);
+        $this->call(EmployerSeeder::class);
+
         //User::factory(10)->create();
         //PostJob::factory(10)->create();
         //Employer::factory(3)->create();
