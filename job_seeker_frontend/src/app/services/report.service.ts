@@ -40,8 +40,16 @@ export class ReportService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  downloadReport(id: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/${id}/download`, {});
+  downloadReport(id: number): Observable<Blob> {
+    return this.http.post(`${this.apiUrl}/${id}/download`, {}, {
+      responseType: 'blob'
+    });
+  }
+
+  downloadReportPdf(id: number): Observable<Blob> {
+    return this.http.post(`${this.apiUrl}/${id}/download-pdf`, {}, {
+      responseType: 'blob'
+    });
   }
 
   shareReport(id: number): Observable<any> {

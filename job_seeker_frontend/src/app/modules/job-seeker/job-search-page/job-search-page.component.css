@@ -81,11 +81,12 @@
 
   .dropdown .btn-light {
     border: none;
-    background: #f1f1f1;
+    background: rgba(0, 0, 0, 0.612);
     border-radius: 40%;
     width: 24px;
     height: 30px;
     padding: 0;
+    margin-bottom: 1rem;
   }
 
   .dropdown-menu .dropdown-item {

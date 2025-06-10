@@ -42,7 +42,7 @@ export class ForgetPasswordComponent {
       this.toastr.success('Email filled from Google account', 'Success', {
         positionClass: 'toast-top-right',
         progressBar: true,
-        timeOut: 3000
+        timeOut: 3000,
       });
     } catch (error) {
       console.error('Error decoding Google token:', error);

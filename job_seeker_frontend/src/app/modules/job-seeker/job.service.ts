@@ -1,29 +1,39 @@
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, delay } from 'rxjs/operators';
 import { Job, JobApplication } from '../job-seeker/job.model';
 import { jwtDecode } from 'jwt-decode';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 
-
 export class JobService {
   token: string | null;
-   decodedToken: any;
-    constructor(private http: HttpClient) {
-    this.token = localStorage.getItem('userToken');
-    if (this.token) {
-      try {
-        this.decodedToken = jwtDecode(this.token);
-
-      } catch (e) {
-        console.error('Invalid token', e);
-        this.decodedToken = null;
+  decodedToken: any;
+  
+  constructor(
+    
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.token = localStorage.getItem('userToken');
+      if (this.token) {
+        try {
+          this.decodedToken = jwtDecode(this.token);
+        } catch (e) {
+          console.error('Invalid token', e);
+          this.decodedToken = null;
+        }
       }
+    } else {
+      // في بيئة الخادم، اجعل القيم null
+      this.token = null;
+      this.decodedToken = null;
     }
   }
 // Get applications by user from the API (using new DB endpoint)
@@ -307,8 +317,12 @@ private jobs: Job[] = [];
   }
 
   deleteJob(id: string): Observable<any> {
+    const token = this.token;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    })
     // Delete from backend API
-    return this.http.delete(`http://localhost:8000/api/jobs/${id}`).pipe(
+    return this.http.delete(`http://localhost:8000/api/jobs/${id}`,{headers}).pipe(
       map(response => {
         // Update local cache
         this.jobs = this.jobs.filter(job => job.id !== id);

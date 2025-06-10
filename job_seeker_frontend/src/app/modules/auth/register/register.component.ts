@@ -80,7 +80,7 @@ export class RegisterComponent {
         error: (error) => {
           this.registerErrors = error.error.errors;
           this.toastr.error('Please check your input data', 'Registration Failed', {
-            positionClass: 'toast-top-right',
+            positionClass: 'toast-top-center',
             progressBar: true,
             timeOut: 5000
           });
@@ -121,7 +121,7 @@ export class RegisterComponent {
           next: (res) => {
             this.auth.token = res.token;
             this.toastr.success('Successfully registered with Google', 'Welcome!', {
-              positionClass: 'toast-top-right',
+              positionClass: 'toast-top-center',
               progressBar: true,
               timeOut: 3000
             });
@@ -130,7 +130,7 @@ export class RegisterComponent {
           error: (err) => {
             console.error(err);
             this.toastr.error('Failed to register with Google', 'Error', {
-              positionClass: 'toast-top-right',
+              positionClass: 'toast-top-center',
               progressBar: true,
               timeOut: 3000
             });

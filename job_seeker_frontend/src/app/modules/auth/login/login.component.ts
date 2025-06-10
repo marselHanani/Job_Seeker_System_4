@@ -55,7 +55,8 @@ export class LoginComponent {
               this.toastr.success('Login successful!', 'Welcome', {
                 timeOut: 2000,
                 progressBar: true,
-                closeButton: true
+                closeButton: true,
+                positionClass: 'toast-top-center'
               });
               this._Router.navigate(['/home']);
             },
@@ -63,7 +64,8 @@ export class LoginComponent {
               this.toastr.error(err.error.message || 'Error logging in with Google', 'Error', {
                 timeOut: 3000,
                 progressBar: true,
-                closeButton: true
+                closeButton: true,
+                positionClass: 'toast-top-center'
               });
             }
           });
@@ -72,7 +74,8 @@ export class LoginComponent {
       this.toastr.error('Error connecting to Google service', 'Error', {
         timeOut: 3000,
         progressBar: true,
-        closeButton: true
+        closeButton: true,
+        positionClass: 'toast-top-center'
       });
     }
   }
@@ -121,13 +124,15 @@ export class LoginComponent {
         this.toastr.success('Successfully logged in with Facebook!', 'Welcome', {
           timeOut: 2000,
           progressBar: true,
-          closeButton: true
+          closeButton: true,
+          positionClass: 'toast-top-center'
         });
       } else {
         this.toastr.error('Failed to login with Facebook', 'Error', {
           timeOut: 3000,
           progressBar: true,
-          closeButton: true
+          closeButton: true,
+          positionClass: 'toast-top-center'
         });
       }
     });

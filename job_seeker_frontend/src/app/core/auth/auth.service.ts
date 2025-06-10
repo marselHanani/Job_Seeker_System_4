@@ -128,8 +128,6 @@ export class AuthService {
         return userId;
       }
     }
-    // If no user ID is found, return an empty string
-    // In a real app, you would redirect to login
     return '';
   }
 

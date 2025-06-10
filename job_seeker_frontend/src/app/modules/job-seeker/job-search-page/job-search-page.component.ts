@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { jwtDecode } from 'jwt-decode';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf, DatePipe, SlicePipe } from '@angular/common';
 import { JobService } from '../job.service';
 import { Job } from '../job.model';
+import { AuthService } from '../../../core/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-job-Search-Page',
@@ -22,11 +26,35 @@ export class jobSearchPageComponent implements OnInit {
   sortOption: string = '';
   sortOrder: 'asc' | 'desc' = 'asc';
 
-  constructor(private jobService: JobService) { }
+  constructor(
+    private jobService: JobService,
+    private auth: AuthService,
+    private toastr: ToastrService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.jobService.decodedToken.id)
+    console.log(this.jobService.decodedToken?.id || 'No user ID available');
     this.loadJobs();
+  }
+
+  chickRole(): boolean {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('userToken');
+      if (token) {
+        try {
+          const decode: any = jwtDecode(token);
+          if(decode.role==='admin' || decode.role==='employer'){
+            return true;
+          }
+          return false;
+        } catch (error) {
+          console.error('Error decoding token:', error);
+          return false;
+        }
+      }
+    }
+    return false;
   }
 
   loadJobs(): void {
@@ -59,7 +87,9 @@ export class jobSearchPageComponent implements OnInit {
     }
     this.sortJobs();
   }
-
+  isLoggedIn(): boolean {
+    return this.auth.isAuthenticated();
+  }
   sortJobs(): void {
     this.filteredJobs.sort((a: any, b: any) => {
       let aValue: any;
@@ -91,7 +121,40 @@ export class jobSearchPageComponent implements OnInit {
     });
   }
   
+  deleteJob(id: string) {
+    const warningToast = this.toastr.warning('Are you sure you want to delete this job? if yes tap me ', 'Confirm Delete', {
+      timeOut: 0,
+      extendedTimeOut: 0,
+      closeButton: true,
+      tapToDismiss: false,
+      positionClass: 'toast-top-center'
+    });
 
+    warningToast.onTap.subscribe(() => {
+      // Hide the warning toast
+      this.toastr.clear(warningToast.toastId);
+      
+      // User confirmed, proceed with deletion
+      this.jobService.deleteJob(id).subscribe({
+        next: () => {
+          this.toastr.success('Job deleted successfully!', 'Success', {
+            timeOut: 3000,
+            progressBar: true,
+            positionClass: 'toast-top-right'
+          });
+          this.loadJobs();
+        },
+        error: () => {
+          this.toastr.error('Failed to delete job', 'Error', {
+            timeOut: 5000,
+            progressBar: true,
+            positionClass: 'toast-top-right'
+          });
+          this.error = 'Failed to delete job';
+        }
+      });
+    });
+  }
   toggleSortOrder(): void {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     this.sortJobs();

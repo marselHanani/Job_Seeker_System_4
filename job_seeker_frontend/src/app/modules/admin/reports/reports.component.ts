@@ -59,14 +59,15 @@ export class ReportsComponent implements OnInit {
   }
 
   downloadReport(id: number) {
-    this.reportService.downloadReport(id).subscribe(
-      (response) => {
-        this.showNotification(response.message);
-        // Optionally update the downloads count in the frontend if needed
-        const report = this.reports.find(r => r.id === id);
-        if (report) {
-          report.downloads = response.downloads; // Update downloads from backend response
-        }
+    this.reportService.downloadReportPdf(id).subscribe(
+      (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `report_${id}_${new Date().getTime()}.pdf`;
+        link.click();
+        window.URL.revokeObjectURL(url);
+        this.showNotification('Report downloaded successfully!');
       },
       (error) => {
         console.error('Error downloading report:', error);
