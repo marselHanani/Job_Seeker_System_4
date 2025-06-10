@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
@@ -70,13 +71,39 @@ class ReportController extends Controller
         return response()->json(null, 204);
     }
 
-    public function download(Report $report)
+    public function downloadPdf(Report $report)
     {
-        $report->downloads++;
-        $report->save();
-        // In a real application, you would serve the actual file here.
-        // For now, we just increment the download count.
-        return response()->json(['message' => 'Report downloaded successfully', 'downloads' => $report->downloads]);
+        try {
+            // Increment download count
+            $report->increment('downloads');
+            
+            // Prepare data for PDF
+            $data = [
+                'report' => $report,
+                'generated_at' => now()->format('Y-m-d H:i:s'),
+                'sample_data' => [
+                    ['date' => date('Y-m-d'), 'metric' => 'Total Users', 'value' => '1,250', 'status' => 'Active'],
+                    ['date' => date('Y-m-d'), 'metric' => 'New Registrations', 'value' => '45', 'status' => 'Growing'],
+                    ['date' => date('Y-m-d'), 'metric' => 'Job Applications', 'value' => '320', 'status' => 'Stable'],
+                    ['date' => date('Y-m-d'), 'metric' => 'Success Rate', 'value' => '78%', 'status' => 'Good']
+                ]
+            ];
+            
+            // Generate PDF
+            $pdf = Pdf::loadView('reports.pdf-template', $data);
+            
+            // Create filename
+            $fileName = str_replace(' ', '_', $report->title) . '_' . date('Y-m-d_H-i-s') . '.pdf';
+            
+            // Return PDF download
+            return $pdf->download($fileName);
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to generate PDF report',
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function share(Report $report)

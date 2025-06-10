@@ -9,6 +9,8 @@ use App\Models\Notification;
 use App\Models\PostJob;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Report;
+
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -29,5 +31,6 @@ class DatabaseSeeder extends Seeder
         //Employer::factory(3)->create();
         //Notification::factory(10)->create();
         //JobApplication::factory(10)->create();
+        Report::factory(10)->create();
     }
 }
