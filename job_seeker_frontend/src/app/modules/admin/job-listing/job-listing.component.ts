@@ -12,7 +12,7 @@ import { Job } from '../../job-seeker/job.model';
   templateUrl: './job-listing.component.html',
   styleUrls: ['./job-listing.component.css'],
 })
-export class JobListingsComponent implements OnInit {
+export class  JobListingsComponent implements OnInit {
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   searchQuery: string = '';
@@ -37,10 +37,14 @@ export class JobListingsComponent implements OnInit {
   loadJobs(): void {
     this.loading = true;
     this.jobService.getJobs().subscribe({
-      next: (jobs) => {
-        console.log('Jobs from API:', jobs);
-        this.jobs = jobs.map((job: Job) => ({ ...job, saved: false }));
-        this.filteredJobs = [...this.jobs];
+      next: (response) => {
+        if (response && response.jobs) {
+          this.jobs = response.jobs.map((job: Job) => ({ ...job, saved: false }));
+          this.filteredJobs = [...this.jobs];
+        } else {
+          this.jobs = [];
+          this.filteredJobs = [];
+        }
         this.loading = false;
       },
       error: () => {

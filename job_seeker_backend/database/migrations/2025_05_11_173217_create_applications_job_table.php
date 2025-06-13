@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('post_job_id')->constrained()->onDelete('cascade');
             $table->text('cover_letter')->nullable();
-            $table->string('resume')->nullable();
+            $table->text('resume')->nullable();
             $table->string('status')->nullable();
             $table->date('applied_date')->nullable();
             $table->timestamps();
