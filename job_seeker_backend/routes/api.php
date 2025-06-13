@@ -5,6 +5,7 @@ use App\Http\Controllers\JobController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\testController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ReportController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\EmployerAuth;
 
@@ -63,7 +64,7 @@ Route::post('/google-login',[AuthController::class,'googleLogin']);
 
 Route::resource('employers', EmployerController::class);
 
-//report 
+//report
 Route::apiResource('reports', ReportController::class);
 Route::get('reports',[ReportController::class, 'index']);
 // Add this line with your existing report roaction: utes
