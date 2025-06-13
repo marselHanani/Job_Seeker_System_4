@@ -116,7 +116,7 @@ export class jobSearchPageComponent implements OnInit {
             totalJobsLoaded: this.jobs.length, 
             hasMore: this.hasMore, 
             nextSkip: this.skip,
-            totalInDB: response.total,
+            totalInDB: response.tota,
             shouldHaveMore: this.jobs.length < response.total
           });
         } else {

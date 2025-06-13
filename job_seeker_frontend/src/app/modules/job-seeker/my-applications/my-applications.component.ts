@@ -18,10 +18,12 @@ export class MyApplicationsComponent implements OnInit {
   loading = true;
   error: string | null = null;
   userId = '';
+  
 
   constructor(private jobService: JobService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    
     this.loading = true;
 
     // Check if user is a job seeker
@@ -30,12 +32,9 @@ export class MyApplicationsComponent implements OnInit {
     // Get the current authenticated user's ID
     this.userId = this.authService.getCurrentUserId();
 
-    // TEMPORARY FIX: Set a default user ID for testing if none exists
-    // Remove this in production
     if (!this.userId) {
       console.log('No user ID found, setting temporary ID for testing');
-      // this.authService.setCurrentUserId('1');
-      // this.userId = '1';
+  
     }
 
     // Load jobs first
@@ -87,9 +86,15 @@ export class MyApplicationsComponent implements OnInit {
         this.loading = false;
       }
     });
+   
   }
 
   getJobById(id: string): Job | undefined {
-    return this.jobs.find(job => job.id === id);
+    if (!this.jobs|| !Array.isArray(this.jobs)) {
+      console.error('Jobs array not initialized properly');
+      return undefined;
+    }
+  
+    return this.jobs.find((job: Job) => job.id === id);
   }
 }
