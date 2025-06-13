@@ -31,6 +31,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'image'=> fake()->imageUrl(),
             'role_id' => fake()->numberBetween(1, 3),
+            'is_verified' => fake()->numberBetween(1, 1)    
         ];
     }
 
