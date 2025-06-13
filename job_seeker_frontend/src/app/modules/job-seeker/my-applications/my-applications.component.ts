@@ -39,8 +39,19 @@ export class MyApplicationsComponent implements OnInit {
 
     // Load jobs first
     this.jobService.getJobs().subscribe({
-      next: jobs => {
-        this.jobs = jobs;
+      next: jobsData => {
+        console.log('Received jobs data:', jobsData);
+        // Check if jobsData is an object with a jobs array
+        if (jobsData && typeof jobsData === 'object' && Array.isArray(jobsData.jobs)) {
+          this.jobs = jobsData.jobs;
+          console.log('Jobs array set to:', this.jobs);
+        } else if (Array.isArray(jobsData)) {
+          this.jobs = jobsData;
+          console.log('Jobs array set directly to:', this.jobs);
+        } else {
+          console.error('Unexpected format for jobs data:', jobsData);
+          this.jobs = [];
+        }
 
         // Try to get applications from API
         this.jobService.getApplicationsByUser(this.userId).subscribe({
@@ -90,11 +101,23 @@ export class MyApplicationsComponent implements OnInit {
   }
 
   getJobById(id: string): Job | undefined {
-    if (!this.jobs|| !Array.isArray(this.jobs)) {
+    if (!this.jobs || !Array.isArray(this.jobs)) {
       console.error('Jobs array not initialized properly');
+      console.log('Current jobs array:', this.jobs);
       return undefined;
     }
-  
-    return this.jobs.find((job: Job) => job.id === id);
+    
+    console.log('Searching for job with ID:', id, 'Type:', typeof id);
+    const job = this.jobs.find((job: Job) => {
+      console.log('Checking job ID:', job.id, 'Type:', typeof job.id);
+      return job.id.toString() === id.toString();
+    });
+    
+    if (!job) {
+      console.log('Job not found for ID:', id);
+    } else {
+      console.log('Found job:', job);
+    }
+    return job;
   }
 }

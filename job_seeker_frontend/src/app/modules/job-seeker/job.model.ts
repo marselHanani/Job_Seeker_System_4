@@ -16,6 +16,8 @@ export interface Job {
 }
 
 export interface JobApplication {
+    title: string;
+    company: string;
     id: string;
     jobId: string;
     userId: string;
