@@ -17,15 +17,15 @@ class EmployerFactory extends Factory
     public function definition(): array
     {
         return [
-          'user_id' => fake()->numberBetween(1,10),
-          'company_name'=> fake()->company(),
-          'company_address' => fake()->address(),
-          'company_phone' => fake()->phoneNumber(),
-          'company_email' => fake()->email(),
-          'company_description' => fake()->text(),
-          'company_logo' => fake()->imageUrl(),
-          'company_cover' => fake()->imageUrl(),
-          'company_social' => fake()->url()
+            'user_id' => fake()->numberBetween(1,10),
+            'company_name'=> fake()->company(),
+            'company_address' => fake()->address(),
+            'company_phone' => fake()->phoneNumber(),
+            'company_email' => fake()->email(),
+            'company_description' => fake()->text(200), // تحديد الحد الأقصى 200 حرف
+            'company_logo' => fake()->imageUrl(),
+            'company_cover' => fake()->imageUrl(),
+            'company_social' => fake()->url()
         ];
     }
 }

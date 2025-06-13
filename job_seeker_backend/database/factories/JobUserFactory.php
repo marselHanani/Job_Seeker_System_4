@@ -18,7 +18,7 @@ class JobUserFactory extends Factory
     {
         return [
             'user_id' => fake()->numberBetween(1, 10), // Adjust the range based on your user data
-            'job_id' => fake()->numberBetween(1, 10), // Adjust the range based on your job dat
+            'post_job_id' => fake()->numberBetween(1, 10), // Adjust the range based on your job dat
         ];
     }
 }
