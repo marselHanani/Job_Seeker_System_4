@@ -39,7 +39,7 @@ export class ManageJobsComponent implements OnInit {
     this.loading = true;
     this.jobService.getJobs().subscribe({
       next: (jobs) => {
-        this.jobs = jobs.map(job => ({ ...job, saved: false }));
+        this.jobs = jobs.map((job: Job) => ({ ...job, saved: false }));
         this.filteredJobs = [...this.jobs];
         this.loading = false;
       },

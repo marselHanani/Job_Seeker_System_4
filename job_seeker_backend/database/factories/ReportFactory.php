@@ -14,12 +14,12 @@ class ReportFactory extends Factory
         $types = ['Monthly', 'Quarterly', 'Annual', 'Custom'];
 
         return [
-            'title' => $this->faker->sentence(3),
+            'title' => fake()->sentence(),
             'type' => $this->faker->randomElement($types),
             'description' => $this->faker->paragraph(),
             'last_updated' => $this->faker->dateTimeThisMonth(),
             'views' => $this->faker->numberBetween(0, 1000),
-            'downloads' => $this->faker->numberBetween(0, 500),
+            'downloads' => $this->faker->numberBetween(0, int2: 500),
             'icon' => 'fa-' . $this->faker->randomElement(['chart-bar', 'chart-line', 'users', 'file-alt']),
             'created_at' => $this->faker->dateTimeThisYear(),
             'updated_at' => $this->faker->dateTimeThisMonth()

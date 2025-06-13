@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  <div *ngIf="loading" class="text-center py-5">
+  <div *ngIf="loading && jobs.length === 0" class="text-center py-5">
     <div class="spinner-border text-primary" role="status">
       <span class="visually-hidden">Loading...</span>
     </div>
@@ -127,6 +127,27 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="mb-3 text-muted">
+      <small>Showing {{ jobs.length }} jobs</small>
+    </div>
+
+    <div *ngIf="hasMore && !loading" class="text-center py-4">
+      <button class="btn btn-primary btn-lg" (click)="loadMoreJobs()">
+        <i class="fas fa-plus me-2"></i>Show More Jobs ({{ jobs.length }} loaded)
+      </button>
+    </div>
+
+    <div *ngIf="loading && jobs.length > 0" class="text-center py-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading more jobs...</span>
+      </div>
+      <p class="mt-2">Loading more jobs...</p>
+    </div>
+
+    <div *ngIf="!hasMore && jobs.length > 0" class="text-center py-4 text-muted">
+      <p>No more jobs to load</p>
     </div>
   </div>
 </div>

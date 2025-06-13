@@ -17,22 +17,46 @@ class JobController extends Controller
         $limit = request()->query('limit', 10);
         $search = request()->query('search');
         $page = request()->query('page', 1);
+        $skip = request()->query('skip', 0);
+
         $query = PostJob::query();
+
         if ($search) {
             $query->where('title', 'LIKE', '%' . $search . '%')
                 ->orWhere('description', 'LIKE', '%' . $search . '%');
         }
-        $jobs = $query->paginate($limit, ['*'], 'page', $page);
 
-        return response()->json([
-            'page' => $jobs->currentPage(),
-            'result' => $jobs->items(),
-            'message' => 'Jobs retrieved successfully',
-            'status' => 200,
-            'total' => $jobs->total(),
-            'last_page' => $jobs->lastPage(),
-            'per_page' => $jobs->perPage(),
-        ]);
+        if (request()->has('skip')) {
+            $total = $query->count(); 
+            $jobs = $query->skip($skip)->take($limit)->get();
+
+            $hasMore = ($skip + $limit) < $total;
+            $nextSkip = $hasMore ? ($skip + $limit) : null;
+
+            return response()->json([
+                'result' => $jobs,
+                'message' => 'Jobs retrieved successfully',
+                'status' => 200,
+                'total' => $total,
+                'hasMore' => $hasMore,
+                'current_skip' => $skip,
+                'next_skip' => $nextSkip,
+                'loaded_count' => $jobs->count(),
+                'remaining' => $total - ($skip + $jobs->count())
+            ]);
+        } else {
+            $jobs = $query->paginate($limit, ['*'], 'page', $page);
+
+            return response()->json([
+                'page' => $jobs->currentPage(),
+                'result' => $jobs->items(),
+                'message' => 'Jobs retrieved successfully',
+                'status' => 200,
+                'total' => $jobs->total(),
+                'last_page' => $jobs->lastPage(),
+                'per_page' => $jobs->perPage(),
+            ]);
+        }
     }
 
     /**

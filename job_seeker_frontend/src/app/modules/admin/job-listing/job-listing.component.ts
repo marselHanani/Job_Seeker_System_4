@@ -38,8 +38,8 @@ export class JobListingsComponent implements OnInit {
     this.loading = true;
     this.jobService.getJobs().subscribe({
       next: (jobs) => {
-        console.log('Jobs from API:', jobs); 
-        this.jobs = jobs.map(job => ({ ...job, saved: false }));
+        console.log('Jobs from API:', jobs);
+        this.jobs = jobs.map((job: Job) => ({ ...job, saved: false }));
         this.filteredJobs = [...this.jobs];
         this.loading = false;
       },
