@@ -62,3 +62,10 @@ Route::post('/google-login',[AuthController::class,'googleLogin']);
 
 
 Route::resource('employers', EmployerController::class);
+
+//report 
+Route::apiResource('reports', ReportController::class);
+Route::get('reports',[ReportController::class, 'index']);
+// Add this line with your existing report roaction: utes
+Route::post('reports/{report}/download-pdf', [ReportController::class, 'downloadPdf']);
+Route::post('reports/{report}/share', [ReportController::class, 'share']);

@@ -20,8 +20,13 @@ export class jobSearchPageComponent implements OnInit {
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
   searchQuery: string = '';
-  loading: boolean = true;
+  loading: boolean = false;
   error: string | null = null;
+
+  // Show More properties
+  skip: number = 0;
+  limit: number = 10;
+  hasMore: boolean = true;
 
   sortOption: string = '';
   sortOrder: 'asc' | 'desc' = 'asc';
@@ -59,11 +64,20 @@ export class jobSearchPageComponent implements OnInit {
 
   loadJobs(): void {
     this.loading = true;
-    this.jobService.getJobs().subscribe({
-      next: (jobs) => {
-        this.jobs = jobs.map(job => ({ ...job, saved: false }));
+    this.skip = 0; 
+    this.jobService.getJobs(this.skip, this.limit).subscribe({
+      next: (response) => {
+        this.jobs = response.jobs;
         this.filteredJobs = [...this.jobs];
+        this.hasMore = response.hasMore;
+        this.skip = response.nextSkip || this.limit;
         this.loading = false;
+        console.log('Initial load:', {
+          jobs: this.jobs.length,
+          hasMore: this.hasMore,
+          nextSkip: this.skip,
+          total: response.total
+        });
       },
       error: () => {
         this.error = 'Failed to load jobs';
@@ -72,13 +86,58 @@ export class jobSearchPageComponent implements OnInit {
     });
   }
 
+  loadMoreJobs(): void {
+    if (!this.hasMore || this.loading) {
+      console.log('Cannot load more:', { hasMore: this.hasMore, loading: this.loading });
+      return;
+    }
+
+    this.loading = true;
+    console.log('Loading more jobs with skip:', this.skip);
+
+    this.jobService.getJobs(this.skip, this.limit).subscribe({
+      next: (response) => {
+        console.log('Full API Response:', response);
+        console.log('Response details:', { 
+          jobsReceived: response.jobs.length, 
+          hasMore: response.hasMore,
+          total: response.total,
+          currentSkip: response.currentSkip,
+          nextSkip: response.nextSkip,
+          loadedCount: response.loaded_count,
+          remaining: response.remaining
+        });
+        if (response.jobs && response.jobs.length > 0) {
+          this.jobs = [...this.jobs, ...response.jobs];
+          this.filteredJobs = [...this.jobs];
+          this.hasMore = response.hasMore;
+          this.skip = response.nextSkip || (this.skip + this.limit);
+          console.log('Updated frontend state:', { 
+            totalJobsLoaded: this.jobs.length, 
+            hasMore: this.hasMore, 
+            nextSkip: this.skip,
+            totalInDB: response.total,
+            shouldHaveMore: this.jobs.length < response.total
+          });
+        } else {
+          this.hasMore = false;
+          console.log('No more jobs available - setting hasMore to false');
+        }
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading more jobs:', error);
+        this.error = 'Failed to load more jobs';
+        this.loading = false;
+      }
+    });
+  }
   searchJobs(): void {
     if (this.searchQuery.trim() === '') {
       this.filteredJobs = [...this.jobs];
     } else {
-      // Search in local storage data instead of making API call
       const query = this.searchQuery.toLowerCase();
-      this.filteredJobs = this.jobs.filter(job => 
+      this.filteredJobs = this.jobs.filter(job =>
         job.title.toLowerCase().includes(query) ||
         job.company.toLowerCase().includes(query) ||
         job.location.toLowerCase().includes(query) ||
@@ -87,18 +146,20 @@ export class jobSearchPageComponent implements OnInit {
     }
     this.sortJobs();
   }
+
   isLoggedIn(): boolean {
     return this.auth.isAuthenticated();
   }
+
   sortJobs(): void {
     this.filteredJobs.sort((a: any, b: any) => {
       let aValue: any;
       let bValue: any;
-  
+
       switch (this.sortOption) {
         case 'salary':
           const getMinSalary = (salary: string): number => {
-            const match = salary.match(/\$?([\d,]+)/); // Only match the first number
+            const match = salary.match(/\$?([\d,]+)/);
             return match ? parseInt(match[1].replace(/,/g, '')) : 0;
           };
           aValue = getMinSalary(a.salary);
@@ -114,13 +175,11 @@ export class jobSearchPageComponent implements OnInit {
           bValue = b[this.sortOption];
           break;
       }
-  
       if (aValue < bValue) return this.sortOrder === 'asc' ? -1 : 1;
       if (aValue > bValue) return this.sortOrder === 'asc' ? 1 : -1;
       return 0;
     });
   }
-  
   deleteJob(id: string) {
     const warningToast = this.toastr.warning('Are you sure you want to delete this job? if yes tap me ', 'Confirm Delete', {
       timeOut: 0,
@@ -131,10 +190,8 @@ export class jobSearchPageComponent implements OnInit {
     });
 
     warningToast.onTap.subscribe(() => {
-      // Hide the warning toast
       this.toastr.clear(warningToast.toastId);
-      
-      // User confirmed, proceed with deletion
+
       this.jobService.deleteJob(id).subscribe({
         next: () => {
           this.toastr.success('Job deleted successfully!', 'Success', {
@@ -155,6 +212,7 @@ export class jobSearchPageComponent implements OnInit {
       });
     });
   }
+
   toggleSortOrder(): void {
     this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
     this.sortJobs();

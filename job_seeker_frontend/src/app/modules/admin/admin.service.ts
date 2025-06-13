@@ -11,8 +11,9 @@ export class AdminService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  getUsers(): Observable<any> {
+  getUsers(page: number = 1, limit: number = 10): Observable<any> {
     const token = this.authService.token;
+    const skip = (page - 1) * limit;
 
     if (!token) {
       console.error('Token not found. Please log in to access this resource.');
@@ -24,6 +25,6 @@ export class AdminService {
       'Accept': 'application/json'
     });
 
-    return this.http.get<any>(this.apiUrl, { headers });
+    return this.http.get<any>(`${this.apiUrl}?limit=${limit}&skip=${skip}`, { headers });
   }
 }

@@ -27,13 +27,14 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminInfoSeeder::class);
         $this->call(PostJobsTableSeeder::class);
         $this->call(UserSeeder::class);
-        $this->call(EmployerSeeder::class);
+        User::factory(20)->create();
+        //$this->call(EmployerSeeder::class);
 
         //User::factory(10)->create();
-        //PostJob::factory(10)->create();
+        PostJob::factory(30)->create();
         //Employer::factory(3)->create();
         //Notification::factory(10)->create();
         //JobApplication::factory(10)->create();
-        Report::factory(10)->create();
+        Report::factory(count: 10)->create();
     }
 }

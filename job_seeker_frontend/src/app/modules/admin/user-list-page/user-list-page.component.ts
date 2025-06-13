@@ -16,6 +16,10 @@ export class UserListPageComponent implements OnInit {
   users: User[] = [];
   isLoading: boolean = true;
   error: string | null = null;
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
+  totalItems: number = 0;
+  totalPages: number = 0;
 
   constructor(private adminService: AdminService) {}
 
@@ -26,31 +30,9 @@ export class UserListPageComponent implements OnInit {
   fetchUsers(): void {
     this.isLoading = true;
     this.error = null;
-    this.adminService.getUsers().subscribe({
+    this.adminService.getUsers(this.currentPage, this.itemsPerPage).subscribe({
       next: (data: any) => {
-        console.log('User data received from backend:', data);
-        // Check if data is an array
-        if (Array.isArray(data)) {
-          this.users = data.map((userFromApi: any) => ({
-            id: String(userFromApi.id),
-            name: `${userFromApi.first_name} ${userFromApi.last_name}`,
-            email: userFromApi.email,
-            role: this.mapRoleIdToRoleName(userFromApi.role_id),
-            createdAt: new Date(userFromApi.created_at),
-            avatarUrl: userFromApi.image || `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV0zscYTnOxutaPDaZ9Un0Ak-y0yR8jw40qA&s`
-          }));
-        } else if (data && data.data && Array.isArray(data.data)) {
-          // Handle case where users are nested under a 'data' key
-          this.users = data.data.map((userFromApi: any) => ({
-            id: String(userFromApi.id),
-            name: `${userFromApi.first_name} ${userFromApi.last_name}`,
-            email: userFromApi.email,
-            role: this.mapRoleIdToRoleName(userFromApi.role_id),
-            createdAt: new Date(userFromApi.created_at),
-            avatarUrl: userFromApi.image || `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV0zscYTnOxutaPDaZ9Un0Ak-y0yR8jw40qA&s`
-          }));
-        } else if (data && data.result && Array.isArray(data.result)) {
-          // Handle case where users are nested under a 'result' key
+        if (data && data.result) {
           this.users = data.result.map((userFromApi: any) => ({
             id: String(userFromApi.id),
             name: `${userFromApi.first_name} ${userFromApi.last_name}`,
@@ -59,19 +41,24 @@ export class UserListPageComponent implements OnInit {
             createdAt: new Date(userFromApi.created_at),
             avatarUrl: userFromApi.image || `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTV0zscYTnOxutaPDaZ9Un0Ak-y0yR8jw40qA&s`
           }));
-        } else {
-          console.error('Unexpected data structure:', data);
-          this.error = 'Unexpected data format received from server.';
-          this.users = [];
+          this.totalItems = data.total;
+          this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
         }
         this.isLoading = false;
       },
       error: (err: any) => {
-        console.error('Detailed error fetching users:', err);
-        this.error = err.message || 'Failed to load users. Please try again later.';
+        console.error('Error fetching users:', err);
+        this.error = err.message || 'Failed to load users';
         this.isLoading = false;
       }
     });
+  }
+
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.fetchUsers();
+    }
   }
 
   private mapRoleIdToRoleName(roleId: number): 'admin' | 'employer' | 'jobseeker' {
