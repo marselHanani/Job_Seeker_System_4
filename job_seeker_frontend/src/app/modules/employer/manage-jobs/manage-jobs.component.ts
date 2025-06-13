@@ -27,19 +27,23 @@ export class ManageJobsComponent implements OnInit {
   userType: string = '';
 
   constructor(private jobService: JobService) {
-    // التحقق من نوع المستخدم من localStorage
-    this.userType = localStorage.getItem('userType') || '';
+    // Remove localStorage access from constructor
   }
 
   ngOnInit(): void {
+    // Access localStorage in ngOnInit instead
+    if (typeof window !== 'undefined' && window.localStorage) {
+      this.userType = localStorage.getItem('userType') || '';
+    }
     this.loadJobs();
   }
 
   loadJobs(): void {
     this.loading = true;
     this.jobService.getJobs().subscribe({
-      next: (jobs) => {
-        this.jobs = jobs.map((job: Job) => ({ ...job, saved: false }));
+      next: (response) => {
+        // Fix: Access the jobs array from the response object
+        this.jobs = response.jobs.map((job: Job) => ({ ...job, saved: false }));
         this.filteredJobs = [...this.jobs];
         this.loading = false;
       },

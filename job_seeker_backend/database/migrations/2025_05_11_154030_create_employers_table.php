@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('company_address');
             $table->string('company_phone');
             $table->string('company_email');
-            $table->string('company_description');
+            $table->longText('company_description');
             $table->string('company_cover');
             $table->string('company_social')->nullable();
             $table->timestamps();
