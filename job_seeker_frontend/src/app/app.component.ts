@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
+
 export class AppComponent {
   title = 'Job_Seeker_System_4';
 }
